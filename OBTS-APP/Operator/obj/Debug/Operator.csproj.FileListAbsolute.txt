@@ -1,0 +1,6 @@
+C:\Projects\OBTS\Operator\bin\Operator.dll.config
+C:\Projects\OBTS\Operator\bin\Operator.dll
+C:\Projects\OBTS\Operator\bin\Operator.pdb
+C:\Projects\OBTS\Operator\obj\Debug\Operator.csprojResolveAssemblyReference.cache
+C:\Projects\OBTS\Operator\obj\Debug\Operator.dll
+C:\Projects\OBTS\Operator\obj\Debug\Operator.pdb

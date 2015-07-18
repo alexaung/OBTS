@@ -1,0 +1,5 @@
+C:\Projects\OBTS\Admin\bin\Admin.dll.config
+C:\Projects\OBTS\Admin\bin\Admin.dll
+C:\Projects\OBTS\Admin\bin\Admin.pdb
+C:\Projects\OBTS\Admin\obj\Debug\Admin.dll
+C:\Projects\OBTS\Admin\obj\Debug\Admin.pdb
