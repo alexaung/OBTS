@@ -29,14 +29,19 @@
                 <a ui-sref="dashboards.dashboard_1"><i class="fa fa-th-large"></i> <span class="nav-label">{{ 'DASHBOARD' | translate }}</span></a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="mybuses"><i class="fa fa-diamond"></i> <span class="nav-label">{{ 'MYBUSES' | translate }}</span> </a>
+                <a ui-sref="mybuses.buslist"><i class="fa fa-bus"></i> <span class="nav-label">{{ 'MYBUSES' | translate }}</span> </a>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="routes"><i class="fa fa-pie-chart"></i> <span class="nav-label">{{ 'ROUTES' | translate }}</span> <span class="label label-primary pull-right">NEW</span></a>
+                <a ui-sref="routes.routelist"><i class="fa fa-road"></i> <span class="nav-label">{{ 'ROUTES' | translate }}</span></a>
             </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="booking.calendar"><i class="fa fa-bookmark"></i> <span class="nav-label">{{ 'BOOKING' | translate }}</span></a>
+            </li>
+
             
             <li ng-class="{active: $state.includes('mailbox')}">
-                <a ui-sref="inbox"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'MAILBOX' | translate }} </span><span class="label label-warning pull-right">16/24</span></a>
+                <a ui-sref="inbox"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'MAILBOX' | translate }} </span></a>
                 <ul class="nav nav-second-level" ng-class="{in: $state.includes('mailbox')}">
                     <li ui-sref-active="active"><a ui-sref="mailbox.inbox">Inbox</a></li>
                     <li ui-sref-active="active"><a ui-sref="mailbox.email_view">Email view</a></li>
@@ -45,11 +50,11 @@
                 </ul>
             </li>
             <li ui-sref-active="active">
-                <a ui-sref="widgets"><i class="fa fa-flask"></i> <span class="nav-label">{{ 'REPORTS' | translate }}</span></a>
+                <a ui-sref="widgets"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">{{ 'REPORTS' | translate }}</span></a>
             </li>
             
             <li class="landing_link">
-                <a ui-sref="landing"><i class="fa fa-star"></i> <span class="nav-label">OBTS Web</span> <span class="label label-warning pull-right">NEW</span></a>
+                <a ui-sref="landing"><i class="fa fa-star"></i> <span class="nav-label">OBTS Web</span> </a>
             </li>
         </ul>
 

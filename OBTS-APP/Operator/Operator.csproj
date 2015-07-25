@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="controllers\mybus\mybuscontroller.js" />
     <Content Include="css\plugins\bootstrap-rtl\bootstrap-rtl.css.map" />
     <Content Include="css\plugins\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="css\plugins\fonts\glyphicons-halflings-regular.ttf" />
@@ -904,7 +905,7 @@
     <Content Include="views\basic_gallery.html" />
     <Content Include="views\blog.html" />
     <Content Include="views\buttons.html" />
-    <Content Include="views\calendar.html" />
+    <Content Include="views\booking\calendar.html" />
     <Content Include="views\carousel.html" />
     <Content Include="views\chartist.html" />
     <Content Include="views\chartjs.html" />
@@ -976,6 +977,7 @@
     <Content Include="views\modal_example2.html" />
     <Content Include="views\modal_example3.html" />
     <Content Include="views\modal_window.html" />
+    <Content Include="views\mybus\bus_edit.html" />
     <Content Include="views\nestable_list.html" />
     <Content Include="views\nggrid.html" />
     <Content Include="views\notifications.html" />
@@ -987,6 +989,7 @@
     <Content Include="views\projects.html" />
     <Content Include="views\project_detail.html" />
     <Content Include="views\register.html" />
+    <Content Include="views\routes\route_list.html" />
     <Content Include="views\search_results.html" />
     <Content Include="views\skin-config.html" />
     <Content Include="views\social_feed.html" />
@@ -1017,7 +1020,6 @@
   <ItemGroup>
     <Folder Include="obj\Debug\TempPE\" />
     <Folder Include="views\report\" />
-    <Folder Include="views\routes\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

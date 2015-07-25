@@ -384,7 +384,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             files: ['js/plugins/jsKnob/jquery.knob.js','js/plugins/jsKnob/angular-knob.js']
                         },
                         {
-                            files: ['css/plugins/ionRangeSlider/ion.rangeSlider.css','css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css','js/plugins/ionRangeSlider/ion.rangeSlider.min.js']
+                            files: ['css/plugins/ionRangeSlider/ion.rangeSlider.css', 'css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css',
+                                'js/plugins/ionRangeSlider/ion.rangeSlider.min.js']
                         },
                         {
                             insertBefore: '#loadBefore',

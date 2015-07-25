@@ -1600,12 +1600,22 @@ function CalendarCtrl($scope) {
 
     // Events
     $scope.events = [
-        {title: 'All Day Event',start: new Date(y, m, 1)},
-        {title: 'Long Event',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-        {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
-        {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
-        {title: 'Birthday Party',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
-        {title: 'Click for Google',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
+        { title: 'ရန္ကုန္-မန္းေလး', start: new Date(y, m, 1) },
+        { title: 'ရန္ကုန္-ေနျပည္ေတာ္', start: new Date(y, m, 1) },
+        { title: 'ရန္ကုန္-ေမာ္လျမိဳင္', start: new Date(y, m, 1) },
+        { title: 'ခရီးစဥ္ အားလံုး', start: new Date(y, m, 1) },
+        { title: 'ရန္ကုန္-မန္းေလး', start: new Date(y, m, 2) },
+        { title: 'ရန္ကုန္-ေနျပည္ေတာ္', start: new Date(y, m, 2) },
+        { title: 'ရန္ကုန္-ေမာ္လျမိဳင္', start: new Date(y, m, 2) },
+        { title: 'ခရီးစဥ္ အားလံုး', start: new Date(y, m, 2) },
+        { title: 'ရန္ကုန္-မန္းေလး', start: new Date(y, m, 5) },
+        { title: 'ရန္ကုန္-ေနျပည္ေတာ္', start: new Date(y, m, 5) },
+        { title: 'ရန္ကုန္-ေမာ္လျမိဳင္', start: new Date(y, m, 5) },
+        { title: 'ခရီးစဥ္ အားလံုး', start: new Date(y, m, 5) },
+        { title: 'ရန္ကုန္-မန္းေလး', start: new Date(y, m, 20) },
+        { title: 'ရန္ကုန္-ေနျပည္ေတာ္', start: new Date(y, m, 25) },
+        { title: 'ရန္ကုန္-ေမာ္လျမိဳင္', start: new Date(y, m, 15) },
+        { title: 'ခရီးစဥ္ အားလံုး', start: new Date(y, m, 15) },
     ];
 
 
@@ -2650,6 +2660,7 @@ function sweetAlertCtrl($scope, SweetAlert) {
 angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
+    .controller('busListCtrl', busListCtrl)
     .controller('dashboardFlotOne', dashboardFlotOne)
     .controller('dashboardFlotTwo', dashboardFlotTwo)
     .controller('dashboardMap', dashboardMap)
