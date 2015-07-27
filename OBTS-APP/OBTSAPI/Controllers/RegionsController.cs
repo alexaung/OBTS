@@ -43,8 +43,8 @@ namespace OBTSAPI.Controllers
             return regions;
         }
 
-        // GET: api/regions/1/cities
-        [ActionName("cities")]
+        // GET: api/region/1/cities
+        [Route("api/region/{Id}/cities", Name = "GetCitiesByRegion")]
         public IQueryable<CitiesRegionDTO> GetCitiesByRegion(Guid Id)
         {
             // City city = await db.Cities.FindAsync(id);
@@ -53,10 +53,10 @@ namespace OBTSAPI.Controllers
             .Select(AsCitiesRegionDTO);
         }
 
-        // GET: api/regions/region/1
+        // GET: api/region/1
         [ResponseType(typeof(CountryRegionDTO))]
         //[ActionName("region")]
-        [Route("api/regions/{Id}", Name = "GetCountryRegion")]
+        [Route("api/region/{Id}", Name = "GetCountryRegion")]
         public async Task<IHttpActionResult> GetCountryRegion(Guid id)
         {
             var countryRegion = await db.Regions.Include(b => b.Country).Select(b =>
@@ -75,7 +75,7 @@ namespace OBTSAPI.Controllers
             return Ok(countryRegion);
         }
 
-        // PUT: api/CountryRegions/5
+        // PUT: api/Regions/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutCountryRegion(Guid id, Region countryRegion)
         {
@@ -110,7 +110,7 @@ namespace OBTSAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/CountryRegions
+        // POST: api/Regions
         [ResponseType(typeof(Region))]
         public async Task<IHttpActionResult> PostCountryRegion(Region countryRegion)
         {
@@ -135,7 +135,7 @@ namespace OBTSAPI.Controllers
             return CreatedAtRoute("DefaultApi", new { id = countryRegion.RegionId }, countryRegion);
         }
 
-        // DELETE: api/CountryRegions/5
+        // DELETE: api/Regions/5
         [ResponseType(typeof(Region))]
         public async Task<IHttpActionResult> DeleteCountryRegion(Guid id)
         {
