@@ -46,7 +46,7 @@ namespace OBTSAPI.Controllers
         }
 
         // GET: api/country/1/cities
-        [ActionName("cities")]
+        [Route("api/country/{Id}/cities", Name = "GetCitiesByCountry")]
         public IQueryable<CitiesCountryDTO> GetCitiesByCountry(Guid Id)
         {
             // City city = await db.Cities.FindAsync(id);
@@ -56,7 +56,7 @@ namespace OBTSAPI.Controllers
         }
 
         // GET: api/country/1/regions
-        [Route("api/countries/{Id}", Name = "GetRegionsByCountry")]
+        [Route("api/country/{Id}/regions", Name = "GetRegionsByCountry")]
         public IQueryable<RegionsCountryDTO> GetRegionsByCountry(Guid Id)
         {
             // City city = await db.Cities.FindAsync(id);
