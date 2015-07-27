@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace OBTSAPI.Models
+namespace OBTSAPI.Models.DTO
 {
     public class RegionsCountryDTO
     {
-        public int RegionId { get; set; }
+        public Guid RegionId { get; set; }
         public string RegionDesc { get; set; }
     }
 }

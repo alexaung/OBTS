@@ -24,6 +24,18 @@ namespace OBTSAPI.DbContexts
         public DbSet<Country> Countries { get; set; }
         public DbSet<Region> Regions { get; set; }
         public System.Data.Entity.DbSet<OBTSAPI.Models.City> Cities { get; set; }
+
+        public System.Data.Entity.DbSet<OBTSAPI.Models.Bus> Buses { get; set; }
+
+        public System.Data.Entity.DbSet<OBTSAPI.Models.CodeTable> CodeTables { get; set; }
+
+        public System.Data.Entity.DbSet<OBTSAPI.Models.Operator> Operators { get; set; }
+
+        public System.Data.Entity.DbSet<OBTSAPI.Models.BusFeature> BusFeatures { get; set; }
+
+        public System.Data.Entity.DbSet<OBTSAPI.Models.Agent> Agents { get; set; }
+
+        public System.Data.Entity.DbSet<OBTSAPI.Models.OperatorAgent> OperatorAgents { get; set; }
         
     }
 

@@ -8,7 +8,7 @@ namespace OBTSAPI.Models
 {
     public class Country
     {
-        public int CountryId { get; set; }
+        public Guid CountryId { get; set; }
         [Required]
         [StringLength(50)]
         public string CountryDesc { get; set; }

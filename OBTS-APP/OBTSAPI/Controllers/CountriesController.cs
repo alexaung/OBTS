@@ -13,6 +13,7 @@ using OBTSAPI.Models;
 using OBTSAPI.DbContexts;
 using System.Configuration;
 using System.Linq.Expressions;
+using OBTSAPI.Models.DTO;
 
 namespace OBTSAPI.Controllers
 {
@@ -46,7 +47,7 @@ namespace OBTSAPI.Controllers
 
         // GET: api/country/1/cities
         [ActionName("cities")]
-        public IQueryable<CitiesCountryDTO> GetCitiesByCountry(int Id)
+        public IQueryable<CitiesCountryDTO> GetCitiesByCountry(Guid Id)
         {
             // City city = await db.Cities.FindAsync(id);
             return db.Cities.Include(b => b.CountryRegion)
@@ -55,8 +56,8 @@ namespace OBTSAPI.Controllers
         }
 
         // GET: api/country/1/regions
-        [ActionName("regions")]
-        public IQueryable<RegionsCountryDTO> GetRegionsByCountry(int Id)
+        [Route("api/countries/{Id}", Name = "GetRegionsByCountry")]
+        public IQueryable<RegionsCountryDTO> GetRegionsByCountry(Guid Id)
         {
             // City city = await db.Cities.FindAsync(id);
             return db.Regions
@@ -67,7 +68,7 @@ namespace OBTSAPI.Controllers
         // GET: api/countries/country/1
         [ResponseType(typeof(Country))]
         [ActionName("country")]
-        public async Task<IHttpActionResult> GetCountry(int id)
+        public async Task<IHttpActionResult> GetCountry(Guid id)
         {
             Country country = await db.Countries.FindAsync(id);
             if (country == null)
@@ -80,7 +81,7 @@ namespace OBTSAPI.Controllers
 
         // PUT: api/Countries/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutCountry(int id, Country country)
+        public async Task<IHttpActionResult> PutCountry(Guid id, Country country)
         {
             if (!ModelState.IsValid)
             {
@@ -130,7 +131,7 @@ namespace OBTSAPI.Controllers
 
         // DELETE: api/Countries/5
         [ResponseType(typeof(Country))]
-        public async Task<IHttpActionResult> DeleteCountry(int id)
+        public async Task<IHttpActionResult> DeleteCountry(Guid id)
         {
             Country country = await db.Countries.FindAsync(id);
             if (country == null)
@@ -153,7 +154,7 @@ namespace OBTSAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CountryExists(int id)
+        private bool CountryExists(Guid id)
         {
             return db.Countries.Count(e => e.CountryId == id) > 0;
         }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using OBTSAPI.DbContexts;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -19,7 +21,8 @@ namespace OBTSAPI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-           
+            //disable db migrating
+            Database.SetInitializer<OBTSDbContext>(null);
         }
     }
 }

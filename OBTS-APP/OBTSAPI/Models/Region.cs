@@ -8,12 +8,12 @@ namespace OBTSAPI.Models
 {
     public class Region
     {
-        public int RegionId { get; set; }
+        public Guid RegionId { get; set; }
         [Required]
         [StringLength(50)]
         public string RegionDesc { get; set; }
         [Required]
-        public int CountryId { get; set; }
+        public Guid CountryId { get; set; }
 
         //navi property
         public Country Country { get; set; }

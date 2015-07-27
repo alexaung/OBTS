@@ -8,11 +8,11 @@ namespace OBTSAPI.Models
 {
     public class City
     {
-        public int CityId { get; set; }
+        public Guid CityId { get; set; }
         [Required]
         [StringLength(50)]
         public string CityDesc { get; set; }
-        public int RegionId { get; set; }
+        public Guid RegionId { get; set; }
 
         //navi property
         public Region CountryRegion { get; set; }

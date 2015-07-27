@@ -13,6 +13,7 @@ using OBTSAPI.DbContexts;
 using OBTSAPI.Models;
 using System.Configuration;
 using System.Linq.Expressions;
+using OBTSAPI.Models.DTO;
 
 namespace OBTSAPI.Controllers
 {
@@ -40,7 +41,7 @@ namespace OBTSAPI.Controllers
 
         // GET: api/Cities/5
         [ResponseType(typeof(CityDTO))]
-        public async Task<IHttpActionResult> GetCity(int id)
+        public async Task<IHttpActionResult> GetCity(Guid id)
         {
            // City city = await db.Cities.FindAsync(id);
 
@@ -65,7 +66,7 @@ namespace OBTSAPI.Controllers
 
         // PUT: api/Cities/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutCity(int id, City city)
+        public async Task<IHttpActionResult> PutCity(Guid id, City city)
         {
             if (!ModelState.IsValid)
             {
@@ -128,7 +129,7 @@ namespace OBTSAPI.Controllers
 
         // DELETE: api/Cities/5
         [ResponseType(typeof(City))]
-        public async Task<IHttpActionResult> DeleteCity(int id)
+        public async Task<IHttpActionResult> DeleteCity(Guid id)
         {
             City city = await db.Cities.FindAsync(id);
             if (city == null)
@@ -151,7 +152,7 @@ namespace OBTSAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CityExists(int id)
+        private bool CityExists(Guid id)
         {
             return db.Cities.Count(e => e.CityId == id) > 0;
         }

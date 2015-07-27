@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
+using System.Net.Http.Formatting;
+using OBTSAPI.Formatter;
 
 namespace OBTSAPI
 {
@@ -48,7 +50,19 @@ namespace OBTSAPI
           routeTemplate: "api/{controller}/{action}/{Id}", defaults: new { Id = "Id", Action = "region", Controller = "Regions" }
            );
 
-          
+          //config.Routes.MapHttpRoute(
+          // name: "CodeTableRoute",
+          // routeTemplate: "api/{controller}/{action}/{value}"
+          //  );
+
+           //clear default formatters 
+           config.Formatters.Clear();
+           config.Formatters.Add(new JsonMediaTypeFormatter());
+
+           //set formatters only json 
+           var jsonFormatter = new JsonMediaTypeFormatter();
+           //optional: set serializer settings here
+           config.Services.Replace(typeof(IContentNegotiator), new JsonContentNegotiator(jsonFormatter));
         }
     }
 }

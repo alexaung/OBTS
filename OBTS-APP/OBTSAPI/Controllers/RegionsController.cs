@@ -13,6 +13,7 @@ using OBTSAPI.DbContexts;
 using OBTSAPI.Models;
 using System.Configuration;
 using System.Linq.Expressions;
+using OBTSAPI.Models.DTO;
 
 namespace OBTSAPI.Controllers
 {
@@ -44,18 +45,19 @@ namespace OBTSAPI.Controllers
 
         // GET: api/regions/1/cities
         [ActionName("cities")]
-        public IQueryable<CitiesRegionDTO> GetCitiesByRegion(int Id)
+        public IQueryable<CitiesRegionDTO> GetCitiesByRegion(Guid Id)
         {
             // City city = await db.Cities.FindAsync(id);
             return db.Cities.Include(b => b.CountryRegion)
-            .Where(b => b.CountryRegion.CountryId == Id)
+            .Where(b => b.CountryRegion.RegionId == Id)
             .Select(AsCitiesRegionDTO);
         }
 
         // GET: api/regions/region/1
         [ResponseType(typeof(CountryRegionDTO))]
-        [ActionName("region")]
-        public async Task<IHttpActionResult> GetCountryRegion(int id)
+        //[ActionName("region")]
+        [Route("api/regions/{Id}", Name = "GetCountryRegion")]
+        public async Task<IHttpActionResult> GetCountryRegion(Guid id)
         {
             var countryRegion = await db.Regions.Include(b => b.Country).Select(b =>
                new CountryRegionDTO()
@@ -75,7 +77,7 @@ namespace OBTSAPI.Controllers
 
         // PUT: api/CountryRegions/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutCountryRegion(int id, Region countryRegion)
+        public async Task<IHttpActionResult> PutCountryRegion(Guid id, Region countryRegion)
         {
             if (!ModelState.IsValid)
             {
@@ -135,7 +137,7 @@ namespace OBTSAPI.Controllers
 
         // DELETE: api/CountryRegions/5
         [ResponseType(typeof(Region))]
-        public async Task<IHttpActionResult> DeleteCountryRegion(int id)
+        public async Task<IHttpActionResult> DeleteCountryRegion(Guid id)
         {
             Region countryRegion = await db.Regions.FindAsync(id);
             if (countryRegion == null)
@@ -158,7 +160,7 @@ namespace OBTSAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool CountryRegionExists(int id)
+        private bool CountryRegionExists(Guid id)
         {
             return db.Regions.Count(e => e.RegionId == id) > 0;
         }
