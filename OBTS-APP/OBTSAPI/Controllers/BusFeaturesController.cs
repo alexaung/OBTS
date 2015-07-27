@@ -28,7 +28,8 @@ namespace OBTSAPI.Controllers
                Value = a.Value,
            };
 
-        // GET: api/BusFeatures
+        // GET: api/BusesFeatures
+        [Route("api/busesfeatures", Name = "GetBusFeatures")]
         public IQueryable<BusFeatureDTO> GetBusFeatures()
         {
             var features = from b in db.BusFeatures
@@ -45,8 +46,8 @@ namespace OBTSAPI.Controllers
             return features;
         }
 
-        // GET: api/busfeatures
-        [Route("api/busfeatures/bus/{Id}", Name = "GetFeaturesByBus")]
+        // GET: api/bus/{id}/features
+        [Route("api/bus/{Id}/features", Name = "GetFeaturesByBus")]
         public IQueryable<BusFeatureDTO> GetFeaturesByBus(Guid Id)
         {
 
@@ -65,8 +66,9 @@ namespace OBTSAPI.Controllers
             return features;
         }
 
-        // GET: api/BusFeatures/5
+        // GET: api/Bus/Feature/5
         [ResponseType(typeof(BusFeature))]
+        [Route("api/bus/feature/{Id}", Name = "GetBusFeature")]
         public async Task<IHttpActionResult> GetBusFeature(Guid id)
         {
             BusFeature busFeature = await db.BusFeatures.FindAsync(id);
