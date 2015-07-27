@@ -67,7 +67,7 @@ namespace OBTSAPI.Controllers
 
         // GET: api/countries/country/1
         [ResponseType(typeof(Country))]
-        [ActionName("country")]
+        [Route("api/country/{Id}", Name = "GetCountry")]
         public async Task<IHttpActionResult> GetCountry(Guid id)
         {
             Country country = await db.Countries.FindAsync(id);
