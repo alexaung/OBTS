@@ -106,6 +106,7 @@ namespace OBTSAPI.Controllers
 
         // GET: api/Buses/5
         [ResponseType(typeof(BusDTO))]
+        [Route("api/bus/{Id}", Name = "GetBus")]
         public async Task<IHttpActionResult> GetBus(Guid id)
         {
             var buses = from b in db.Buses

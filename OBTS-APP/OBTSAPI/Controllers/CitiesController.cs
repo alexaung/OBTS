@@ -41,6 +41,7 @@ namespace OBTSAPI.Controllers
 
         // GET: api/Cities/5
         [ResponseType(typeof(CityDTO))]
+        [Route("api/city/{Id}", Name = "GetCity")]
         public async Task<IHttpActionResult> GetCity(Guid id)
         {
            // City city = await db.Cities.FindAsync(id);
