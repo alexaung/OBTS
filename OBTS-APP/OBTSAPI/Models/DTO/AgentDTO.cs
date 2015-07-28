@@ -9,7 +9,7 @@ namespace OBTSAPI.Models.DTO
     {
         public Guid AgentId { get; set; }
 
-        public string Comapnay { get; set; }
+        public string Comapany { get; set; }
 
         public string UserName { get; set; }
 
@@ -27,17 +27,17 @@ namespace OBTSAPI.Models.DTO
 
         public string Address { get; set; }
 
-        public Guid City { get; set; }
+        public Guid CityId { get; set; }
 
         public string CityName { get; set; }
 
-        public Guid StateRegion { get; set; }
+        public Guid RegionId { get; set; }
 
-        public string StateRegionName { get; set; }
+        public string RegionName { get; set; }
 
         public string PinCode { get; set; }
 
-        public Guid Country { get; set; }
+        public Guid CountryId { get; set; }
 
         public string CountryName { get; set; }
 

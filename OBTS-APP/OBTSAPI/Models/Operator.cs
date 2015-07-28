@@ -25,7 +25,11 @@ namespace OBTSAPI.Models
 
         public string Address { get; set; }
 
-        public string City { get; set; }
+        public Guid CountryId { get; set; }
+
+        public Guid RegionId { get; set; }
+
+        public Guid CityId { get; set; }
 
         public int NumberOfBuses { get; set; }
 
@@ -36,5 +40,10 @@ namespace OBTSAPI.Models
         public string UserName { get; set; }
 
         public string Password { get; set; }
+
+        //navi properties
+        public City _city { get; set; }
+        public Region _region { get; set; }
+        public Country _country { get; set; }
     }
 }

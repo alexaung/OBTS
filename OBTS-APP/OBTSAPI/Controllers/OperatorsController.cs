@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 using OBTSAPI.DbContexts;
 using OBTSAPI.Models;
 using System.Configuration;
+using OBTSAPI.Models.DTO;
 
 namespace OBTSAPI.Controllers
 {
@@ -20,22 +21,81 @@ namespace OBTSAPI.Controllers
         private OBTSDbContext db = new OBTSDbContext(ConfigurationManager.AppSettings["OBTSDb"].ToString());
 
         // GET: api/Operators
-        public IQueryable<Operator> GetOperators()
+        public IQueryable<OperatorDTO> GetOperators()
         {
-            return db.Operators;
+            var _operators = from o in db.Operators
+                .Include(o => o._city)
+                .Include(o=> o._region)
+                .Include(o=> o._country)
+                select new OperatorDTO()
+                {
+                    OperatorId = o.OperatorId,
+                    FirstName = o.FirstName,
+                    LastName = o.LastName,
+                    Mobile = o.Mobile,
+                    EmailAddress = o.EmailAddress,
+                    PhoneNumber = o.PhoneNumber,
+                    Company = o.Company,
+                    CompanyPhone = o.CompanyPhone,
+                    Address = o.Address,
+                    CountryId = o.CountryId,
+                    CountryName = o._country.CountryDesc,
+                    RegionId = o.RegionId,
+                    RegionName = o._region.RegionDesc,
+                    CityId = o.CityId,
+                    CityName = o._city.CityDesc,
+                    NumberOfBuses = o.NumberOfBuses,
+                    NumberOfRoutes = o.NumberOfRoutes,
+                    Status = o.Status,
+                    UserName = o.UserName,
+                    Password = o.Password
+                };
+
+            
+            return _operators;
         }
 
-        // GET: api/Operators/5
-        [ResponseType(typeof(Operator))]
+        // GET: api/Operator/5
+        [ResponseType(typeof(OperatorDTO))]
+        [Route("api/operator/{Id}", Name = "GetOperator")]
         public async Task<IHttpActionResult> GetOperator(Guid id)
         {
-            Operator @operator = await db.Operators.FindAsync(id);
-            if (@operator == null)
+            var _operator = await db.Operators
+                .Include(o => o._city)
+                .Include(o=> o._region)
+                .Include(o=> o._country)
+                .Select(o =>
+
+            new OperatorDTO()
+                            {
+                                OperatorId = o.OperatorId,
+                                FirstName = o.FirstName,
+                                LastName = o.LastName,
+                                Mobile = o.Mobile,
+                                EmailAddress = o.EmailAddress,
+                                PhoneNumber = o.PhoneNumber,
+                                Company = o.Company,
+                                CompanyPhone = o.CompanyPhone,
+                                Address = o.Address,
+                                CountryId = o.CountryId,
+                                CountryName = o._country.CountryDesc,
+                                RegionId = o.RegionId,
+                                RegionName = o._region.RegionDesc,
+                                CityId = o.CityId,
+                                CityName = o._city.CityDesc,
+                                NumberOfBuses = o.NumberOfBuses,
+                                NumberOfRoutes = o.NumberOfRoutes,
+                                Status = o.Status,
+                                UserName = o.UserName,
+                                Password = o.Password
+                            }).SingleOrDefaultAsync(o => o.OperatorId == id);
+
+            if (_operator == null)
             {
                 return NotFound();
             }
 
-            return Ok(@operator);
+            return Ok(@_operator);
         }
 
         // PUT: api/Operators/5

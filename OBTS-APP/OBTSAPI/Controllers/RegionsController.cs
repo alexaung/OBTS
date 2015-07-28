@@ -53,6 +53,43 @@ namespace OBTSAPI.Controllers
             .Select(AsCitiesRegionDTO);
         }
 
+        // GET: api/region/{Id}/operators
+        [Route("api/region/{Id}/operators", Name = "GetOperatorsByRegion")]
+        public IQueryable<OperatorDTO> GetOperatorsByRegion(Guid Id)
+        {
+            var _operators = from o in db.Operators
+                .Include(o => o._city)
+                .Include(o => o._region)
+                .Include(o => o._country)
+                .Where(o => o.RegionId == Id)
+                             select new OperatorDTO()
+                             {
+                                 OperatorId = o.OperatorId,
+                                 FirstName = o.FirstName,
+                                 LastName = o.LastName,
+                                 Mobile = o.Mobile,
+                                 EmailAddress = o.EmailAddress,
+                                 PhoneNumber = o.PhoneNumber,
+                                 Company = o.Company,
+                                 CompanyPhone = o.CompanyPhone,
+                                 Address = o.Address,
+                                 CountryId = o.CountryId,
+                                 CountryName = o._country.CountryDesc,
+                                 RegionId = o.RegionId,
+                                 RegionName = o._region.RegionDesc,
+                                 CityId = o.CityId,
+                                 CityName = o._city.CityDesc,
+                                 NumberOfBuses = o.NumberOfBuses,
+                                 NumberOfRoutes = o.NumberOfRoutes,
+                                 Status = o.Status,
+                                 UserName = o.UserName,
+                                 Password = o.Password
+                             };
+
+
+            return _operators;
+        }
+
         // GET: api/region/1
         [ResponseType(typeof(CountryRegionDTO))]
         //[ActionName("region")]

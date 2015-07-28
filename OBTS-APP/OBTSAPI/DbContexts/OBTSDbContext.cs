@@ -36,6 +36,12 @@ namespace OBTSAPI.DbContexts
         public System.Data.Entity.DbSet<OBTSAPI.Models.Agent> Agents { get; set; }
 
         public System.Data.Entity.DbSet<OBTSAPI.Models.OperatorAgent> OperatorAgents { get; set; }
+
+        public System.Data.Entity.DbSet<OBTSAPI.Models.Route> Routes { get; set; }
+
+        public System.Data.Entity.DbSet<OBTSAPI.Models.RouteDetail> RouteDetails { get; set; }
+
+        public System.Data.Entity.DbSet<OBTSAPI.Models.RoutePoint> RoutePoints { get; set; }
         
     }
 

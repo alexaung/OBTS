@@ -38,5 +38,10 @@ namespace OBTSAPI.Models
         public bool Status { get; set; }
 
         public Guid OperatorId { get; set; }
+
+        //navi properties
+        //public Operator _operator { get; set; }
+        //public CodeTable _bustype { get; set; }
+        //public CodeTable _brand { get; set; }
     }
 }

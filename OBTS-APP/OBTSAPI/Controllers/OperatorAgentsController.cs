@@ -23,69 +23,110 @@ namespace OBTSAPI.Controllers
         // GET: api/OperatorAgents
         public IQueryable<OperatorAgentDTO> GetOperatorAgents()
         {
-
-            var agents = from b in db.OperatorAgents
-                        join a in db.Agents on b.AgentId equals a.AgentId
-                        join o in db.Operators on b.OperatorId equals o.OperatorId
-                        
+            var agents = from o in db.OperatorAgents
+                .Include(o => o._agent)
+                .Include(o=> o._operator)
+                             
                         select new OperatorAgentDTO()
                         {
-                            OperatorAgentId = b.OperatorAgentId,
-                            OperatorId = b.OperatorId,
-                            OperatorName = o.Company,
-                            AgentId = b.AgentId,
-                            AgentName = a.Comapnay,
-                            DepositAmt = b.DepositAmt,
-                            JointDate = b.JointDate,
-                            CreatedDate = b.CreatedDate
-
-
+                            OperatorAgentId = o.OperatorAgentId,
+                            OperatorId = o.OperatorId,
+                            OperatorName = o._operator.Company,
+                            AgentId = o.AgentId,
+                            AgentName = o._agent.Comapany,
+                            DepositAmt = o.DepositAmt,
+                            JointDate = o.JointDate,
+                            CreatedDate = o.CreatedDate
                         };
             return agents;
         }
 
-        // GET: api/Buses
+        // GET: api/operator/{Id}/agents
         [Route("api/operator/{Id}/agents", Name = "GetAgentsByOperator")]
-        public IQueryable<AgentDTO> GetAgentsByOperator(Guid Id)
+        public IQueryable<AgentsOperatorDTO> GetAgentsByOperator(Guid Id)
         {
+            var agents = from o in db.OperatorAgents
+                .Include(o => o._agent)
+                .Include(o=> o._operator)
+                .Where (o=>o.OperatorId.Equals(Id))
 
-            var agents = from b in db.OperatorAgents
-                         join a in db.Agents on b.AgentId equals a.AgentId
-                         join o in db.Operators on b.OperatorId equals o.OperatorId
-                         join ct in db.Cities on a.City equals ct.CityId
-                         join ctr in db.Countries on a.Country equals ctr.CountryId
-                         join reg in db.Regions on a.StateRegion equals reg.RegionId
-                         where b.OperatorId.Equals(Id)
-
-                         select new AgentDTO()
+                         select new AgentsOperatorDTO()
                          {
-                             AgentId = b.AgentId,
-                             Comapnay = a.Comapnay,
-                             UserName = a.UserName,
-                             AccountId = a.AccountId,
-                             BalanceCredit = a.BalanceCredit,
-                             Name = a.Name,
-                             Email = a.Email,
-                             PanNumber = a.PanNumber,
-                             Address = a.Address,
-                             City = a.City,
-                             CityName = ct.CityDesc,
-                             StateRegion = a.StateRegion,
-                             StateRegionName = reg.RegionDesc,
-                             PinCode = a.PinCode,
-                             Country = a.Country,
-                             CountryName = ctr.CountryDesc,
-                             Mobile = a.Mobile,
-                             OfficePhone = a.OfficePhone,
-                             Fax = a.Fax,
-                             UserName2 = a.UserName2,
-                             Password = a.Password,
-                             Logo = a.Logo,
-                             Status = a.Status
+                             AgentId = o.AgentId,
+                             Comapany = o._agent.Comapany,
+                             UserName = o._agent.UserName,
+                             AccountId = o._agent.AccountId,
+                             BalanceCredit = o._agent.BalanceCredit,
+                             Name = o._agent.Name,
+                             Email = o._agent.Email,
+                             PanNumber = o._agent.PanNumber,
+                             Address = o._agent.Address,
+                             CityId = o._agent.CityId,
+                             CityName = o._agent._city.CityDesc,
+                             RegionId = o._agent.RegionId,
+                             RegionName = o._agent._region.RegionDesc,
+                             PinCode = o._agent.PinCode,
+                             CountryId = o._agent.CountryId,
+                             CountryName = o._agent._country.CountryDesc,
+                             Mobile = o._agent.Mobile,
+                             OfficePhone = o._agent.OfficePhone,
+                             Fax = o._agent.Fax,
+                             UserName2 = o._agent.UserName2,
+                             Password = o._agent.Password,
+                             Logo = o._agent.Logo,
+                             Status = o._agent.Status,
+                             OperatorAgentId=o.OperatorAgentId,
+                             OperatorId = o.OperatorId,
+                             OperatorName= o._operator.Company,
+                             DepositAmt = o.DepositAmt,
+                             JointDate = o.JointDate,
+                             CreatedDate = o.CreatedDate
                          };
             return agents;
         }
 
+        // GET: api/agent/{Id}/operators
+        [Route("api/agent/{Id}/operators", Name = "GetOperatorsByAgent")]
+        public IQueryable<OperatorsAgentDTO> GetOperatorsByAgent(Guid Id)
+        {
+            var operators = from o in db.OperatorAgents
+                .Include(o => o._agent)
+                .Include(o => o._operator)
+                .Where(o => o.AgentId.Equals(Id))
+
+                            select new OperatorsAgentDTO()
+                         {
+                             OperatorId = o.OperatorId,
+                             FirstName = o._operator.FirstName,
+                             LastName = o._operator.LastName,
+                             Mobile = o._operator.Mobile,
+                             EmailAddress = o._operator.EmailAddress,
+                             PhoneNumber = o._operator.PhoneNumber,
+                             Company = o._operator.Company,
+                             CompanyPhone = o._operator.CompanyPhone,
+                             Address = o._operator.Address,
+                             CountryId = o._operator.CountryId,
+                             CountryName = o._operator._country.CountryDesc,
+                             RegionId = o._operator.RegionId,
+                             RegionName = o._operator._region.RegionDesc,
+                             CityId = o._operator.CityId,
+                             CityName = o._operator._city.CityDesc,
+                             NumberOfBuses = o._operator.NumberOfBuses,
+                             NumberOfRoutes = o._operator.NumberOfRoutes,
+                             Status = o._operator.Status,
+                             UserName = o._operator.UserName,
+                             Password = o._operator.Password,
+                             OperatorAgentId = o.OperatorAgentId,
+                             AgentId = o.AgentId,
+                             AgentName = o._agent.Comapany,
+                             DepositAmt = o.DepositAmt,
+                             JointDate = o.JointDate,
+                             CreatedDate = o.CreatedDate
+                         };
+            return operators;
+        }
+
+        /*
         // GET: api/Buses
         [Route("api/agent/{Id}/operators", Name = "GetOperatorsByAgent")]
         public IQueryable<OperatorAgentDTO> GetOperatorsByAgent(Guid Id)
@@ -110,20 +151,38 @@ namespace OBTSAPI.Controllers
 
                          };
             return operators;
-        }
+        }*/
 
 
         // GET: api/OperatorAgents/5
         [ResponseType(typeof(OperatorAgent))]
+        [Route("api/operatoragent/{Id}", Name = "GetOperatorAgent")]
         public async Task<IHttpActionResult> GetOperatorAgent(Guid id)
         {
-            OperatorAgent operatorAgent = await db.OperatorAgents.FindAsync(id);
-            if (operatorAgent == null)
+           
+            var agent = await db.OperatorAgents
+                .Include(o => o._agent)
+                .Include(o => o._operator)
+                .Select(o=>
+                         new OperatorAgentDTO()
+                         {
+                             OperatorAgentId = o.OperatorAgentId,
+                             OperatorId = o.OperatorId,
+                             OperatorName = o._operator.Company,
+                             AgentId = o.AgentId,
+                             AgentName = o._agent.Comapany,
+                             DepositAmt = o.DepositAmt,
+                             JointDate = o.JointDate,
+                             CreatedDate = o.CreatedDate
+                         }).SingleOrDefaultAsync(o => o.OperatorAgentId == id);
+
+
+            if (agent == null)
             {
                 return NotFound();
             }
 
-            return Ok(operatorAgent);
+            return Ok(agent);
         }
 
         // PUT: api/OperatorAgents/5

@@ -9,7 +9,7 @@ namespace OBTSAPI.Models
     {
         public Guid AgentId { get; set; }
 
-        public string Comapnay { get; set; }
+        public string Comapany { get; set; }
 
         public string UserName { get; set; }
 
@@ -25,13 +25,13 @@ namespace OBTSAPI.Models
 
         public string Address { get; set; }
 
-        public Guid City { get; set; }
+        public Guid CityId { get; set; }
 
-        public Guid StateRegion { get; set; }
+        public Guid RegionId { get; set; }
 
         public string PinCode { get; set; }
 
-        public Guid Country { get; set; }
+        public Guid CountryId { get; set; }
 
         public string Mobile { get; set; }
 
@@ -46,5 +46,10 @@ namespace OBTSAPI.Models
         public string Logo { get; set; }
 
         public bool Status { get; set; }
+
+        //navi properties
+        public Country _country { get; set; }
+        public Region _region { get; set; }
+        public City _city { get; set; }
     }
 }

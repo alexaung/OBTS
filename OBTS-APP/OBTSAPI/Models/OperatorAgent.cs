@@ -18,5 +18,9 @@ namespace OBTSAPI.Models
         public DateTime JointDate { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        //navi properties
+        public Operator _operator { get; set; }
+        public Agent _agent { get; set; }
     }
 }

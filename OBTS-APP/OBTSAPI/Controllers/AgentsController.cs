@@ -23,46 +23,116 @@ namespace OBTSAPI.Controllers
         // GET: api/Agents
         public IQueryable<AgentDTO> GetAgents()
         {
-            var agents = from b in db.Agents
-                        join ct in db.Cities on b.City equals ct.CityId
-                        join ctr in db.Countries on b.Country equals ctr.CountryId
-                        join reg in db.Regions on b.StateRegion equals reg.RegionId
+            var agents = from a in db.Agents
+                .Include(a => a._city)
+                .Include(a => a._region)
+                .Include(a => a._country)
 
                         select new AgentDTO()
                         {
-                            AgentId = b.AgentId,
-                            Comapnay = b.Comapnay,
-                            UserName = b.UserName,
-                            AccountId = b.AccountId,
-                            BalanceCredit = b.BalanceCredit,
-                            Name = b.Name,
-                            Email = b.Email,
-                            PanNumber = b.PanNumber,
-                            Address = b.Address,
-                            City = b.City,
-                            CityName = ct.CityDesc,
-                            StateRegion=b.StateRegion,
-                            StateRegionName=reg.RegionDesc,
-                            PinCode = b.PinCode,
-                            Country = b.Country,
-                            CountryName= ctr.CountryDesc,
-                            Mobile = b.Mobile,
-                            OfficePhone=b.OfficePhone,
-                            Fax = b.Fax,
-                            UserName2 = b.UserName2,
-                            Password = b.Password,
-                            Logo =b.Logo,
-                            Status=b.Status
+                            AgentId = a.AgentId,
+                            Comapany = a.Comapany,
+                            UserName = a.UserName,
+                            AccountId = a.AccountId,
+                            BalanceCredit = a.BalanceCredit,
+                            Name = a.Name,
+                            Email = a.Email,
+                            PanNumber = a.PanNumber,
+                            Address = a.Address,
+                            CityId = a.CityId,
+                            CityName = a._city.CityDesc,
+                            RegionId=a.RegionId,
+                            RegionName=a._region.RegionDesc,
+                            PinCode = a.PinCode,
+                            CountryId = a.CountryId,
+                            CountryName= a._country.CountryDesc,
+                            Mobile = a.Mobile,
+                            OfficePhone=a.OfficePhone,
+                            Fax = a.Fax,
+                            UserName2 = a.UserName2,
+                            Password = a.Password,
+                            Logo =a.Logo,
+                            Status=a.Status
                         };
             return agents;
             
         }
 
+        /*
+        // GET: api/agent/{Id}/operators
+        [Route("api/agent/{Id}/operators", Name = "GetOperatorsByAgent")]
+        public IQueryable<OperatorDTO> GetOperatorsByAgent(Guid Id)
+        {
+            var _operators = from o in db.Operators
+                .Include(o => o._city)
+                .Include(o => o._region)
+                .Include(o => o._country)
+                             select new OperatorDTO()
+                             {
+                                 OperatorId = o.OperatorId,
+                                 FirstName = o.FirstName,
+                                 LastName = o.LastName,
+                                 Mobile = o.Mobile,
+                                 EmailAddress = o.EmailAddress,
+                                 PhoneNumber = o.PhoneNumber,
+                                 Company = o.Company,
+                                 CompanyPhone = o.CompanyPhone,
+                                 Address = o.Address,
+                                 CountryId = o.CountryId,
+                                 CountryName = o._country.CountryDesc,
+                                 RegionId = o.RegionId,
+                                 RegionName = o._region.RegionDesc,
+                                 CityId = o.CityId,
+                                 CityName = o._city.CityDesc,
+                                 NumberOfBuses = o.NumberOfBuses,
+                                 NumberOfRoutes = o.NumberOfRoutes,
+                                 Status = o.Status,
+                                 UserName = o.UserName,
+                                 Password = o.Password
+                             };
+
+
+            return _operators;
+        }*/
+
         // GET: api/Agents/5
         [ResponseType(typeof(Agent))]
+        [Route("api/agent/{Id}", Name = "GetAgent")]
         public async Task<IHttpActionResult> GetAgent(Guid id)
         {
-            Agent agent = await db.Agents.FindAsync(id);
+            var agent = await db.Agents
+                .Include(a => a._city)
+                .Include(a => a._region)
+                .Include(a => a._country)
+                .Select(a=>
+                
+                    new AgentDTO()
+                        {
+                            AgentId = a.AgentId,
+                            Comapany = a.Comapany,
+                            UserName = a.UserName,
+                            AccountId = a.AccountId,
+                            BalanceCredit = a.BalanceCredit,
+                            Name = a.Name,
+                            Email = a.Email,
+                            PanNumber = a.PanNumber,
+                            Address = a.Address,
+                            CityId = a.CityId,
+                            CityName = a._city.CityDesc,
+                            RegionId=a.RegionId,
+                            RegionName=a._region.RegionDesc,
+                            PinCode = a.PinCode,
+                            CountryId = a.CountryId,
+                            CountryName= a._country.CountryDesc,
+                            Mobile = a.Mobile,
+                            OfficePhone=a.OfficePhone,
+                            Fax = a.Fax,
+                            UserName2 = a.UserName2,
+                            Password = a.Password,
+                            Logo =a.Logo,
+                            Status=a.Status
+                        }).SingleOrDefaultAsync(a => a.AgentId == id);
+
             if (agent == null)
             {
                 return NotFound();
