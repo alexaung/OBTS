@@ -43,11 +43,19 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -207,6 +215,9 @@
     <Compile Include="Controllers\OperatorsController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RouteDetailsController.cs" />
+    <Compile Include="Controllers\RoutePointsController.cs" />
+    <Compile Include="Controllers\RoutesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DbContexts\OBTSDbContext.cs" />
     <Compile Include="Formatter\JsonMediaTypeFormatter.cs" />
@@ -228,6 +239,12 @@
     <Compile Include="Models\DTO\CodeTitleDTO.cs" />
     <Compile Include="Models\DTO\CodeValueDTO.cs" />
     <Compile Include="Models\DTO\OperatorAgentDTO.cs" />
+    <Compile Include="Models\DTO\AgentsOperatorDTO.cs" />
+    <Compile Include="Models\DTO\OperatorDTO.cs" />
+    <Compile Include="Models\DTO\OperatorsAgentDTO.cs" />
+    <Compile Include="Models\DTO\RouteDetailDTO.cs" />
+    <Compile Include="Models\DTO\RouteDTO.cs" />
+    <Compile Include="Models\DTO\RoutePointDTO.cs" />
     <Compile Include="Models\Operator.cs" />
     <Compile Include="Models\OperatorAgent.cs" />
     <Compile Include="Models\Region.cs" />
@@ -237,6 +254,9 @@
     <Compile Include="Models\DTO\CountryRegionDTO.cs" />
     <Compile Include="Models\DTO\RegionsCountryDTO.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Route.cs" />
+    <Compile Include="Models\RouteDetail.cs" />
+    <Compile Include="Models\RoutePoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
