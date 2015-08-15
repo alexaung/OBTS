@@ -2,8 +2,12 @@
  * busListCtrl - Controller used to run modal view
  * used in Basic form view
  */
-function busListCtrl($scope, $modal) {
-
+function busListCtrl($scope, $modal, $http) {
+    $http.get("http://localhost:50758/api/buses").success(function (data, status, headers, config) {
+        $scope.buses = data;
+    }).error(function (data, status, headers, config) {
+        alert("error");
+    });
     $scope.open = function () {
 
         var modalInstance = $modal.open({
@@ -30,4 +34,6 @@ function busListCtrl($scope, $modal) {
             windowClass: "animated flipInY"
         });
     };
+
+
 };
