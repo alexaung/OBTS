@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agent", "Agent\Agent.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{8870EAAF-F835-4DF5-8809-665EC9023E0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBTS.API", "OBTS.API\OBTS.API.csproj", "{4014791D-F9BA-4F2B-95DB-BE9ED7FD47FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8870EAAF-F835-4DF5-8809-665EC9023E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8870EAAF-F835-4DF5-8809-665EC9023E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8870EAAF-F835-4DF5-8809-665EC9023E0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4014791D-F9BA-4F2B-95DB-BE9ED7FD47FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4014791D-F9BA-4F2B-95DB-BE9ED7FD47FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4014791D-F9BA-4F2B-95DB-BE9ED7FD47FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4014791D-F9BA-4F2B-95DB-BE9ED7FD47FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

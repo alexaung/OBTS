@@ -16,3 +16,9 @@ C:\Projects\OBTS\OBTS-APP\Operator\bin\Operator.pdb
 C:\Projects\OBTS\OBTS-APP\Operator\obj\Debug\Operator.csprojResolveAssemblyReference.cache
 C:\Projects\OBTS\OBTS-APP\Operator\obj\Debug\Operator.dll
 C:\Projects\OBTS\OBTS-APP\Operator\obj\Debug\Operator.pdb
+C:\Projects\OBTS\OBTS\OBTS-APP\Operator\bin\Operator.dll.config
+C:\Projects\OBTS\OBTS\OBTS-APP\Operator\bin\Operator.dll
+C:\Projects\OBTS\OBTS\OBTS-APP\Operator\bin\Operator.pdb
+C:\Projects\OBTS\OBTS\OBTS-APP\Operator\obj\Debug\Operator.csprojResolveAssemblyReference.cache
+C:\Projects\OBTS\OBTS\OBTS-APP\Operator\obj\Debug\Operator.dll
+C:\Projects\OBTS\OBTS\OBTS-APP\Operator\obj\Debug\Operator.pdb
