@@ -11,7 +11,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     // Configure Idle settings
     IdleProvider.idle(5); // in seconds
     IdleProvider.timeout(120); // in seconds
-
     $urlRouterProvider.otherwise("/dashboards/dashboard_1");
 
     $ocLazyLoadProvider.config({
@@ -235,3 +234,5 @@ angular
     .run(function ($rootScope, $state) {
         $rootScope.$state = $state;
     });
+
+

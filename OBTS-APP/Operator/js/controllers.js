@@ -55,7 +55,7 @@ function MainCtrl() {
      */
     this.slideInterval = 5000;
 
-
+    
     /**
      * states - Data used in Advanced Form view for Chosen plugin
      */
