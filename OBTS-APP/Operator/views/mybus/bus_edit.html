@@ -8,33 +8,30 @@
                 <label class="col-sm-3 control-label">Brand</label>
 
                 <div class="col-sm-9">
-                    <select class="form-control m-b" name="brand" ng-model="brand">
-                        <option  ng-repeat="brand in brands" value="{{brand.KeyCode}}">{{brand.Value}}</option>
+                    <select class="form-control m-b" name="brand" ng-model="bus.Brand" ng-options="brand as brand.Value for brand in brands">
                     </select>
                 </div>
+
             </div>
+
             <div class="form-group">
                 <label class="col-sm-3 control-label">Model</label>
-
-                <div class="col-sm-9"><input type="text" class="form-control" ng-model="txtModel"></div>
+                <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.Model"></div>
             </div>
             <div class="hr-line-dashed"></div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Reg. No</label>
-
-                <div class="col-sm-9"><input type="text" class="form-control" ng-model="txtRegNo"></div>
+                <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.RegistrationNo"></div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Permit No</label>
-
-                <div class="col-sm-9"><input type="text" class="form-control" ng-model="txtPermitNo"></div>
+                <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.PermitNumber"></div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">Permit Exp. Date</label>
-
+                <label class="col-sm-3 control-label">Permit Renew Date</label>
                 <div class="col-sm-9">
                     <div class="input-group date">
-                        <input id="expdate" type="datetime" class="form-control" date-time ng-model="expDate" view="date" auto-close="true">
+                        <input id="expdate" type="datetime" class="form-control" date-time ng-model="bus.PermitRenewDate" view="date" auto-close="true">
                         <span class="input-group-btn">
                             <label class="btn btn-default form-control" for="expdate">
                                 <i class="fa fa-calendar"></i>
@@ -43,7 +40,59 @@
                     </div>
                 </div>
             </div>
-            {{expDate}}
+            <div class="form-group">
+                <label class="col-sm-3 control-label">BusType</label>
+
+                <div class="col-sm-9">
+                    <select class="form-control m-b" name="bustype" ng-model="bus.BusType" ng-options="bustype as bustype.Value for bustype in bustypes"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Insurance Policy No.</label>
+                <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.InsurancePolicyNumber"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Insurance Company</label>
+                <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.InsuranceCompany"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Insurance Valid To</label>
+                <div class="col-sm-9">
+                    <div class="input-group date">
+                        <input id="expdate" type="datetime" class="form-control" date-time ng-model="bus.InsuranceValidFrom" view="date" auto-close="true">
+                        <span class="input-group-btn">
+                            <label class="btn btn-default form-control" for="expdate">
+                                <i class="fa fa-calendar"></i>
+                            </label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Insurance Valid To</label>
+                <div class="col-sm-9">
+                    <div class="input-group date">
+                        <input id="expdate" type="datetime" class="form-control" date-time ng-model="bus.InsuranceValidTo" view="date" auto-close="true">
+                        <span class="input-group-btn">
+                            <label class="btn btn-default form-control" for="expdate">
+                                <i class="fa fa-calendar"></i>
+                            </label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Vechicle Phone</label>
+                <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.VechiclePhoneNo"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Driver Name</label>
+                <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.DriverName"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Description</label>
+                <div class="col-sm-9"><textarea class="form-control" ng-model="bus.Description"/></div>
+            </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">
                     Facilties
