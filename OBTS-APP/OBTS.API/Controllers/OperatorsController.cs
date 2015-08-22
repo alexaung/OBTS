@@ -18,7 +18,7 @@ namespace OBTS.API.Controllers
 {
     public class OperatorsController : ApiController
     {
-        private OBTSAPIContext db = new OBTSAPIContext();
+        private ApplicationDbContext  db = new ApplicationDbContext ();
 
 
         // GET: api/Operators

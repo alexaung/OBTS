@@ -5,14 +5,14 @@ namespace OBTS.API.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using OBTS.API.Models;
-    internal sealed class Configuration : DbMigrationsConfiguration<OBTS.API.Models.OBTSAPIContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<OBTS.API.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(OBTS.API.Models.OBTSAPIContext context)
+        protected override void Seed(OBTS.API.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

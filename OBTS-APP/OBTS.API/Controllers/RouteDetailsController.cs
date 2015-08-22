@@ -18,7 +18,7 @@ namespace OBTS.API.Controllers
 {
     public class RouteDetailsController : ApiController
     {
-        private OBTSAPIContext db = new OBTSAPIContext();
+        private ApplicationDbContext  db = new ApplicationDbContext ();
 
         // GET: api/routedetails
         [Route("api/routesamenities", Name = "GetRouteDetails")]

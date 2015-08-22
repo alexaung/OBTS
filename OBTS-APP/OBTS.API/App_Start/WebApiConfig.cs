@@ -1,4 +1,5 @@
-﻿using OBTS.API.Formatter;
+﻿using Newtonsoft.Json.Serialization;
+using OBTS.API.Formatter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +32,11 @@ namespace OBTS.API
             config.Formatters.Add(new JsonMediaTypeFormatter());
 
             //set formatters only json 
-            var jsonFormatter = new JsonMediaTypeFormatter();
+            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             //optional: set serializer settings here
             config.Services.Replace(typeof(IContentNegotiator), new JsonContentNegotiator(jsonFormatter));
+                        
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }

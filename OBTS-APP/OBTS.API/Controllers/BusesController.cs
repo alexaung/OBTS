@@ -19,7 +19,7 @@ namespace OBTS.API.Controllers
 {
     public class BusesController : ApiController
     {
-        private OBTSAPIContext db = new OBTSAPIContext();
+        private ApplicationDbContext  db = new ApplicationDbContext ();
 
         // Typed lambda expression for Select() method. 
         private static readonly Expression<Func<CodeTable, CodeValueDTO>> AsCodeValueDTO =

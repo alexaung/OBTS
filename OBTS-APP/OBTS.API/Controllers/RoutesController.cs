@@ -18,7 +18,7 @@ namespace OBTS.API.Controllers
 {
     public class RoutesController : ApiController
     {
-        private OBTSAPIContext db = new OBTSAPIContext();
+        private ApplicationDbContext  db = new ApplicationDbContext ();
 
         // GET: api/Routes
         public IQueryable<RouteDTO> GetRoutes()

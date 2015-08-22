@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBTSAPI", "OBTSAPI\OBTSAPI.csproj", "{D7BBD4AE-47BA-497F-A1D8-1FA98C9EB2CB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operator", "Operator\Operator.csproj", "{CA080A49-4DAE-45A9-8CEA-BB300CA2A6B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj", "{E2281C92-1837-49C4-9C9B-85F7F8A23988}"
@@ -21,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D7BBD4AE-47BA-497F-A1D8-1FA98C9EB2CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7BBD4AE-47BA-497F-A1D8-1FA98C9EB2CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7BBD4AE-47BA-497F-A1D8-1FA98C9EB2CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7BBD4AE-47BA-497F-A1D8-1FA98C9EB2CB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CA080A49-4DAE-45A9-8CEA-BB300CA2A6B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA080A49-4DAE-45A9-8CEA-BB300CA2A6B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA080A49-4DAE-45A9-8CEA-BB300CA2A6B4}.Release|Any CPU.ActiveCfg = Release|Any CPU

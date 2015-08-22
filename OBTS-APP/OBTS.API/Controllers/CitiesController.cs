@@ -19,7 +19,7 @@ namespace OBTS.API.Controllers
    
     public class CitiesController : ApiController
     {
-        private OBTSAPIContext db = new OBTSAPIContext();
+        private ApplicationDbContext  db = new ApplicationDbContext ();
 
         // GET: api/Cities
         

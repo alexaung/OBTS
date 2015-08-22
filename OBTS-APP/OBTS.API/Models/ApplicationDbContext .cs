@@ -4,10 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OBTS.API.Infrastructure;
 
 namespace OBTS.API.Models
 {
-    public class OBTSAPIContext : IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext  : IdentityDbContext<ApplicationUser>
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -16,9 +17,18 @@ namespace OBTS.API.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
-        public OBTSAPIContext() : base("name=OBTSAPIContext")
+        public ApplicationDbContext () : base("name=ApplicationDbContext ")
         {
         }
+
+        public static ApplicationDbContext  Create()
+        {
+            return new ApplicationDbContext ();
+        }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.Client> Clients { get; set; }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.RefreshToken> RefreshTokens { get; set; }
 
         public System.Data.Entity.DbSet<OBTS.API.Models.Agent> Agents { get; set; }
 

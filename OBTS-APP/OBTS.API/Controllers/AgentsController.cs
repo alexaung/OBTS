@@ -18,7 +18,7 @@ namespace OBTS.API.Controllers
 {
     public class AgentsController : ApiController
     {
-        private OBTSAPIContext db = new OBTSAPIContext();
+        private ApplicationDbContext  db = new ApplicationDbContext ();
 
         // GET: api/Agents
         public IQueryable<AgentDTO> GetAgents()
