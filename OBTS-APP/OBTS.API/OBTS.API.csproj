@@ -208,7 +208,9 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AgentsController.cs" />
-    <Compile Include="Controllers\BanksController.cs" />
+    <Compile Include="Controllers\BanksController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
     <Compile Include="Controllers\BusFeaturesController.cs" />
