@@ -46,7 +46,7 @@ function busListCtrl($scope, $modal, $http) {
     };
     $scope.save = function () {
         var bus = {
-                "BusId": "abc3e9b7-10b6-41c4-be20-d4f8a246bd9a",
+                "BusId": "",
                 "Company": "Mya Mar Lar",
                 "Brand": $scope.txtBrand,
                 "BrandDesc": $scope.txtModel,
@@ -63,7 +63,7 @@ function busListCtrl($scope, $modal, $http) {
                 "DriverName": "Mg Mya",
                 "Description": "Mya Mar Lar Bus 2",
                 "Status": $scope.optStatus,
-                "OperatorId": "3668551a-0cf9-4bdf-bf2f-6d88a07f7ee5",
+                "OperatorId": "F9688FDF-1BEF-4E32-B70C-4494856BB94D",
                 "OperatorCompany": "Toe Aung Tours"
             }
         $http.post(webapiurl + 'bus', bus).
