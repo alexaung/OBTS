@@ -72,6 +72,21 @@ namespace OBTS.API.Migrations
                 .PrimaryKey(t => t.CountryId);
             
             CreateTable(
+                "dbo.Banks",
+                c => new
+                    {
+                        BankId = c.Guid(nullable: false),
+                        UserId = c.Guid(nullable: false),
+                        UserTypeCode = c.Short(nullable: false),
+                        BankName = c.String(),
+                        Branch = c.String(),
+                        AccountNumber = c.String(),
+                        LFSCCode = c.String(),
+                        Logo = c.String(),
+                    })
+                .PrimaryKey(t => t.BankId);
+            
+            CreateTable(
                 "dbo.Buses",
                 c => new
                     {
@@ -103,6 +118,20 @@ namespace OBTS.API.Migrations
                         BusFeatureCode = c.Short(nullable: false),
                     })
                 .PrimaryKey(t => t.BusFeatureId);
+            
+            CreateTable(
+                "dbo.Clients",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Secret = c.String(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        ApplicationType = c.Int(nullable: false),
+                        Active = c.Boolean(nullable: false),
+                        RefreshTokenLifeTime = c.Int(nullable: false),
+                        AllowedOrigin = c.String(maxLength: 100),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.CodeTables",
@@ -155,6 +184,19 @@ namespace OBTS.API.Migrations
                 .PrimaryKey(t => t.OperatorId)
                 .ForeignKey("dbo.Cities", t => t.CityId, cascadeDelete: false)
                 .Index(t => t.CityId);
+            
+            CreateTable(
+                "dbo.RefreshTokens",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Subject = c.String(nullable: false, maxLength: 50),
+                        ClientId = c.String(nullable: false, maxLength: 50),
+                        IssuedUtc = c.DateTime(nullable: false),
+                        ExpiresUtc = c.DateTime(nullable: false),
+                        ProtectedTicket = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -227,10 +269,31 @@ namespace OBTS.API.Migrations
                 .Index(t => t._citySource_CityId);
             
             CreateTable(
+                "dbo.Seats",
+                c => new
+                    {
+                        SeatId = c.Guid(nullable: false),
+                        BusId = c.Guid(nullable: false),
+                        SeatNo = c.String(),
+                        Bookable = c.Boolean(nullable: false),
+                        Space = c.Boolean(nullable: false),
+                        SpecialSeat = c.Boolean(nullable: false),
+                        Status = c.Boolean(nullable: false),
+                        UpperLower = c.Short(nullable: false),
+                    })
+                .PrimaryKey(t => t.SeatId)
+                .ForeignKey("dbo.Buses", t => t.BusId, cascadeDelete: true)
+                .Index(t => t.BusId);
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        FirstName = c.String(nullable: false, maxLength: 100),
+                        LastName = c.String(nullable: false, maxLength: 100),
+                        Level = c.Byte(nullable: false),
+                        JoinDate = c.DateTime(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -278,6 +341,7 @@ namespace OBTS.API.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Seats", "BusId", "dbo.Buses");
             DropForeignKey("dbo.Routes", "_citySource_CityId", "dbo.Cities");
             DropForeignKey("dbo.Routes", "_cityDestination_CityId", "dbo.Cities");
             DropForeignKey("dbo.Routes", "BusId", "dbo.Buses");
@@ -291,6 +355,7 @@ namespace OBTS.API.Migrations
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Seats", new[] { "BusId" });
             DropIndex("dbo.Routes", new[] { "_citySource_CityId" });
             DropIndex("dbo.Routes", new[] { "_cityDestination_CityId" });
             DropIndex("dbo.Routes", new[] { "BusId" });
@@ -306,16 +371,20 @@ namespace OBTS.API.Migrations
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.Seats");
             DropTable("dbo.Routes");
             DropTable("dbo.RoutePoints");
             DropTable("dbo.RouteDetails");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.RefreshTokens");
             DropTable("dbo.Operators");
             DropTable("dbo.OperatorAgents");
             DropTable("dbo.CodeTables");
+            DropTable("dbo.Clients");
             DropTable("dbo.BusFeatures");
             DropTable("dbo.Buses");
+            DropTable("dbo.Banks");
             DropTable("dbo.Countries");
             DropTable("dbo.Regions");
             DropTable("dbo.Cities");

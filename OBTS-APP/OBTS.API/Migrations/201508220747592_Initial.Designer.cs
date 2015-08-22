@@ -7,13 +7,13 @@ namespace OBTS.API.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class SecurityTables : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SecurityTables));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201508220518113_SecurityTables"; }
+            get { return "201508220747592_Initial"; }
         }
         
         string IMigrationMetadata.Source

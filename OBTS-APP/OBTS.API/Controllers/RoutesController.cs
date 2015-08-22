@@ -19,6 +19,8 @@ namespace OBTS.API.Controllers
     public class RoutesController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
+        private string strBusType = OPTSEnum.ToString(OPTSEnum.Types.BusType);
+        private string strBrand = OPTSEnum.ToString(OPTSEnum.Types.Brand);
 
         // GET: api/Routes
         public IQueryable<RouteDTO> GetRoutes()
@@ -29,9 +31,9 @@ namespace OBTS.API.Controllers
                     join ct1 in db.Cities on a.Source equals ct1.CityId
                     join ct2 in db.Cities on a.Destination equals ct2.CityId
                     join ct3 in db.CodeTables on ct.BusType equals ct3.KeyCode
-                    where ct3.Title.Equals("BusType")
+                         where ct3.Title.Equals(strBusType)
                     join ct4 in db.CodeTables on ct.Brand equals ct4.KeyCode
-                    where ct4.Title.Equals("Brand")
+                         where ct4.Title.Equals(strBrand)
 
                          select new RouteDTO()
                                  {
@@ -67,9 +69,9 @@ namespace OBTS.API.Controllers
                          join ct1 in db.Cities on a.Source equals ct1.CityId
                          join ct2 in db.Cities on a.Destination equals ct2.CityId
                          join ct3 in db.CodeTables on ct.BusType equals ct3.KeyCode
-                         where ct3.Title.Equals("BusType")
+                         where ct3.Title.Equals(strBusType)
                          join ct4 in db.CodeTables on ct.Brand equals ct4.KeyCode
-                         where ct4.Title.Equals("Brand")
+                         where ct4.Title.Equals(strBrand)
 
                          select new RouteDTO()
                          {
@@ -106,9 +108,9 @@ namespace OBTS.API.Controllers
                          join ct2 in db.Cities on a.Destination equals ct2.CityId
                          where ct2.CityDesc.Equals(_destination)
                          join ct3 in db.CodeTables on ct.BusType equals ct3.KeyCode
-                         where ct3.Title.Equals("BusType")
+                         where ct3.Title.Equals(strBusType)
                          join ct4 in db.CodeTables on ct.Brand equals ct4.KeyCode
-                         where ct4.Title.Equals("Brand")
+                         where ct4.Title.Equals(strBrand)
 
                          select new RouteDTO()
                          {
@@ -145,9 +147,9 @@ namespace OBTS.API.Controllers
                          join ct1 in db.Cities on a.Source equals ct1.CityId
                          join ct2 in db.Cities on a.Destination equals ct2.CityId
                          join ct3 in db.CodeTables on ct.BusType equals ct3.KeyCode
-                         where ct3.Title.Equals("BusType")
+                         where ct3.Title.Equals(strBusType)
                          join ct4 in db.CodeTables on ct.Brand equals ct4.KeyCode
-                         where ct4.Title.Equals("Brand")
+                         where ct4.Title.Equals(strBrand)
 
                          select new RouteDTO()
                          {

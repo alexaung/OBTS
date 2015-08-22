@@ -20,6 +20,7 @@ namespace OBTSAPI.Controllers
     public class BusFeaturesController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
+        private string strBusFeatures = OPTSEnum.ToString(OPTSEnum.Types.BusFeatures);
 
         private static readonly Expression<Func<CodeTable, CodeValueDTO>> AsCodeValueDTO =
            a => new CodeValueDTO
@@ -34,7 +35,7 @@ namespace OBTSAPI.Controllers
         {
             var features = from b in db.BusFeatures
                         join ct in db.CodeTables on b.BusFeatureCode equals ct.KeyCode
-                        where ct.Title.Equals("BusFeatures")
+                           where ct.Title.Equals(strBusFeatures)
 
                         select new BusFeatureDTO()
                         {
@@ -53,7 +54,7 @@ namespace OBTSAPI.Controllers
 
             var features = from b in db.BusFeatures
                            join ct in db.CodeTables on b.BusFeatureCode equals ct.KeyCode
-                           where ct.Title.Equals("BusFeatures") && b.BusId.Equals(Id)
+                           where ct.Title.Equals(strBusFeatures) && b.BusId.Equals(Id)
 
                            select new BusFeatureDTO()
                            {
