@@ -19,6 +19,7 @@ namespace OBTS.API.Controllers
     public class RouteDetailsController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
+        private string strAmenities = OPTSEnum.ToString(OPTSEnum.Types.Amenities);
 
         // GET: api/routedetails
         [Route("api/routesamenities", Name = "GetRouteDetails")]
@@ -26,7 +27,7 @@ namespace OBTS.API.Controllers
         {
             var routedetails = from b in db.RouteDetails
                         join ct in db.CodeTables on b.AmenitiesCodeId equals ct.KeyCode
-                        where ct.Title.Equals("Amenities")
+                               where ct.Title.Equals(strAmenities)
 
                                select new RouteDetailDTO()
                                 {
@@ -45,7 +46,7 @@ namespace OBTS.API.Controllers
         {
             var routedetails = from b in db.RouteDetails
                                join ct in db.CodeTables on b.AmenitiesCodeId equals ct.KeyCode
-                               where ct.Title.Equals("Amenities") && b.RouteId.Equals(Id)
+                               where ct.Title.Equals(strAmenities) && b.RouteId.Equals(Id)
 
                                select new RouteDetailDTO()
                                {
@@ -65,7 +66,7 @@ namespace OBTS.API.Controllers
         {
             var routedetails = from b in db.RouteDetails
                                join ct in db.CodeTables on b.AmenitiesCodeId equals ct.KeyCode
-                               where ct.Title.Equals("Amenities") && b.RouteDetailId.Equals(id)
+                               where ct.Title.Equals(strAmenities) && b.RouteDetailId.Equals(id)
 
                                select new RouteDetailDTO()
                                {

@@ -20,6 +20,8 @@ namespace OBTS.API.Controllers
     public class BusesController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
+        private string strBusType = OPTSEnum.ToString(OPTSEnum.Types.BusType);
+        private string strBrand = OPTSEnum.ToString(OPTSEnum.Types.Brand);
 
         // Typed lambda expression for Select() method. 
         private static readonly Expression<Func<CodeTable, CodeValueDTO>> AsCodeValueDTO =
@@ -32,12 +34,11 @@ namespace OBTS.API.Controllers
         // GET: api/Buses
         public IQueryable<BusDTO> GetBuses()
         {
-
-            var buses = from b in db.Buses
-                        join ct in db.CodeTables on b.BusType equals  ct.KeyCode 
-                        where ct.Title.Equals("BusType") 
+           var buses = from b in db.Buses
+                        join ct in db.CodeTables on b.BusType equals  ct.KeyCode
+                        where ct.Title.Equals(strBusType) 
                         join ct1 in db.CodeTables on b.Brand equals ct1.KeyCode
-                        where ct1.Title.Equals("Brand")
+                        where ct1.Title.Equals(strBrand)
                         join op in db.Operators on b.OperatorId equals op.OperatorId
  
                      select new BusDTO()
@@ -70,12 +71,12 @@ namespace OBTS.API.Controllers
         [Route("api/buses/operator/{Id}", Name = "GetBusesByOperator")]
         public IQueryable<BusDTO> GetBusesByOperator(Guid Id)
         {
-
+            
             var buses = from b in db.Buses
                         join ct in db.CodeTables on b.BusType equals ct.KeyCode
-                        where ct.Title.Equals("BusType") && b.OperatorId.Equals(Id)
+                        where ct.Title.Equals(strBusType) && b.OperatorId.Equals(Id)
                         join ct1 in db.CodeTables on b.Brand equals ct1.KeyCode
-                        where ct1.Title.Equals("Brand")
+                        where ct1.Title.Equals(strBrand)
                         join op in db.Operators on b.OperatorId equals op.OperatorId
 
                         select new BusDTO()
@@ -111,9 +112,9 @@ namespace OBTS.API.Controllers
         {
             var buses = from b in db.Buses
                         join ct in db.CodeTables on b.BusType equals ct.KeyCode
-                        where ct.Title.Equals("BusType") && b.BusId.Equals(id)
+                        where ct.Title.Equals(strBusType) && b.BusId.Equals(id)
                         join ct1 in db.CodeTables on b.Brand equals ct1.KeyCode
-                        where ct1.Title.Equals("Brand")
+                        where ct1.Title.Equals(strBrand)
                         join op in db.Operators on b.OperatorId equals op.OperatorId
 
                         select new BusDTO()

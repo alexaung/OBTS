@@ -53,6 +53,10 @@ namespace OBTS.API.Models
         public System.Data.Entity.DbSet<OBTS.API.Models.RouteDetail> RouteDetails { get; set; }
         
         public System.Data.Entity.DbSet<OBTS.API.Models.RoutePoint> RoutePoints { get; set; }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.Seat> Seats { get; set; }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.Bank> Banks { get; set; }
     
     }
 }
