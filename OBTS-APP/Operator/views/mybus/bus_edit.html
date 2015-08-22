@@ -1,13 +1,17 @@
 <div class="modal-header">
     <h4 class="modal-title"><i class="fa fa-bus modal-icon"></i> Bus Details</h4>
 </div>
-<div class="modal-body" ng-controller="busListCtrl">
+<div class="modal-body" ng-controller="busListCtrl" data-ng-init="initBusEdit()">
     <div class="ibox-content">
         <form method="get" class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-3 control-label">Brand</label>
 
-                <div class="col-sm-9"><input type="text" class="form-control" ng-model="txtBrand"></div>
+                <div class="col-sm-9">
+                    <select class="form-control m-b" name="brand" ng-model="brand">
+                        <option  ng-repeat="brand in brands" value="{{brand.KeyCode}}">{{brand.Value}}</option>
+                    </select>
+                </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label">Model</label>

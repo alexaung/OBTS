@@ -4,14 +4,25 @@
  */
 function busListCtrl($scope, $modal, $http) {
     
-    var webapiurl = 'http://localhost:50758/api/';
+    var webapiurl = 'http://localhost:57448/api/';
 
-    
-    $http.get(webapiurl + 'buses').success(function (data, status, headers, config) {
-        $scope.buses = data;
-    }).error(function (data, status, headers, config) {
-        $scope.buses = null;
-    });
+    $scope.initBusList = function () {
+        $http.get(webapiurl + 'buses').success(function (data, status, headers, config) {
+            $scope.buses = data;
+        }).error(function (data, status, headers, config) {
+            $scope.buses = null;
+        });
+    }
+
+    $scope.initBusEdit = function () {
+        $http.get(webapiurl + 'codetables/title/brand').success(function (data, status, headers, config) {
+            $scope.brands = data;
+        }).error(function (data, status, headers, config) {
+            $scope.brands = null;
+        });
+    }
+
+
     $scope.open = function () {
 
         var modalInstance = $modal.open({
