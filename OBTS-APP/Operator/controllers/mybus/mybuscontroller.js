@@ -2,9 +2,11 @@
  * busListCtrl - Controller used to run modal view
  * used in Basic form view
  */
-function busListCtrl($scope, $modal, $http) {
+function busListCtrl($scope, $modal, $http, DataService) {
     
     var webapiurl = 'http://localhost:57448/api/';
+    $scope.busDto = DataService.Data.busDto;
+    $scope.bus = {};
 
     $scope.initBusList = function () {
         $http.get(webapiurl + 'buses').success(function (data, status, headers, config) {
@@ -12,19 +14,41 @@ function busListCtrl($scope, $modal, $http) {
         }).error(function (data, status, headers, config) {
             $scope.buses = null;
         });
+   
     }
 
     $scope.initBusEdit = function () {
+
         $http.get(webapiurl + 'codetables/title/brand').success(function (data, status, headers, config) {
             $scope.brands = data;
+            for (var d = 0, len = data.length; d < len; d += 1) {
+                if (data[d].KeyCode == $scope.busDto.Brand) {
+                    $scope.busDto.Brand = data[d];
+                }
+            }
         }).error(function (data, status, headers, config) {
             $scope.brands = null;
         });
+
+        $http.get(webapiurl + 'codetables/title/bustype').success(function (data, status, headers, config) {
+            $scope.bustypes = data;
+            for (var d = 0, len = data.length; d < len; d += 1) {
+                if (data[d].KeyCode == $scope.busDto.BusType) {
+                    $scope.busDto.BusType = data[d];
+                }
+            }
+            $scope.bus = $scope.busDto;
+        }).error(function (data, status, headers, config) {
+            $scope.bustypes = null;
+        });
+        
+             
+        
     }
 
 
-    $scope.open = function () {
-
+    $scope.open = function (bus) {
+        DataService.Data.busDto = bus;
         var modalInstance = $modal.open({
             templateUrl: 'views/mybus/bus_edit.html',
             controller: ModalInstanceCtrl,
@@ -45,28 +69,25 @@ function busListCtrl($scope, $modal, $http) {
         });
     };
     $scope.save = function () {
-        var bus = {
-                "BusId": "",
-                "Company": "Mya Mar Lar",
-                "Brand": $scope.txtBrand,
-                "BrandDesc": $scope.txtModel,
-                "BusType": 1,
-                "BusTypeDesc": "Single",
-                "RegistrationNo": $scope.txtRegNo,
-                "PermitNumber": $scope.txtPermitNo,
-                "PermitRenewDate": "2020-01-01T00:00:00",
-                "InsurancePolicyNumber": "2222",
-                "InsuranceCompany": "Pru",
-                "InsuranceValidFrom": "2015-02-02T00:00:00",
-                "InsuranceValidTo": "2020-02-02T00:00:00",
-                "VechiclePhoneNo": "1231312",
-                "DriverName": "Mg Mya",
-                "Description": "Mya Mar Lar Bus 2",
+         var bus = {
+             "BusId": "1694AF70-C424-47F9-9CE5-2BD4955CB1BD",
+                "Brand": $scope.bus.Brand.KeyCode,
+                "BusType": $scope.bus.BusType.KeyCode,
+                "RegistrationNo": $scope.bus.RegNo,
+                "PermitNumber": $scope.bus.PermitNo,
+                "PermitRenewDate": $scope.bus.PermitRenewDate,
+                "InsurancePolicyNumber": $scope.bus.InsurancePolicyNo,
+                "InsuranceCompany": $scope.bus.InsuranceCompany,
+                "InsuranceValidFrom": $scope.bus.InsuranceValidFrom,
+                "InsuranceValidTo": $scope.bus.InsuranceValidTo,
+                "VechiclePhoneNo": $scope.bus.VechiclePhoneNo,
+                "DriverName": $scope.bus.DriverName,
+                "Description": $scope.bus.Description,
                 "Status": $scope.optStatus,
-                "OperatorId": "F9688FDF-1BEF-4E32-B70C-4494856BB94D",
-                "OperatorCompany": "Toe Aung Tours"
-            }
-        $http.post(webapiurl + 'bus', bus).
+                "OperatorId": "F9688FDF-1BEF-4E32-B70C-4494856BB94D"
+         }
+         
+        $http.post(webapiurl + 'buses', bus).
             success(function (data, status, headers, config) {
                 alert("saved successfully!!")
             }).

@@ -2689,4 +2689,5 @@ angular
     .controller('chartistCtrl', chartistCtrl)
     .controller('metricsCtrl', metricsCtrl)
     .controller('sweetAlertCtrl', sweetAlertCtrl)
+    .factory("DataService", dataServiceFactory)
 

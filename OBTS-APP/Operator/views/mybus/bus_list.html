@@ -66,12 +66,10 @@
                                 <th data-toggle="true">Brand</th>
                                 <th data-hide="phone">Model</th>
                                 <th data-hide="phone">Reg No.</th>
-                                <th data-hide="phone">Permit Number</th>
+                                <th data-hide="phone">Permit#</th>
                                 <th data-hide="date">Permit Renew Date</th>
-                                <th data-hide="phone">Insurance Number</th>
+                                <th data-hide="phone">Insurance#</th>
                                 <th data-hide="phone">Passenger Capacity</th>
-                                <th data-hide="phone">Fuel capacity</th>
-                                <th data-hide="phone">Wheel</th>
                                 <th data-hide="phone">Vechicle Phone No*</th>
                                 <th data-hide="phone">Status</th>
                                 <th data-hide="all">Description</th>
@@ -81,11 +79,12 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="bus in buses">
+
                                 <td>
                                     {{bus.BrandDesc}}
                                 </td>
                                 <td>
-                                    Omini Express
+                                    {{bus.BusId}}
                                 </td>
                                 <td>
                                     {{bus.RegistrationNo}}
@@ -100,13 +99,7 @@
                                     {{bus.InsurancePolicyNumber}}
                                 </td>
                                 <td>
-                                    71 seats
-                                </td>
-                                <td>
-                                    550 litres
-                                </td>
-                                <td>
-                                    6 x 2*4
+                                    70 seats
                                 </td>
                                 <td>
                                     {{bus.VechiclePhoneNo}}
@@ -115,18 +108,13 @@
                                     <span class="label label-primary">Active</span>
                                 </td>
                                 <td>
-                                    9-litre 250/280/320/360 hp, Euro 6, 1 250–1 700 Nm, diesel, biodiesel
-                                    9-litre 280/320 hp Euro 6, 1 350–1 500 Nm, natural gas (CNG) or biomethane
-                                    13-litre 410/450/490 hp Euro 6, 2 150–2 550 Nm, diesel, biodiesel
-                                    Available also with Euro 5
-                                    Scania 8-speed range gearbox with Scania Opticruise
-                                    Scania 12-speed overdrive gearbox with Scania Opticruise
+                                    {{bus.Description}}
                                 </td>
                                 <td class="text-right">
                                     <div class="btn-group">
                                         <button class="btn-white btn btn-xs" ng-click="open()"><i class="fa fa-folder"></i>View</button>
 
-                                        <button class="btn-white btn btn-xs" ng-click="open()"><i class="fa fa-pencil"></i>Edit</button>
+                                        <button class="btn-white btn btn-xs" ng-click="open(bus)"><i class="fa fa-pencil"></i>Edit</button>
                                     </div>
                                 </td>
                             </tr>
