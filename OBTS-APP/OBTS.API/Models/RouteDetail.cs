@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OBTS.API.Models
 {
-    public class RouteDetail
+    public class RouteDetail : EntityBase
     {
         public Guid RouteDetailId { get; set; }
 

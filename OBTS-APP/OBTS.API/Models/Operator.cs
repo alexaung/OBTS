@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OBTS.API.Models
 {
-    public class Operator
+    public class Operator : EntityBase
     {
         public Guid OperatorId { get; set; }
 

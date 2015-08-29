@@ -10,7 +10,11 @@ namespace OBTS.API.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            //for testing --add remove column while data there
+            AutomaticMigrationDataLossAllowed = true;
+
+            //SetSqlGenerator("System.Data.SqlClient", new CustomSqlServerMigrationSqlGenerator());
         }
 
         protected override void Seed(OBTS.API.Models.ApplicationDbContext context)
@@ -44,17 +48,19 @@ namespace OBTS.API.Migrations
             );
 
             /******* Region *******/
-            var yangon = new Region { RegionId = Guid.NewGuid(), RegionDesc = "Yangon", CountryId = mm.CountryId };
+            var yangon = new Region { RegionId = Guid.Parse("295b7059-0b4a-4ad2-9b57-90d492295bfd"), RegionDesc = "Yangon", CountryId = mm.CountryId };
+            var mandalay = new Region { RegionId = Guid.Parse("7C45BAF8-A0DB-4B7E-8BB6-2456FF7C7A4D"), RegionDesc = "Mandalay", CountryId = mm.CountryId };
             context.Regions.AddOrUpdate(
                 r => r.RegionId,
-                yangon
+                yangon,mandalay
                 );
 
             /******* City *******/
             var yangoncity = new City { CityId = Guid.Parse("14FA2223-6214-46EC-A690-7607328D15DF"), CityDesc = "Yangon", RegionId = yangon.RegionId };
+            var mandalaycity = new City { CityId = Guid.Parse("89A647F4-324F-495E-80BF-B75F8249CC62"), CityDesc = "Mandalay", RegionId = mandalay.RegionId };
             context.Cities.AddOrUpdate(
               c => c.CityId,
-              yangoncity
+              yangoncity,mandalaycity
             );
 
             /******* Operator *******/
@@ -80,10 +86,12 @@ namespace OBTS.API.Migrations
             );
 
             /******* Bus *******/
-            var bus = new Bus { BusId = Guid.Parse("73A2436E-EE50-4254-B649-6EAA4E56CD3F"), Company = "Mya mar lar", Brand = toyota.KeyCode, BusType = normalBusType.KeyCode, RegistrationNo = "11111111", PermitNumber = "1234567890", PermitRenewDate =DateTime.Parse("2015/01/01"), InsurancePolicyNumber = "123445", InsuranceCompany = "Pru", InsuranceValidFrom =DateTime.Parse("2015/01/01"), InsuranceValidTo =DateTime.Parse("2015-12-30"), VechiclePhoneNo = "111111", DriverName = "Mg Ba", Description = "Weekly yangon to mandalay", Status = true, OperatorId=elit.OperatorId };
+            var bus = new Bus { BusId = Guid.Parse("73A2436E-EE50-4254-B649-6EAA4E56CD3F"), Company = "Mya mar lar", Brand = toyota.KeyCode, BusType = normalBusType.KeyCode, RegistrationNo = "11111111", PermitNumber = "1234567890", PermitRenewDate =DateTime.Parse("2015/01/01"), InsurancePolicyNumber = "123445", InsuranceCompany = "Pru", InsuranceValidFrom =DateTime.Parse("2015/01/01"), InsuranceValidTo =DateTime.Parse("2015/12/30"), VechiclePhoneNo = "111111", DriverName = "Mg Ba", Description = "Weekly yangon to mandalay", Status = true, OperatorId=elit.OperatorId };
+            var bus2 = new Bus { BusId = Guid.Parse("F5ECB397-88CB-4EA2-90F5-E7A3D9D9A229"), Company = "Mya mar lar2", Brand = toyota.KeyCode, BusType = normalBusType.KeyCode, RegistrationNo = "2222222", PermitNumber = "1234567890", PermitRenewDate = DateTime.Parse("2015/01/01"), InsurancePolicyNumber = "123445", InsuranceCompany = "Pru", InsuranceValidFrom = DateTime.Parse("2015/01/01"), InsuranceValidTo = DateTime.Parse("2015/12/30"), VechiclePhoneNo = "111111", DriverName = "Mg Ba2", Description = "Weekly yangon to mandalay", Status = true, OperatorId = elit.OperatorId };
+            
             context.Buses.AddOrUpdate(
               b => b.BusId,
-              bus
+              bus,bus2
             );
 
             /******* Seat *******/
@@ -93,6 +101,28 @@ namespace OBTS.API.Migrations
               b => b.SeatId,
               seat1, seat2
             );
+
+            //route
+            var route = new Route { RouteId = Guid.Parse("B03A4F96-E0A6-4B31-B2BC-D62F1E28528C"), BusId = bus.BusId, Source_CityId = yangoncity.CityId, Destination_CityId = mandalaycity.CityId, Recurrsive = true, RouteDate = DateTime.Parse("2015/01/01"), DepartureTime = TimeSpan.Parse("9:00"), ArrivalTime = TimeSpan.Parse("23:00"), RouteFare = 10000 };
+            var route2 = new Route { RouteId = Guid.Parse("CCC8C693-D7C1-4192-A892-37B28824B307"), BusId = bus2.BusId, Source_CityId = yangoncity.CityId, Destination_CityId = mandalaycity.CityId, Recurrsive = true, RouteDate = DateTime.Parse("2015/01/01"), DepartureTime = TimeSpan.Parse("9:00"), ArrivalTime = TimeSpan.Parse("23:00"), RouteFare = 10000 };
+            
+            context.Routes.AddOrUpdate(
+              b => b.RouteId,
+              route,route2  
+            );
+
+            //booking
+            var booking = new Booking { BookingId = Guid.Parse("3BD88E86-ACF3-432F-A016-53D9EF52D11D"), BookingOn = DateTime.Parse("2015/01/01"), MainContact = "Mg Ba", Email = "Mgba@gmail.com", ContactNo = "123123", DepartureCity = yangoncity.CityId, ArrivalCity = mandalaycity.CityId, TravelDate = DateTime.Parse("2015/01/01"), TotalAmt = 10000,RegNo="",Cupon="",Discount=0,RouteId=route.RouteId };
+            var booking2 = new Booking { BookingId = Guid.Parse("E5C70E19-1B5A-43FD-905F-43B04D677356"), BookingOn = DateTime.Parse("2015/01/01"), MainContact = "Mg Ba2", Email = "Mgba2@gmail.com", ContactNo = "123123", DepartureCity = yangoncity.CityId, ArrivalCity = mandalaycity.CityId, TravelDate = DateTime.Parse("2015/01/01"), TotalAmt = 10000, RegNo = "", Cupon = "", Discount = 0, RouteId = route2.RouteId };
+            var booking3 = new Booking { BookingId = Guid.Parse("24A711A3-3A14-490A-9788-688DA6E4DC31"), BookingOn = DateTime.Parse("2015/01/01"), MainContact = "Mg Ba3", Email = "Mgba3@gmail.com", ContactNo = "123123", DepartureCity = yangoncity.CityId, ArrivalCity = mandalaycity.CityId, TravelDate = DateTime.Parse("2015/01/01"), TotalAmt = 10000, RegNo = "", Cupon = "", Discount = 0, RouteId = route.RouteId };
+            
+            context.Bookings.AddOrUpdate(
+              b => b.BookingId,
+              booking, booking2, booking3
+            );
+           
+            context.SaveChanges();
+            
         }
     }
 }

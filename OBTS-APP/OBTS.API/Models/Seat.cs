@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OBTS.API.Models
 {
-    public class Seat
+    public class Seat : EntityBase
     {
         public Guid SeatId { get; set; }
 

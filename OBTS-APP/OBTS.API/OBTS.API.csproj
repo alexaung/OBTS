@@ -212,6 +212,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
     <Compile Include="Controllers\BusFeaturesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
@@ -248,6 +249,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\Bank.cs" />
+    <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\BusFeature.cs" />
     <Compile Include="Models\City.cs" />
@@ -259,6 +261,7 @@
     <Compile Include="Models\DTO\AgentDTO.cs" />
     <Compile Include="Models\DTO\AgentsOperatorDTO.cs" />
     <Compile Include="Models\DTO\BankDTO.cs" />
+    <Compile Include="Models\DTO\BookingDTO.cs" />
     <Compile Include="Models\DTO\BusDTO.cs" />
     <Compile Include="Models\DTO\BusFeatureDTO.cs" />
     <Compile Include="Models\DTO\CitiesCountryDTO.cs" />
@@ -276,6 +279,7 @@
     <Compile Include="Models\DTO\RoutePointDTO.cs" />
     <Compile Include="Models\ApplicationDbContext .cs" />
     <Compile Include="Models\DTO\SeatDTO.cs" />
+    <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\Operator.cs" />
@@ -330,7 +334,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

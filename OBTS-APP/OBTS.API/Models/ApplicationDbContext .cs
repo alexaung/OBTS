@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OBTS.API.Infrastructure;
+using System.Threading.Tasks;
 
 namespace OBTS.API.Models
 {
@@ -24,6 +25,47 @@ namespace OBTS.API.Models
         public static ApplicationDbContext  Create()
         {
             return new ApplicationDbContext ();
+        }
+
+        public override int SaveChanges()
+        {
+            UpdatedChangedAtDateTimestamps();
+
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync()
+        {
+            UpdatedChangedAtDateTimestamps();
+
+            return base.SaveChangesAsync();
+        }
+
+        private void UpdatedChangedAtDateTimestamps()
+        {
+            var changedAtEntities = ChangeTracker.Entries()
+                .Where(i => i.State != EntityState.Unchanged)
+                .Where(i => i.Entity is EntityBase);
+
+            foreach (var entity in changedAtEntities)
+            {
+                if (entity.State == EntityState.Added) { 
+                    ((EntityBase)entity.Entity).CreatedUtc = DateTime.UtcNow;
+                    //need to replace with actual user
+                    ((EntityBase)entity.Entity).CreatedBy = Guid.NewGuid();
+
+                    ((EntityBase)entity.Entity).ModifiedUtc = DateTime.UtcNow;
+                    //need to replace with actual user
+                    ((EntityBase)entity.Entity).ModifiedBy = Guid.NewGuid();
+                }
+
+                if (entity.State == EntityState.Modified)
+                {
+                    ((EntityBase)entity.Entity).ModifiedUtc = DateTime.UtcNow;
+                    //need to replace with actual user
+                    ((EntityBase)entity.Entity).ModifiedBy = Guid.NewGuid();
+                }
+            }
         }
 
         public System.Data.Entity.DbSet<OBTS.API.Models.Client> Clients { get; set; }
@@ -57,6 +99,8 @@ namespace OBTS.API.Models
         public System.Data.Entity.DbSet<OBTS.API.Models.Seat> Seats { get; set; }
 
         public System.Data.Entity.DbSet<OBTS.API.Models.Bank> Banks { get; set; }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.Booking> Bookings { get; set; }
     
     }
 }

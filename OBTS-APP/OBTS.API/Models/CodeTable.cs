@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OBTS.API.Models
 {
-    public class CodeTable
+    public class CodeTable : EntityBase
     {
         public Guid CodeTableId { get; set; }
 

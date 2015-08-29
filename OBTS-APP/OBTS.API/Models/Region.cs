@@ -6,7 +6,7 @@ using System.Web;
 
 namespace OBTS.API.Models
 {
-    public class Region
+    public class Region : EntityBase
     {
         public Guid RegionId { get; set; }
         [Required]

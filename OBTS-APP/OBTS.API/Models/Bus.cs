@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OBTS.API.Models
 {
-    public class Bus
+    public class Bus : EntityBase
     {
         public Guid BusId { get; set; }
 
@@ -41,7 +41,7 @@ namespace OBTS.API.Models
 
         //navi properties
         //public Operator _operator { get; set; }
-        //public CodeTable _bustype { get; set; }
+       // public CodeTable _bustype { get; set; }
         //public CodeTable _brand { get; set; }
     }
 }

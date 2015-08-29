@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OBTS.API.Models
 {
-    public class RoutePoint
+    public class RoutePoint : EntityBase
     {
         public Guid RoutePointId { get; set; }
 
