@@ -1,3 +1,4 @@
+use [mbus]
 drop table [dbo].[__MigrationHistory];
 drop table [dbo].[BusFeatures];
 drop table [dbo].[AspNetUserClaims];

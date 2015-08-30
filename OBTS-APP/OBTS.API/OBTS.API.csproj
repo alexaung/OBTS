@@ -279,6 +279,7 @@
     <Compile Include="Models\DTO\RoutePointDTO.cs" />
     <Compile Include="Models\ApplicationDbContext .cs" />
     <Compile Include="Models\DTO\SeatDTO.cs" />
+    <Compile Include="Models\EntityBaseUpdate.cs" />
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\ModelFactory.cs" />

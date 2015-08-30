@@ -5,7 +5,9 @@ using System.Web;
 
 namespace OBTS.API.Models
 {
-    public class Agent : EntityBase
+
+
+    public class Agent : EntityBase 
     {
         public Guid AgentId { get; set; }
 

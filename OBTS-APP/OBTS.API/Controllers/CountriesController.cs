@@ -17,7 +17,7 @@ using OBTS.API.Models.DTO;
 
 namespace OBTS.API.Controllers
 {
-    public class CountriesController : ApiController
+    public class CountriesController : BaseApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
 
@@ -39,12 +39,14 @@ namespace OBTS.API.Controllers
                 RegionDesc = x.CountryRegion.RegionDesc,
             };
 
+        [Authorize(Roles = "SuperAdmin,Admin")]
         // GET: api/Countries
         public IQueryable<Country> GetCountries()
         {
             return db.Countries;
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: api/country/1/cities
         [Route("api/country/{Id}/cities", Name = "GetCitiesByCountry")]
         public IQueryable<CitiesCountryDTO> GetCitiesByCountry(Guid Id)
@@ -55,6 +57,7 @@ namespace OBTS.API.Controllers
             .Select(AsCitiesCountryDTO);
         }
 
+         [Authorize(Roles = "Operatpr")]
         // GET: api/country/1/regions
         [Route("api/country/{Id}/regions", Name = "GetRegionsByCountry")]
         public IQueryable<RegionsCountryDTO> GetRegionsByCountry(Guid Id)
@@ -159,7 +162,7 @@ namespace OBTS.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            
             db.Countries.Add(country);
             await db.SaveChangesAsync();
 
