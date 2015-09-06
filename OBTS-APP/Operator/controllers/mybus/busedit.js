@@ -3,7 +3,7 @@
  * used in Basic form view
  */
 'use strict';
-function busEditCtrl($scope, $modalInstance, $http, notify, dataService,busService) {
+function busEditCtrl($scope, $modalInstance, $http, notify, busService) {
     
     
     notify.config({
@@ -14,8 +14,8 @@ function busEditCtrl($scope, $modalInstance, $http, notify, dataService,busServi
 
     $scope.initBusEdit = function (scope) {
         this.formScope = scope;
-        $scope.bus = dataService.AppData.bus;
-        dataService.AppData.bus = {};
+        $scope.bus = busService.bus;
+        busService.bus = {};
         $scope.bus.OperatorId = "F9688FDF-1BEF-4E32-B70C-4494856BB94D";
 
         

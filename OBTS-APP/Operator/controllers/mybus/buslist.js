@@ -2,19 +2,18 @@
  * busListCtrl - Controller used to run modal view
  * used in Basic form view
  */
-function busListCtrl($scope, $modal, $http, notify, dataService) {
-    
-    //var webapiurl = 'http://localhost:57448/api/';
+function busListCtrl($scope, $modal, $http, notify, busService) {
     
     
 
     $scope.initBusList = function () {
-        $http.get(dataService.AppData.webapiurl + 'buses').success(function (data, status, headers, config) {
-            $scope.buses = data;
-        }).error(function (data, status, headers, config) {
+
+        busService.loadBusList().success(function (data) {
+            $scope.buses = data
+        }).error(function (err) {
             $scope.buses = null;
         });
-   
+
     }
 
     $scope.open = function () {
@@ -22,6 +21,7 @@ function busListCtrl($scope, $modal, $http, notify, dataService) {
             templateUrl: 'views/mybus/bus_edit.html',
             controller: busEditCtrl,
             windowClass: "animated bounceInUp",
+            size: "lg",
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -49,7 +49,7 @@ function busListCtrl($scope, $modal, $http, notify, dataService) {
         });
     };
     $scope.openEdit = function (bus) {
-        dataService.AppData.bus = bus;
+        busService.bus = bus;
         $scope.open();
     };
     
