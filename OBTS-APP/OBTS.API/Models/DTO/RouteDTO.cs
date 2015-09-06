@@ -23,11 +23,11 @@ namespace OBTS.API.Models.DTO
 
         public string VechiclePhoneNo { get; set; }
 
-        public Guid Source { get; set; }
+        public Guid Source_CityId { get; set; }
 
         public string SourceCity { get; set; }
 
-        public Guid Destination { get; set; }
+        public Guid Destination_CityId { get; set; }
 
         public string DestinationCity { get; set; }
 

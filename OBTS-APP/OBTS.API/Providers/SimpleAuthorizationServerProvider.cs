@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
+using OBTS.API.Infrastructure;
 using OBTS.API.Models;
 using OBTS.API.Repositories;
 using System;
@@ -85,20 +87,31 @@ namespace OBTS.API.Providers
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
-            using (AuthRepository _repo = new AuthRepository())
-            {
-                IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
-                if (user == null)
-                {
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
-                    return;
-                }
+            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            if (user == null)
+            {
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                return;
             }
+
+            if (!user.EmailConfirmed)
+            {
+                context.SetError("invalid_grant", "User did not confirm email.");
+                return;
+            }
+
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            identity.AddClaim(new Claim(ClaimTypes.Role, "user"));
+            user.Roles.ToList().ForEach(r =>
+            {
+                var role = roleManager.FindById(r.RoleId);
+                identity.AddClaim(new Claim(ClaimTypes.Role, role.Name)); 
+            });
+            
             identity.AddClaim(new Claim("sub", context.UserName));
 
             var props = new AuthenticationProperties(new Dictionary<string, string>

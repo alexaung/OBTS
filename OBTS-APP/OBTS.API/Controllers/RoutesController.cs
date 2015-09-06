@@ -27,9 +27,9 @@ namespace OBTS.API.Controllers
         {
 
             var routes = from a in db.Routes
-                    join ct in db.Buses on a.BusId equals  ct.BusId 
-                    join ct1 in db.Cities on a.Source equals ct1.CityId
-                    join ct2 in db.Cities on a.Destination equals ct2.CityId
+                    join ct in db.Buses on a.BusId equals  ct.BusId
+                         join ct1 in db.Cities on a.Source_CityId equals ct1.CityId
+                         join ct2 in db.Cities on a.Destination_CityId equals ct2.CityId
                     join ct3 in db.CodeTables on ct.BusType equals ct3.KeyCode
                          where ct3.Title.Equals(strBusType)
                     join ct4 in db.CodeTables on ct.Brand equals ct4.KeyCode
@@ -45,9 +45,9 @@ namespace OBTS.API.Controllers
                                     BusType=ct.BusType,
                                     BusTypeDesc=ct3.Value,
                                     VechiclePhoneNo=ct.VechiclePhoneNo,
-                                    Source=a.Source,
+                                    Source_CityId = a.Source_CityId,
                                     SourceCity=ct1.CityDesc,
-                                    Destination=a.Destination,
+                                    Destination_CityId = a.Destination_CityId,
                                     DestinationCity=ct2.CityDesc,
                                     Recurrsive=a.Recurrsive,
                                     RouteDate=a.RouteDate,
@@ -66,8 +66,8 @@ namespace OBTS.API.Controllers
             var routes = from a in db.Routes
                          join ct in db.Buses on a.BusId equals ct.BusId
                          where a.BusId.Equals(Id)
-                         join ct1 in db.Cities on a.Source equals ct1.CityId
-                         join ct2 in db.Cities on a.Destination equals ct2.CityId
+                         join ct1 in db.Cities on a.Source_CityId equals ct1.CityId
+                         join ct2 in db.Cities on a.Destination_CityId equals ct2.CityId
                          join ct3 in db.CodeTables on ct.BusType equals ct3.KeyCode
                          where ct3.Title.Equals(strBusType)
                          join ct4 in db.CodeTables on ct.Brand equals ct4.KeyCode
@@ -83,9 +83,9 @@ namespace OBTS.API.Controllers
                              BusType = ct.BusType,
                              BusTypeDesc = ct3.Value,
                              VechiclePhoneNo = ct.VechiclePhoneNo,
-                             Source = a.Source,
+                             Source_CityId = a.Source_CityId,
                              SourceCity = ct1.CityDesc,
-                             Destination = a.Destination,
+                             Destination_CityId = a.Destination_CityId,
                              DestinationCity = ct2.CityDesc,
                              Recurrsive = a.Recurrsive,
                              RouteDate = a.RouteDate,
@@ -103,9 +103,9 @@ namespace OBTS.API.Controllers
 
             var routes = from a in db.Routes
                          join ct in db.Buses on a.BusId equals ct.BusId
-                         join ct1 in db.Cities on a.Source equals ct1.CityId
+                         join ct1 in db.Cities on a.Source_CityId equals ct1.CityId
                          where ct1.CityDesc.Equals(_source)
-                         join ct2 in db.Cities on a.Destination equals ct2.CityId
+                         join ct2 in db.Cities on a.Destination_CityId equals ct2.CityId
                          where ct2.CityDesc.Equals(_destination)
                          join ct3 in db.CodeTables on ct.BusType equals ct3.KeyCode
                          where ct3.Title.Equals(strBusType)
@@ -122,9 +122,9 @@ namespace OBTS.API.Controllers
                              BusType = ct.BusType,
                              BusTypeDesc = ct3.Value,
                              VechiclePhoneNo = ct.VechiclePhoneNo,
-                             Source = a.Source,
+                             Source_CityId = a.Source_CityId,
                              SourceCity = ct1.CityDesc,
-                             Destination = a.Destination,
+                             Destination_CityId = a.Destination_CityId,
                              DestinationCity = ct2.CityDesc,
                              Recurrsive = a.Recurrsive,
                              RouteDate = a.RouteDate,
@@ -144,8 +144,8 @@ namespace OBTS.API.Controllers
             var routes = from a in db.Routes
                          join ct in db.Buses on a.BusId equals ct.BusId
                          where a.RouteId.Equals(id)
-                         join ct1 in db.Cities on a.Source equals ct1.CityId
-                         join ct2 in db.Cities on a.Destination equals ct2.CityId
+                         join ct1 in db.Cities on a.Source_CityId equals ct1.CityId
+                         join ct2 in db.Cities on a.Destination_CityId equals ct2.CityId
                          join ct3 in db.CodeTables on ct.BusType equals ct3.KeyCode
                          where ct3.Title.Equals(strBusType)
                          join ct4 in db.CodeTables on ct.Brand equals ct4.KeyCode
@@ -161,9 +161,9 @@ namespace OBTS.API.Controllers
                              BusType = ct.BusType,
                              BusTypeDesc = ct3.Value,
                              VechiclePhoneNo = ct.VechiclePhoneNo,
-                             Source = a.Source,
+                             Source_CityId = a.Source_CityId,
                              SourceCity = ct1.CityDesc,
-                             Destination = a.Destination,
+                             Destination_CityId = a.Destination_CityId,
                              DestinationCity = ct2.CityDesc,
                              Recurrsive = a.Recurrsive,
                              RouteDate = a.RouteDate,

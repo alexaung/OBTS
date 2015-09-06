@@ -33,7 +33,7 @@ namespace OBTS.API
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, OBTS.API.Migrations.Configuration>());
+           // Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, OBTS.API.Migrations.Configuration>());
 
         }
 
@@ -48,9 +48,8 @@ namespace OBTS.API
             app.UseExternalSignInCookie(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie);
             OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
 
-            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
-            {
-
+            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions() {
+            
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),

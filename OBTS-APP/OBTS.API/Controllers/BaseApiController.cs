@@ -18,6 +18,21 @@ namespace OBTS.API.Controllers
         private ApplicationUserManager _AppUserManager = null;
         private ApplicationRoleManager _AppRoleManager = null;
 
+        //public ApplicationUserManager UserManager
+        //{
+        //    get { return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+        //}
+
+
+        //public string UserIdentityId
+        //{
+        //    get
+        //    {
+        //        var user = UserManager.FindByName(User.Identity.Name);
+        //        return user.Id;
+        //    }
+        //}
+
         protected ApplicationUserManager AppUserManager
         {
             get

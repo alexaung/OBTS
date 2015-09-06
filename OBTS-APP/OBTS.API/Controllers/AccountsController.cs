@@ -71,7 +71,7 @@ namespace OBTS.API.Controllers
 
             var user = new ApplicationUser()
             {
-                UserName = createUserModel.Username,
+                UserName = createUserModel.UserName,
                 Email = createUserModel.Email,
                 FirstName = createUserModel.FirstName,
                 LastName = createUserModel.LastName,

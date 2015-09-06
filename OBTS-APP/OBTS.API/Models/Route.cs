@@ -5,15 +5,15 @@ using System.Web;
 
 namespace OBTS.API.Models
 {
-    public class Route
+    public class Route : EntityBase
     {
         public Guid RouteId { get; set; }
 
         public Guid BusId { get; set; }
 
-        public Guid Source { get; set; }
+        public Guid Source_CityId { get; set; }
 
-        public Guid Destination { get; set; }
+        public Guid Destination_CityId { get; set; }
 
         public bool Recurrsive { get; set; }
 
@@ -26,8 +26,8 @@ namespace OBTS.API.Models
         public decimal RouteFare { get; set; }
 
         //navi properties
-        public City _citySource { get; set; }
-        public City _cityDestination { get; set; }
+        //public City _Source_City { get; set; }
+        //public City _Destination_City { get; set; }
         public Bus _bus { get; set; }
     }
 }

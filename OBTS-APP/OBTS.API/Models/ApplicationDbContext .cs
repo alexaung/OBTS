@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
 using OBTS.API.Infrastructure;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using System.Data.SqlTypes;
 
 namespace OBTS.API.Models
 {
@@ -24,6 +27,62 @@ namespace OBTS.API.Models
         public static ApplicationDbContext  Create()
         {
             return new ApplicationDbContext ();
+        }
+
+        public override int SaveChanges()
+        {
+            UpdatedChangedAtDateTimestamps();
+
+            return base.SaveChanges();
+        }
+
+        public override Task<int> SaveChangesAsync()
+        {
+            UpdatedChangedAtDateTimestamps();
+
+            return base.SaveChangesAsync();
+        }
+
+        private void UpdatedChangedAtDateTimestamps()
+        {
+            var changedAtEntities = ChangeTracker.Entries()
+                .Where(i => i.State != EntityState.Unchanged && i.Entity is EntityBase);
+              //  .Where(i => );
+
+
+
+            Guid userId = Guid.Empty;
+            if (HttpContext.Current != null)
+            {
+                var user = HttpContext.Current.User;
+                userId = Guid.Parse(user.Identity.GetUserId());
+            }
+            else
+                userId = Guid.Parse("6eda40fc-0b54-4958-b52a-7f48601395da");
+
+         //   Guid userId = Guid.Parse("6eda40fc-0b54-4958-b52a-7f48601395da");
+
+            foreach (var entity in changedAtEntities)
+            {
+                if (entity.State == EntityState.Added) {
+
+                    var values = entity.CurrentValues;
+                   
+                    ((EntityBase)entity.Entity).CreatedUtc = DateTime.UtcNow;
+                    //need to replace with actual user
+                    ((EntityBase)entity.Entity).CreatedBy = userId;
+
+                    ((EntityBase)entity.Entity).ModifiedUtc = DateTime.UtcNow;
+                    //need to replace with actual user
+                    ((EntityBase)entity.Entity).ModifiedBy = userId;
+                }
+                else if (entity.State == EntityState.Modified)
+                {
+                    ((EntityBase)entity.Entity).ModifiedUtc = DateTime.UtcNow;
+                    //need to replace with actual user
+                    ((EntityBase)entity.Entity).ModifiedBy = userId;
+                }
+            }
         }
 
         public System.Data.Entity.DbSet<OBTS.API.Models.Client> Clients { get; set; }
@@ -57,6 +116,8 @@ namespace OBTS.API.Models
         public System.Data.Entity.DbSet<OBTS.API.Models.Seat> Seats { get; set; }
 
         public System.Data.Entity.DbSet<OBTS.API.Models.Bank> Banks { get; set; }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.Booking> Bookings { get; set; }
     
     }
 }

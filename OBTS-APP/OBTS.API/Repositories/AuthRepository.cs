@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OBTS.API.Infrastructure;
 using OBTS.API.Models;
 using System;
 using System.Collections.Generic;
@@ -13,29 +14,29 @@ namespace OBTS.API.Repositories
     {
         private ApplicationDbContext _ctx;
 
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<ApplicationUser> _userManager;
 
         public AuthRepository()
         {
             _ctx = new ApplicationDbContext();
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
+            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
         }
 
-        //public async Task<IdentityResult> RegisterUser(UserModel userModel)
-        //{
-        //    IdentityUser user = new IdentityUser
-        //    {
-        //        UserName = userModel.UserName
-        //    };
-
-        //    var result = await _userManager.CreateAsync(user, userModel.Password);
-
-        //    return result;
-        //}
-
-        public async Task<IdentityUser> FindUser(string userName, string password)
+        public async Task<IdentityResult> RegisterUser(CreateUserBindingModel userModel)
         {
-            IdentityUser user = await _userManager.FindAsync(userName, password);
+            ApplicationUser user = new ApplicationUser
+            {
+                UserName = userModel.UserName
+            };
+
+            var result = await _userManager.CreateAsync(user, userModel.Password);
+
+            return result;
+        }
+
+        public async Task<ApplicationUser> FindUser(string userName, string password)
+        {
+            ApplicationUser user = await _userManager.FindAsync(userName, password);
 
             return user;
         }
@@ -100,7 +101,7 @@ namespace OBTS.API.Repositories
             return user;
         }
 
-        public async Task<IdentityResult> CreateAsync(IdentityUser user)
+        public async Task<IdentityResult> CreateAsync(ApplicationUser user)
         {
             var result = await _userManager.CreateAsync(user);
 
