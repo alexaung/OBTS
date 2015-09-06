@@ -82,6 +82,12 @@ namespace OBTS.API.Models
                 }
                 else if (entity.State == EntityState.Modified)
                 {
+                    var values = entity.OriginalValues;
+
+                    ((EntityBase)entity.Entity).CreatedUtc =(DateTime) values["CreatedUtc"];
+                    //need to replace with actual user
+                    ((EntityBase)entity.Entity).CreatedBy = Guid.Parse(values["CreatedBy"].ToString());
+
                     ((EntityBase)entity.Entity).ModifiedUtc = DateTime.UtcNow;
                     //need to replace with actual user
                     ((EntityBase)entity.Entity).ModifiedBy = userId;

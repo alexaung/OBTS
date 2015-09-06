@@ -173,9 +173,9 @@ namespace OBTS.API.Controllers
                 return BadRequest();
             }
 
-            Bus dbBus = await db.Buses.FindAsync(bus.BusId);
-            bus.CreatedBy = dbBus.CreatedBy;
-            bus.CreatedUtc = dbBus.CreatedUtc;
+            //Bus dbBus = await db.Buses.FindAsync(bus.BusId);
+            //bus.CreatedBy = dbBus.CreatedBy;
+            //bus.CreatedUtc = dbBus.CreatedUtc;
 
             db.Entry(bus).State = EntityState.Modified;
 
