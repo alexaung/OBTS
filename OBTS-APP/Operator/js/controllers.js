@@ -2662,6 +2662,7 @@ var serviceBase = 'http://localhost:57448/api/';
 angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
+    .controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', loginController])
     .controller('busListCtrl', busListCtrl)
     .controller('busEditCtrl', busListCtrl)
     .controller('dashboardFlotOne', dashboardFlotOne)
@@ -2669,7 +2670,9 @@ angular
     .controller('dashboardMap', dashboardMap)
     .controller('translateCtrl', translateCtrl)
     .factory("dataService", dataServiceFactory)
-    .factory("busService", ['$http','ngAuthSettings', busService])
+    .factory("busService", ['$http', 'ngAuthSettings', busService])
+    .factory('authInterceptorService', ['$q', '$location', 'localStorageService', authInterceptorService])
+    .factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSettings', authService])
     .constant('ngAuthSettings', {
         apiServiceBaseUri: serviceBase,
         clientId: 'ngAuthApp'

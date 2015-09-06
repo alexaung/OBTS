@@ -14,9 +14,11 @@ using OBTS.API.Models;
 using System.Configuration;
 using OBTS.API.Models.DTO;
 using System.Linq.Expressions;
+using AutoMapper;
 
 namespace OBTS.API.Controllers
 {
+    [Authorize]
     public class BusesController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
@@ -170,6 +172,10 @@ namespace OBTS.API.Controllers
             {
                 return BadRequest();
             }
+
+            Bus dbBus = await db.Buses.FindAsync(bus.BusId);
+            bus.CreatedBy = dbBus.CreatedBy;
+            bus.CreatedUtc = dbBus.CreatedUtc;
 
             db.Entry(bus).State = EntityState.Modified;
 

@@ -58,7 +58,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="services\authservice.js" />
+    <Content Include="controllers\loginController.js" />
+    <Content Include="js\angular\angular-local-storage.min.js" />
+    <Content Include="services\authInterceptorService.js" />
+    <Content Include="services\authService.js" />
     <Content Include="services\dataservice.js" />
     <Content Include="controllers\route\routeedit.js" />
     <Content Include="controllers\route\routelist.js" />
@@ -919,6 +922,7 @@
     <Content Include="views\common\topnavbar.html" />
     <Content Include="views\common\top_navigation.html" />
     <Content Include="views\dashboard_1.html" />
+    <Content Include="views\login.html" />
     <Content Include="views\mybus\bus_list.html" />
     <Content Include="views\landing.html" />
     <Content Include="views\mybus\bus_edit.html" />

@@ -6,8 +6,9 @@
  * Initial there are written state for all view in theme.
  *
  */
-function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider) {
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider, $httpProvider) {
 
+    $httpProvider.interceptors.push('authInterceptorService');
     // Configure Idle settings
     IdleProvider.idle(5); // in seconds
     IdleProvider.timeout(120); // in seconds
@@ -19,7 +20,11 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
     });
 
     $stateProvider
-
+        .state('login', {
+            url: "/login",
+            templateUrl: "views/login.html",
+            data: {pageTitle :'Login', specialClass: 'gray-bg'}
+        })
         .state('dashboards', {
             abstract: true,
             url: "/dashboards",
@@ -238,5 +243,3 @@ angular
     .run(function ($rootScope, $state) {
         $rootScope.$state = $state;
     });
-
-

@@ -49,13 +49,17 @@ namespace OBTS.API.Models
                 .Where(i => i.State != EntityState.Unchanged && i.Entity is EntityBase);
               //  .Where(i => );
 
-
-
+           
             Guid userId = Guid.Empty;
             if (HttpContext.Current != null)
             {
+                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+           
                 var user = HttpContext.Current.User;
-                userId = Guid.Parse(user.Identity.GetUserId());
+
+                ApplicationUser appUser = userManager.FindByName(user.Identity.Name);
+
+                userId = Guid.Parse(appUser.Id);
             }
             else
                 userId = Guid.Parse("6eda40fc-0b54-4958-b52a-7f48601395da");

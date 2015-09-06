@@ -1,5 +1,5 @@
 ﻿'use strict';
-app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSettings', function ($http, $q, localStorageService, ngAuthSettings) {
+function authService($http, $q, localStorageService, ngAuthSettings) {
 
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
     var authServiceFactory = {};
@@ -20,7 +20,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
 
         _logOut();
 
-        return $http.post(serviceBase + 'api/account/register', registration).then(function (response) {
+        return $http.post(serviceBase + '/accounts/create', registration).then(function (response) {
             return response;
         });
 
@@ -167,4 +167,4 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSetting
     authServiceFactory.registerExternal = _registerExternal;
 
     return authServiceFactory;
-}]);
+};
