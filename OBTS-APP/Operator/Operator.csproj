@@ -58,6 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="services\authservice.js" />
     <Content Include="services\dataservice.js" />
     <Content Include="controllers\route\routeedit.js" />
     <Content Include="controllers\route\routelist.js" />

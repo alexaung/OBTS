@@ -2653,6 +2653,8 @@ function sweetAlertCtrl($scope, SweetAlert) {
 
 }
 
+var serviceBase = 'http://localhost:57448/api/';
+
 /**
  *
  * Pass all functions into module
@@ -2665,45 +2667,11 @@ angular
     .controller('dashboardFlotOne', dashboardFlotOne)
     .controller('dashboardFlotTwo', dashboardFlotTwo)
     .controller('dashboardMap', dashboardMap)
-    //.controller('flotChartCtrl', flotChartCtrl)
-    //.controller('rickshawChartCtrl', rickshawChartCtrl)
-    //.controller('sparklineChartCtrl', sparklineChartCtrl)
-    //.controller('widgetFlotChart', widgetFlotChart)
-    //.controller('modalDemoCtrl', modalDemoCtrl)
-    //.controller('ionSlider', ionSlider)
-    //.controller('wizardCtrl', wizardCtrl)
-    //.controller('CalendarCtrl', CalendarCtrl)
-    //.controller('chartJsCtrl', chartJsCtrl)
-    //.controller('GoogleMaps', GoogleMaps)
-    //.controller('ngGridCtrl', ngGridCtrl)
-    //.controller('codeEditorCtrl', codeEditorCtrl)
-    //.controller('nestableCtrl', nestableCtrl)
-    //.controller('notifyCtrl', notifyCtrl)
     .controller('translateCtrl', translateCtrl)
-    //.controller('imageCrop', imageCrop)
-    //.controller('diff', diff)
-    //.controller('idleTimer', idleTimer)
-    //.controller('liveFavicon', liveFavicon)
-    //.controller('formValidation', formValidation)
-    //.controller('agileBoard', agileBoard)
-    //.controller('draggablePanels', draggablePanels)
-    //.controller('chartistCtrl', chartistCtrl)
-    //.controller('metricsCtrl', metricsCtrl)
-    //.controller('sweetAlertCtrl', sweetAlertCtrl)
     .factory("dataService", dataServiceFactory)
-    .factory("busService", busService)
-    //.directive('myDirective', function () {
-    //    return function (scope, element) {
-
-    //        if (scope.$last && !$('.footable').hasClass('footable-loaded')) {
-    //            $('.footable').footable();
-    //        }
-
-    //        var footableObject = $('.footable').data('footable');
-    //        if (footableObject !== undefined) {
-    //            footableObject.appendRow($(element));
-    //        }
-
-    //    };
-    //})
+    .factory("busService", ['$http','ngAuthSettings', busService])
+    .constant('ngAuthSettings', {
+        apiServiceBaseUri: serviceBase,
+        clientId: 'ngAuthApp'
+    })
 

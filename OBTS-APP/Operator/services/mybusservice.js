@@ -1,8 +1,11 @@
 ﻿'use strict';
-function busService($http, dataService) {
+function busService($http, ngAuthSettings) {
+
+    var serviceBase = ngAuthSettings.apiServiceBaseUri;
+
     var busServiceFactory = {};
     busServiceFactory.loadBrand = function () {
-       return $http.get(dataService.AppData.webapiurl + 'codetables/title/brand').success(function (data, status, headers, config) {
+        return $http.get(serviceBase + 'codetables/title/brand').success(function (data, status, headers, config) {
             return data;
         }).error(function (data, status, headers, config) {
             return null;
@@ -10,7 +13,7 @@ function busService($http, dataService) {
 
     };
     busServiceFactory.loadBusType = function () {
-        return $http.get(dataService.AppData.webapiurl + 'codetables/title/bustype').success(function (data, status, headers, config) {
+        return $http.get(serviceBase + 'codetables/title/bustype').success(function (data, status, headers, config) {
             return data;
         }).error(function (data, status, headers, config) {
             return null;
@@ -18,7 +21,7 @@ function busService($http, dataService) {
     };
     
     busServiceFactory.update = function (bus) {
-        return $http.put(dataService.AppData.webapiurl + 'buses/' + bus.BusId, bus).
+        return $http.put(serviceBase + 'buses/' + bus.BusId, bus).
                 success(function (response, status, headers, config) {
                     return response;
                 }).
@@ -27,7 +30,7 @@ function busService($http, dataService) {
                 });
     };
     busServiceFactory.insert = function (bus) {
-        return $http.post(dataService.AppData.webapiurl + 'buses', bus).
+        return $http.post(serviceBase + 'buses', bus).
                 success(function (response, status, headers, config) {
                     return response;
                     
