@@ -58,8 +58,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="controllers\DataService.js" />
-    <Content Include="controllers\mybus\mybuscontroller.js" />
+    <Content Include="services\dataservice.js" />
+    <Content Include="controllers\route\routeedit.js" />
+    <Content Include="controllers\route\routelist.js" />
+    <Content Include="controllers\mybus\busedit.js" />
+    <Content Include="controllers\mybus\buslist.js" />
     <Content Include="css\plugins\bootstrap-rtl\bootstrap-rtl.css.map" />
     <Content Include="css\plugins\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="css\plugins\fonts\glyphicons-halflings-regular.ttf" />
@@ -901,6 +904,7 @@
     <Content Include="js\translations.js" />
     <Content Include="js\ui-router\angular-ui-router.js" />
     <Content Include="js\ui-router\angular-ui-router.min.js" />
+    <Content Include="services\mybusservice.js" />
     <Content Include="views\booking\calendar.html" />
     <Content Include="views\common\content.html" />
     <Content Include="views\common\content_top_navigation.html" />
@@ -917,6 +921,7 @@
     <Content Include="views\mybus\bus_list.html" />
     <Content Include="views\landing.html" />
     <Content Include="views\mybus\bus_edit.html" />
+    <Content Include="views\routes\route_edit.html" />
     <Content Include="views\routes\route_list.html" />
     <Content Include="views\skin-config.html" />
     <Content Include="Web.config" />

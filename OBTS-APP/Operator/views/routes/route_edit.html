@@ -1,0 +1,151 @@
+<div class="modal-header">
+    <h4 class="modal-title"><i class="fa fa-bus modal-icon"></i> Route Details</h4>
+</div>
+<div class="modal-body" ng-controller="routeEditCtrl" >
+    <div >
+        <form class="form-horizontal" role="form" name="routeEdit" novalidate ng-submit="save()" ng-init="initRouteEdit(this)" >
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'FROM' | translate }}</label>
+                    <div class="col-sm-9">
+                        <select class="form-control m-b" name="Brand" ng-model="route." ng-options="brand.KeyCode as brand.Value for brand in brands" required></select>
+                        <div ng-show=" busEdit.Brand.$invalid && busEdit.submitted ">
+                            <small class="text-danger" ng-show="busEdit.Brand.$error.required">Please select a bus brand.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'TO' | translate }}</label>
+                    <div class="col-sm-9"><input type="text" class="form-control" name="model" ng-model="bus.Model"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'BUSREGNO' | translate }}</label>
+                    <div class="col-sm-9"><input type="text" class="form-control" name="RegistrationNo" ng-model="bus.RegistrationNo" required></div>
+                    <div  ng-show="busEdit.RegistrationNo.$invalid && busEdit.submitted ">
+                        <small class="col-sm-3"/><small class="col-sm-9 text-danger" ng-show="busEdit.RegistrationNo.$error.required">Please input a Reg. No</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'BUSPERMITNO' | translate }}</label>
+                    <div class="col-sm-9"><input type="text" class="form-control" name="PermitNumber" ng-model="bus.PermitNumber" required></div>
+                    <div ng-show=" busEdit.PermitNumber.$invalid && busEdit.submitted ">
+                        <small class="col-sm-3" /><small class="col-sm-9 text-danger" ng-show="busEdit.PermitNumber.$error.required">Please input a Permit No</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'BUSPERMITRENEWDATE' | translate }}</label>
+                    <div class="col-sm-9">
+                        <div class="input-group date">
+                            <input name="PermitRenewDate" id="PermitRenewDate" type="datetime" class="form-control" date-time ng-model="bus.PermitRenewDate" view="date" min-view="date" auto-close="true" format="dd-MMM-yyyy" required>
+                            <span class="input-group-btn">
+                                <label class="btn btn-default form-control" for="PermitRenewDate">
+                                    <i class="fa fa-calendar"></i>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                    <div ng-show=" busEdit.PermitRenewDate.$invalid && busEdit.submitted ">
+                        <small class="col-sm-3" /><small class="col-sm-9 text-danger" ng-show="busEdit.PermitRenewDate.$error.required">Please input Permit Renew Date</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'BUSTYPE' | translate }}</label>
+
+                    <div class="col-sm-9">
+                        <select class="form-control m-b" name="bustype" ng-model="bus.BusType" ng-options="bustype.KeyCode as bustype.Value for bustype in bustypes"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'INSURANCEPOLICYNUMBER' | translate }}</label>
+                    <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.InsurancePolicyNumber"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'INSURANCECOMPANY' | translate }}</label>
+                    <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.InsuranceCompany"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'INSURANCEVALIDFROM' | translate }}</label>
+                    <div class="col-sm-9">
+                        <div class="input-group date">
+                            <input id="expdate" type="datetime" class="form-control" date-time ng-model="bus.InsuranceValidFrom" view="date" min-view="date" format="dd-MMM-yyyy" auto-close="true">
+                            <span class="input-group-btn">
+                                <label class="btn btn-default form-control" for="expdate">
+                                    <i class="fa fa-calendar"></i>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'INSURANCEVALIDTO' | translate }}</label>
+                    <div class="col-sm-9">
+                        <div class="input-group date">
+                            <input id="expdate" type="datetime" class="form-control" date-time ng-model="bus.InsuranceValidTo" view="date" min-view="date" format="dd-MMM-yyyy" auto-close="true">
+                            <span class="input-group-btn">
+                                <label class="btn btn-default form-control" for="expdate">
+                                    <i class="fa fa-calendar"></i>
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'VECHICLEPHONENO' | translate }}</label>
+                    <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.VechiclePhoneNo"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'DRIVERNAME' | translate }}</label>
+                    <div class="col-sm-9"><input type="text" class="form-control" ng-model="bus.DriverName"></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'DESCRIPTION' | translate }}</label>
+                    <div class="col-sm-9"><textarea class="form-control" ng-model="bus.Description" /></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        {{ 'FACILTIES' | translate }}
+                    </label>
+
+                    <div class="col-sm-9">
+                        <div>
+                            <label>
+                                <input icheck type="checkbox" ng-model="main.video">
+                                Video
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input icheck type="checkbox" ng-model="main.audio">
+                                Audio
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input icheck type="checkbox" ng-model="main.games">
+                                Games
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input icheck type="checkbox" ng-model="main.toilet">
+                                Toilet
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{ 'STATUS' | translate }}</label>
+
+                    <div class="col-sm-9">
+                        <select class="form-control m-b" name="statusType" ng-model="bus.Status" ng-options="statusType.KeyCode as statusType.Value for statusType in statusTypes" />
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-white" ng-click="cancel()">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+</form>
+       
+</div>
+</div>

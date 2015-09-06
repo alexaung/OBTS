@@ -411,6 +411,24 @@ function fitHeight(){
 }
 
 /**
+ * fooTable - Directive for re-render fooTable after binding
+ */
+function fooTable() {
+    return function (scope, element) {
+
+        if (scope.$last && !$('.footable').hasClass('footable-loaded')) {
+            $('.footable').footable();
+        }
+
+        var footableObject = $('.footable').data('footable');
+        if (footableObject !== undefined) {
+            footableObject.appendRow($(element));
+        }
+
+    };
+}
+
+/**
  *
  * Pass all functions into module
  */
@@ -432,4 +450,5 @@ angular
     .directive('closeOffCanvas', closeOffCanvas)
     .directive('clockPicker', clockPicker)
     .directive('landingScrollspy', landingScrollspy)
-    .directive('fitHeight', fitHeight);
+    .directive('fitHeight', fitHeight)
+    .directive('myDirective', fooTable)
