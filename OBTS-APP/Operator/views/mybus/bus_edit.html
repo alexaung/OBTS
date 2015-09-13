@@ -4,25 +4,28 @@
 <div class="modal-body" ng-controller="busEditCtrl" >
     <div >
         <form class="form-horizontal" role="form" name="busEdit" novalidate ng-submit="save()" ng-init="initBusEdit(this)" >
+           
                 <div class="form-group">
                     <label class="col-sm-3 control-label">{{ 'BUSBRAND' | translate }}</label>
                     <div class="col-sm-9">
                         <select class="form-control m-b" name="Brand" ng-model="bus.Brand" ng-options="brand.KeyCode as brand.Value for brand in brands" required></select>
                         <div ng-show=" busEdit.Brand.$invalid && busEdit.submitted ">
-                            <small class="text-danger" ng-show="busEdit.Brand.$error.required">Please select a bus brand.</small>
+                            <small class="col-sm-3" /><small class="text-danger" ng-show="busEdit.Brand.$error.required">Please select a bus brand.</small>
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="col-sm-3 control-label">{{ 'BUSMODEL' | translate }}</label>
-                    <div class="col-sm-9"><input type="text" class="form-control" name="model" ng-model="bus.Model"></div>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="model" ng-model="bus.Model">
+                    </div>
                 </div>
+               
                 <div class="form-group">
                     <label class="col-sm-3 control-label">{{ 'BUSREGNO' | translate }}</label>
                     <div class="col-sm-9"><input type="text" class="form-control" name="RegistrationNo" ng-model="bus.RegistrationNo" required></div>
-                    <div  ng-show="busEdit.RegistrationNo.$invalid && busEdit.submitted ">
-                        <small class="col-sm-3"/><small class="col-sm-9 text-danger" ng-show="busEdit.RegistrationNo.$error.required">Please input a Reg. No</small>
+                    <div ng-show="busEdit.RegistrationNo.$invalid && busEdit.submitted ">
+                        <small class="col-sm-3" /><small class="col-sm-9 text-danger" ng-show="busEdit.RegistrationNo.$error.required">Please input a Reg. No</small>
                     </div>
                 </div>
                 <div class="form-group">
