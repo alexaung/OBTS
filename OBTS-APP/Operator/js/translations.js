@@ -32,7 +32,9 @@ function config($translateProvider) {
 		    LAYOUTS: 'Layouts',
 		    WELCOME: 'Welcome Amelia',
 		    MESSAGEINFO: 'You have 42 messages and 6 notifications.',
-		    SEARCH: 'Search for something...',
+		    SEARCH: 'Search',
+		    CALENDAR: 'Calendar',
+    	    BOOKINGLIST: 'Booking List',
 
     	    // Define bus information
 		    BUSBRAND: "အမွတ္တ႔ဆိပ္",
@@ -58,6 +60,8 @@ function config($translateProvider) {
 		    DEPARTURETIME: "Deperture Time",
 		    ARRIVALTIME: "Arrival Time",
 		    ROUTEFARE: "Fare",
+		    RECURSIVE: "ပံုမွန္ခရီးစဥ္"
+
         })
         .translations('en', {
 
@@ -86,7 +90,11 @@ function config($translateProvider) {
             LAYOUTS: 'Layouts',
             WELCOME: 'Welcome Amelia',
             MESSAGEINFO: 'You have 42 messages and 6 notifications.',
-            SEARCH: 'Search for something...',
+            SEARCH: 'Search',
+            CALENDAR: 'Calendar',
+            BOOKINGLIST: 'Booking List',
+
+
             
             // Define bus information
             BUSBRAND: "Brand",
@@ -112,6 +120,7 @@ function config($translateProvider) {
             DEPARTURETIME: "Deperture Time",
             ARRIVALTIME: "Arrival Time",
             ROUTEFARE: "Fare",
+            RECURSIVE: "Recursive"
 
         });
 

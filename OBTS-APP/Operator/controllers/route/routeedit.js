@@ -1,80 +1,82 @@
 ﻿/**
- * busEditCtrl - Controller used to run modal view
+ * routeEditCtrl - Controller used to run modal view
  * used in Basic form view
  */
 'use strict';
-function busEditCtrl($scope, $modalInstance, $http, notify, DataService) {
-    
-    var webapiurl = 'http://localhost:57448/api/';
+function routeEditCtrl($scope, $modalInstance, $http, notify, routeService) {
+
+
     notify.config({
         duration: '1500'
     });
 
     $scope.statusTypes = [{ KeyCode: true, Value: "Active" }, { KeyCode: true, Value: "Inactive" }]
-
-    $scope.initBusEdit = function (scope) {
+    
+    $scope.initRouteEdit = function (scope) {
         this.formScope = scope;
-        $scope.bus = DataService.AppData.bus;
-        DataService.AppData.bus = {};
-        $scope.bus.OperatorId = "F9688FDF-1BEF-4E32-B70C-4494856BB94D"
-        $http.get(webapiurl + 'codetables/title/brand').success(function (data, status, headers, config) {
-            $scope.brands = data;
-            //for (var d = 0, len = data.length; d < len; d += 1) {
-            //    if (data[d].KeyCode == $scope.busDto.Brand) {
-            //        $scope.busDto.Brand = data[d];
-            //    }
-            //}
-        }).error(function (data, status, headers, config) {
-            $scope.brands = null;
+        this.formScope.recursiveWeekly = false;
+        $scope.route = routeService.route;
+        $scope.route.DepartureDateTime = new Date("01-Jan-1900 " + $scope.route.DepartureTime)
+        $scope.route.ArrivalDateTime = new Date("01-Jan-1900 " + $scope.route.ArrivalTime)
+        
+        routeService.route = {};
+        $scope.route.OperatorId = "F9688FDF-1BEF-4E32-B70C-4494856BB94D";
+
+
+        routeService.loadBuses().success(function (response) {
+            $scope.buses = response
+        }).error(function (err) {
+            $scope.message = err.error_description;
         });
 
-        $http.get(webapiurl + 'codetables/title/bustype').success(function (data, status, headers, config) {
-            $scope.bustypes = data;
-            //for (var d = 0, len = data.length; d < len; d += 1) {
-            //    if (data[d].KeyCode == $scope.busDto.BusType) {
-            //        $scope.busDto.BusType = data[d];
-            //    }
-            //}
-            //$scope.bus = $scope.busDto;
-        }).error(function (data, status, headers, config) {
-            $scope.bustypes = null;
+        routeService.loadCities().success(function (response) {
+            $scope.cities = response
+        }).error(function (err) {
+            $scope.message = err.error_description;
         });
+
+
     }
 
     $scope.save = function () {
-        
-        if (this.formScope.busEdit.$valid) {
-            if ($scope.bus.BusId) {
-                $http.put(webapiurl + 'buses/' + $scope.bus.BusId, $scope.bus).
-                success(function (data, status, headers, config) {
-                    notify({ message: 'Bus information is saved successfuly.', classes: 'alert-success', templateUrl: 'views/common/notify.html' });
+
+        if (this.formScope.routeEdit.$valid) {
+            $scope.route.DepartureTime = $scope.route.DepartureDateTime.getHours() + ":" + $scope.route.DepartureDateTime.getMinutes() + $scope.route.DepartureDateTime.getSeconds();
+            $scope.route.ArrivalTime = $scope.route.ArrivalDateTime.getHours() + ":" + $scope.route.ArrivalDateTime.getMinutes() + $scope.route.ArrivalDateTime.getSeconds();
+            if ($scope.route.RouteId) {    
+                routeService.update($scope.route).success(function (response) {
+                    notify({ message: 'Route information is saved successfuly.', classes: 'alert-success', templateUrl: 'views/common/notify.html' });
                     $modalInstance.close();
                 }).
-                error(function (data, status, headers, config) {
+                error(function (error) {
                     notify.config({
                         duration: '7000'
                     });
-                    notify({ message: 'There is having some error in saving bus informatin. Please contact system admin if the problem persists.', classes: 'alert-danger', templateUrl: 'views/common/notify.html' });
+                    notify({ message: 'There is having some error in saving route informatin. Please contact system admin if the problem persists.', classes: 'alert-danger', templateUrl: 'views/common/notify.html' });
                 });
             }
             else {
-                $http.post(webapiurl + 'buses', $scope.bus).
-                success(function (data, status, headers, config) {
-                    notify({ message: 'Bus information is saved successfuly.', classes: 'alert-success', templateUrl: 'views/common/notify.html' });
+                routeService.insert($scope.route).success(function (response) {
+                    notify({ message: 'Route information is saved successfuly.', classes: 'alert-success', templateUrl: 'views/common/notify.html' });
                     $modalInstance.close();
                 }).
-                error(function (data, status, headers, config) {
+                error(function (error) {
                     notify.config({
                         duration: '7000'
                     });
-                    notify({ message: 'There is having some error in saving bus information. Please contact system admin if the problem persists.', classes: 'alert-danger', templateUrl: 'views/common/notify.html' });
+                    notify({ message: 'There is having some error in saving route informatin. Please contact system admin if the problem persists.', classes: 'alert-danger', templateUrl: 'views/common/notify.html' });
                 });
             }
         }
         else {
-            this.formScope.busEdit.submitted = true;
+            this.formScope.routeEdit.submitted = true;
         }
+
+    };
+
+    $scope.recursiveTypeChange = function () {
         
+        this.formScope.recursiveWeekly = this.formScope.recursiveType == 'Weekly';
     };
 
     $scope.cancel = function () {

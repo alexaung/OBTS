@@ -14,38 +14,38 @@
         </ol>
     </div>
 </div>
-<div class="wrapper wrapper-content" ng-controller="CalendarCtrl">
+<div class="wrapper wrapper-content" ng-controller="calendarCtrl" ng-init="initCalendar()">
     <div class="row animated fadeInDown">
         <div class="col-lg-3">
-            <div class="ibox float-e-margins">
+            <div class="ibox float-e-margins" ng-show="selectedEvent">
                 <div class="ibox-title">
-                    <h5>Routes List</h5>
+                    <h5>{{selectedEvent.title}}</h5>
                     <div ibox-tools></div>
                 </div>
-                <div class="ibox-content">
-                    <div id='external-events'>
-                        <strong>Click, Drop or Resize event on calendar!</strong>
-                        <p>Message from functions:
-                        <br/>
-                            <div class="alert alert-warning" ng-show="alertMessage">
-                                {{alertMessage}}
-                            </div>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-                    <h2>FullCalendar</h2> is a jQuery plugin that provides a full-sized, drag & drop calendar like the one below. It uses AJAX to fetch events on-the-fly for each month and is
-                    easily configured to use your own feed format (an extension is provided for Google Calendar).
-                    <p>
-                        <a href="http://arshaw.com/fullcalendar/" target="_blank">FullCalendar documentation</a>
-                    </p>
+                <div class="ibox-content" >
+                        
+         
+                        <div class="ibox" ng-repeat="route in selectedEvent.routes">
+                            <div class="ibox-content product-box">
 
-                    <h2>UI Calendar</h2> is a complete AngularJS directive for the Arshaw FullCalendar
-                    <p>
-                        <a href="http://angular-ui.github.io/ui-calendar/" target="_blank">Ui Calendar documentation</a>
-                    </p>
+                                <div class="product-desc">
+                                    <a href="#" class="product-name">{{route.RouteDate | date:'dd-MMM-yyyy'}} {{route.DepartureTime}} </a>
+                                    <small class="text-muted">Available seats</small>
+                                    <a href="#" class="product-name">25</a>
+                                   
+                                </div>
+                                <div class="product-desc">
+                                    <div class="m-t text-righ">
+                                        <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                                        <a href="#" class="btn btn-xs btn-outline btn-primary">Book now </a>
+                                    </div>
+                                    <span class="product-price">
+                                        {{route.RouteFare}} Kyats
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+               
                 </div>
             </div>
         </div>

@@ -35,10 +35,14 @@
                 <a ui-sref="routes.routelist"><i class="fa fa-road"></i> <span class="nav-label">{{ 'ROUTES' | translate }}</span></a>
             </li>
 
-            <li ui-sref-active="active">
-                <a ui-sref="booking.calendar"><i class="fa fa-bookmark"></i> <span class="nav-label">{{ 'BOOKING' | translate }}</span></a>
+            <li ng-class="{active: $state.includes('booking')}">
+                <a ui-sref="inbox"><i class="fa fa-book"></i> <span class="nav-label">{{ 'BOOKING' | translate }} </span></a>
+                <ul class="nav nav-second-level" ng-class="{in: $state.includes('booking')}">
+                    <li ui-sref-active="active"><a ui-sref="booking.calendar">{{ 'CALENDAR' | translate }}</a></li>
+                    <li ui-sref-active="active"><a ui-sref="booking.search">{{ 'SEARCH' | translate }}</a></li>
+                    <li ui-sref-active="active"><a ui-sref="booking.bookinglist">{{ 'BOOKINGLIST' | translate }}</a></li>
+                </ul>
             </li>
-
             
             <li ng-class="{active: $state.includes('mailbox')}">
                 <a ui-sref="inbox"><i class="fa fa-envelope"></i> <span class="nav-label">{{ 'MAILBOX' | translate }} </span></a>
