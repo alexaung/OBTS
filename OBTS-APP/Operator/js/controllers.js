@@ -43,14 +43,8 @@
  * Contains severals global data used in diferent view
  *
  */
-function MainCtrl($scope, $location, authService) {
+function MainCtrl() {
 
-    $scope.logOut = function () {
-        authService.logOut();
-        $location.path('/login');
-    }
-
-    $scope.authentication = authService.authentication;
     /**
      * daterange - Used as initial model for data range picker in Advanced form view
      */
@@ -2601,14 +2595,13 @@ var serviceBase = 'http://localhost:57448/api/';
  */
 angular
     .module('inspinia')
-    .controller('MainCtrl', ['$scope', '$location', 'authService',MainCtrl])
+    .controller('MainCtrl', MainCtrl)
     .controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', loginController])
     .controller('busListCtrl', busListCtrl)
     .controller('busEditCtrl', busListCtrl)
     .controller('routeListCtrl', routeListCtrl)
     .controller('routeEditCtrl', routeListCtrl)
     .controller('calendarCtrl', calendarCtrl)
-    .controller('busSeatController', busListCtrl)
     .controller('dashboardFlotOne', dashboardFlotOne)
     .controller('dashboardFlotTwo', dashboardFlotTwo)
     .controller('dashboardMap', dashboardMap)
