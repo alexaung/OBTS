@@ -103,6 +103,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            routePoint.RoutePointId = Guid.NewGuid();
             db.RoutePoints.Add(routePoint);
 
             try

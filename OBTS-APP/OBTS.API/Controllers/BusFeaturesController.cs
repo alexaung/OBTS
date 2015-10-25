@@ -125,6 +125,7 @@ namespace OBTSAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            busFeature.BusFeatureId = Guid.NewGuid();
             db.BusFeatures.Add(busFeature);
 
             try

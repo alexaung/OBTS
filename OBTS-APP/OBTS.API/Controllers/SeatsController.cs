@@ -110,9 +110,12 @@ namespace OBTS.API.Controllers
         public async Task<IHttpActionResult> BulkInsertSeats(Seat[] seats)
         {
             OBTSResponse rep=new OBTSResponse();
+            rep.Success = true;
+            rep.Message = "";
 
             foreach(Seat seat in seats)
             {
+                seat.SeatId=Guid.NewGuid();
                 db.Seats.Add(seat);
             }
 
@@ -125,9 +128,6 @@ namespace OBTS.API.Controllers
                 rep.Fail = false;
                 rep.Message = ex.Message;
             }
-
-            rep.Success = true;
-            rep.Message = "";
 
             return Ok(rep);
         }
@@ -142,7 +142,7 @@ namespace OBTS.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            seat.SeatId = Guid.NewGuid();
             db.Seats.Add(seat);
 
             try

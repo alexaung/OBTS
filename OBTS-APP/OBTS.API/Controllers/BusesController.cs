@@ -207,6 +207,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            bus.BusId = Guid.NewGuid();
             db.Buses.Add(bus);
             await db.SaveChangesAsync();
 

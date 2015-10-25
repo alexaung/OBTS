@@ -149,6 +149,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            booking.BookingId = Guid.NewGuid();
             db.Bookings.Add(booking);
 
             try

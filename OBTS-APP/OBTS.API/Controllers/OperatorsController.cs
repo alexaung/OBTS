@@ -143,6 +143,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            @operator.OperatorId = Guid.NewGuid();
             db.Operators.Add(@operator);
 
             try

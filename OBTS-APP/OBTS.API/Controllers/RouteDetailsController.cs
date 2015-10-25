@@ -130,6 +130,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            routeDetail.RouteDetailId = Guid.NewGuid();
             db.RouteDetails.Add(routeDetail);
 
             try

@@ -162,7 +162,8 @@ namespace OBTS.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+
+            country.CountryId = Guid.NewGuid();
             db.Countries.Add(country);
             await db.SaveChangesAsync();
 

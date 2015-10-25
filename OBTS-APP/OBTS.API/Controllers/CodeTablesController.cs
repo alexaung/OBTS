@@ -118,6 +118,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            codeTable.CodeTableId = Guid.NewGuid();
             db.CodeTables.Add(codeTable);
             await db.SaveChangesAsync();
 

@@ -145,6 +145,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            city.CityId = Guid.NewGuid();
             db.Cities.Add(city);
             await db.SaveChangesAsync();
 

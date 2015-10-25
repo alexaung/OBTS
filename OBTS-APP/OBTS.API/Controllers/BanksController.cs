@@ -107,6 +107,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            bank.BankId = Guid.NewGuid();
             db.Banks.Add(bank);
 
             try

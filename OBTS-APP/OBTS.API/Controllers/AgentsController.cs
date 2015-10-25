@@ -187,6 +187,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            agent.AgentId = Guid.NewGuid();
             db.Agents.Add(agent);
 
             try

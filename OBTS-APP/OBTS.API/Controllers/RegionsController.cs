@@ -156,6 +156,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            countryRegion.RegionId = Guid.NewGuid();
             db.Regions.Add(countryRegion);
             await db.SaveChangesAsync();
 

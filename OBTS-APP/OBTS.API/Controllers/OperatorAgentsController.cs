@@ -229,6 +229,7 @@ namespace OBTS.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            operatorAgent.OperatorAgentId = Guid.NewGuid();
             db.OperatorAgents.Add(operatorAgent);
 
             try
