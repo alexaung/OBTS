@@ -1,0 +1,20 @@
+﻿/* seat reservation */
+.content {
+  text-align: center;
+}
+
+.seatLayout {
+  margin: 30px auto;
+}
+
+.seat {
+  cursor: pointer;
+}
+
+.buttons {
+  margin: 30px auto;
+}
+
+.legend img{
+  vertical-align: bottom;
+}

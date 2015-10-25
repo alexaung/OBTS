@@ -286,6 +286,7 @@
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\OBTSResponse.cs" />
     <Compile Include="Models\Operator.cs" />
     <Compile Include="Models\OperatorAgent.cs" />
     <Compile Include="Models\RefreshToken.cs" />

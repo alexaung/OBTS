@@ -23,6 +23,10 @@ namespace OBTS.API.Models
 
         public short UpperLower { get; set; }
 
+        public short Row { get; set; }
+
+        public short Col { get; set; }
+
         //navi property
         public Bus _bus { get; set; }
     }

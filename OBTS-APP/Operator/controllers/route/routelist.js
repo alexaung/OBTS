@@ -1,20 +1,19 @@
 ﻿/**
- * busListCtrl - Controller used to run modal view
+ * routeListCtrl - Controller used to run route list
  * used in Basic form view
  */
-function routeListCtrl($scope, $modal, $http, notify, DataService, footable) {
-    
-    
-    
-    
+function routeListCtrl($scope, $modal, $http, notify, routeService) {
 
-    $scope.initBusList = function () {
-        $http.get(DataService.AppData.webapiurl + 'routes').success(function (data, status, headers, config) {
-            $scope.routes = data;
-        }).error(function (data, status, headers, config) {
+
+
+    $scope.initRouteList = function () {
+
+        routeService.loadRouteList().success(function (data) {
+            $scope.routes = data
+        }).error(function (err) {
             $scope.routes = null;
         });
-   
+
     }
 
     $scope.open = function () {
@@ -22,6 +21,7 @@ function routeListCtrl($scope, $modal, $http, notify, DataService, footable) {
             templateUrl: 'views/routes/route_edit.html',
             controller: routeEditCtrl,
             windowClass: "animated bounceInUp",
+            size: "lg",
             resolve: {
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
@@ -35,23 +35,26 @@ function routeListCtrl($scope, $modal, $http, notify, DataService, footable) {
                         {
                             name: 'cgNotify',
                             files: ['css/plugins/angular-notify/angular-notify.min.css', 'js/plugins/angular-notify/angular-notify.min.js']
+                        },
+                        {
+                            files: ['css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css']
                         }
                     ]);
                 }
             }
         });
-        
+
         modalInstance.result.then(function (selectedItem) {
-             $scope.initRouteList();
+            $scope.initRouteList();
         }, function () {
-           
+
 
         });
     };
     $scope.openEdit = function (route) {
-        DataService.AppData.bus = route;
+        routeService.route = route;
         $scope.open();
     };
-    
+
 
 };

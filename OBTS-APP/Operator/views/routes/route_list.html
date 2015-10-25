@@ -78,16 +78,16 @@
                             <tr ng-repeat="route in routes" my-directive>
 
                                 <td>
-                                    {{route._citySource.CityDesc}}
+                                    {{route.SourceCity}}
                                 </td>
                                 <td>
-                                    {{route._cityDestination.CityDesc}}
+                                    {{route.DestinationCity}}
                                 </td>
                                 <td>
-                                    {{route._bus.RegistrationNo}}
+                                    {{route.BusId}}
                                 </td>
                                 <td>
-                                    {{route.RouteDate}}
+                                    {{route.RouteDate | date:'dd-MMM-yyyy'}}
                                 </td>
                                 <td>
                                     {{route.DepartureTime}}
@@ -101,7 +101,6 @@
                                 <td class="text-right">
                                     <div class="btn-group">
                                         <button class="btn-white btn btn-xs" ng-click="openEdit(route)"><i class="fa fa-folder"></i>View</button>
-
                                         <button class="btn-white btn btn-xs" ng-click="openEdit(route)"><i class="fa fa-pencil"></i>Edit</button>
                                     </div>
                                 </td>

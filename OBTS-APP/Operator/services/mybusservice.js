@@ -4,6 +4,24 @@ function busService($http, ngAuthSettings) {
     var serviceBase = ngAuthSettings.apiServiceBaseUri;
 
     var busServiceFactory = {};
+    busServiceFactory.bus = {
+        "BusId": "",
+        "Brand": "",
+        "BusType": "",
+        "RegistrationNo": "",
+        "PermitNumber": "",
+        "PermitRenewDate": "",
+        "InsurancePolicyNumber": "",
+        "InsuranceCompany": "",
+        "InsuranceValidFrom": "",
+        "InsuranceValidTo": "",
+        "VechiclePhoneNo": "",
+        "DriverName": "",
+        "Description": "",
+        "Status": "",
+        "OperatorId": ""
+    }
+
     busServiceFactory.loadBrand = function () {
         return $http.get(serviceBase + 'codetables/title/brand').success(function (data, status, headers, config) {
             return data;
@@ -29,6 +47,7 @@ function busService($http, ngAuthSettings) {
                     return error;
                 });
     };
+
     busServiceFactory.insert = function (bus) {
         return $http.post(serviceBase + 'buses', bus).
                 success(function (response, status, headers, config) {
@@ -36,6 +55,14 @@ function busService($http, ngAuthSettings) {
                     
                 }).
                 error(function (error, status, headers, config) {
+                    return error;
+                });
+    };
+
+    busServiceFactory.loadBusList = function () {
+        return $http.get(serviceBase + 'buses').success(function (response, status, headers, config) {
+                    return response;
+                }).error(function (error, status, headers, config) {
                     return error;
                 });
     };

@@ -94,7 +94,7 @@
                                     {{bus.PermitRenewDate | date:'dd-MMM-yyyy'}}
                                 </td>
                                 <td>
-                                    70 seats
+                                    <button class="btn-white btn btn-xs" ng-click="openSeat(bus)"><i class="fa fa-folder"></i> View</button>
                                 </td>
                                 <td>
                                     <div ng-switch on="bus.Status">

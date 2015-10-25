@@ -59,6 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="controllers\loginController.js" />
+    <Content Include="controllers\mybus\busSeatController.js" />
+    <Content Include="img\seat_available.png" />
+    <Content Include="img\seat_reserved.png" />
+    <Content Include="img\seat_selected.png" />
     <Content Include="js\angular\angular-local-storage.min.js" />
     <Content Include="services\authInterceptorService.js" />
     <Content Include="services\authService.js" />
@@ -926,6 +930,7 @@
     <Content Include="views\mybus\bus_list.html" />
     <Content Include="views\landing.html" />
     <Content Include="views\mybus\bus_edit.html" />
+    <Content Include="views\mybus\bus_seat.html" />
     <Content Include="views\routes\route_edit.html" />
     <Content Include="views\routes\route_list.html" />
     <Content Include="views\skin-config.html" />

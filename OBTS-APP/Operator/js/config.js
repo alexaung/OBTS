@@ -6,7 +6,7 @@
  * Initial there are written state for all view in theme.
  *
  */
-function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider, $httpProvider) {
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider, $httpProvider,$locationProvider) {
 
     $httpProvider.interceptors.push('authInterceptorService');
     // Configure Idle settings
@@ -89,7 +89,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                         {
                             name: 'cgNotify',
                             files: ['css/plugins/angular-notify/angular-notify.min.css', 'js/plugins/angular-notify/angular-notify.min.js']
-                        }
+                        }                       
                     ]);
                 }
             }
@@ -115,7 +115,24 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('routes.routelist', {
             url: "/routes/route_list",
             templateUrl: "views/routes/route_list.html",
-            data: { pageTitle: 'Bus List' },
+            data: { pageTitle: 'Route List' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                       {
+                           files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                       },
+                        {
+                            name: 'datePicker',
+                            files: ['css/plugins/datapicker/angular-datapicker.css', 'js/plugins/datapicker/angular-datepicker.js']
+                        },
+                        {
+                            name: 'cgNotify',
+                            files: ['css/plugins/angular-notify/angular-notify.min.css', 'js/plugins/angular-notify/angular-notify.min.js']
+                        }
+                    ]);
+                }
+            }
         })
         .state('booking', {
             abstract: true,
@@ -125,11 +142,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
-                            files: ['js/plugins/footable/footable.all.min.js', 'css/plugins/footable/footable.core.css']
-                        },
-                        {
-                            name: 'ui.footable',
-                            files: ['js/plugins/footable/angular-footable.js']
+                            name: 'cgNotify',
+                            files: ['css/plugins/angular-notify/angular-notify.min.css', 'js/plugins/angular-notify/angular-notify.min.js']
                         }
                     ]);
                 }
@@ -144,15 +158,29 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     return $ocLazyLoad.load([
                         {
                             insertBefore: '#loadBefore',
-                            files: ['css/plugins/fullcalendar/fullcalendar.css', 'js/plugins/fullcalendar/fullcalendar.min.js', 'js/plugins/fullcalendar/gcal.js']
+                            files: ['css/plugins/fullcalendar/fullcalendar.css', 'js/plugins/fullcalendar/fullcalendar.min.js']
                         },
                         {
                             name: 'ui.calendar',
-                            files: ['js/plugins/fullcalendar/calendar.js']
+                            files: ['js/plugins/fullcalendar/calendar.js', 'js/plugins/fullcalendar/gcal.js']
                         }
                     ]);
                 }
             }
+        })
+        .state('booking.search', {
+            url: "/booking/search",
+            templateUrl: "views/booking/search.html",
+            data: { pageTitle: 'Booking Search' },
+            resolve: {
+                        loadPlugin: function ($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                               {
+                                   files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                               },
+                            ]);
+                        }
+                    }
         })
         .state('mailbox', {
             abstract: true,
@@ -235,7 +263,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl: "views/landing.html",
             data: { pageTitle: 'Landing page', specialClass: 'landing-page' }
         });
-
+    
+    // use the HTML5 History API
+    //$locationProvider.html5Mode(true);
 }
 angular
     .module('inspinia')
