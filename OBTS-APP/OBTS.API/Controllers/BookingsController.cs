@@ -17,7 +17,7 @@ namespace OBTS.API.Controllers
     public class BookingsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private string strBusType = OPTSEnum.ToString(OPTSEnum.Types.BusType);
+        private string strBusType = OBTSEnum.ToString(OBTSEnum.Types.BusType);
         
         // GET: api/Bookings
         public IQueryable<BookingDTO> GetBookings()

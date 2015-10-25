@@ -19,8 +19,8 @@ namespace OBTS.API.Controllers
     public class RoutesController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
-        private string strBusType = OPTSEnum.ToString(OPTSEnum.Types.BusType);
-        private string strBrand = OPTSEnum.ToString(OPTSEnum.Types.Brand);
+        private string strBusType = OBTSEnum.ToString(OBTSEnum.Types.BusType);
+        private string strBrand = OBTSEnum.ToString(OBTSEnum.Types.Brand);
 
         // GET: api/Routes
         public IQueryable<RouteDTO> GetRoutes()
@@ -96,6 +96,40 @@ namespace OBTS.API.Controllers
                              RouteFare = a.RouteFare
                          };
             return routes;
+        }
+
+        // GET: api/route/{Id}/seats
+        [Route("api/route/{Id}/seats", Name = "GetSeatsByRoute")]
+        public IQueryable<SeatDetailDTO> GetSeatsByRoute(Guid Id)
+        {
+            var seats = from a in db.SeatDetails
+                        join r in db.Routes on a.RouteId equals r.RouteId
+                        join b in db.Buses on a.BusId equals b.BusId
+                        where a.RouteId.Equals(Id)
+                        join ct1 in db.CodeTables on b.BusType equals ct1.KeyCode
+                        where ct1.Title.Equals(strBusType)
+                        join ct in db.CodeTables on b.Brand equals ct.KeyCode
+                        where ct.Title.Equals(strBrand)
+
+                        select new SeatDetailDTO()
+                        {
+                            SeatDetailId = a.SeatDetailId,
+                            BusId = a.BusId,
+                            Company = b.Company,
+                            BrandDesc = ct.Value,
+                            BusTypeDesc = ct1.Value,
+                            BusRegistrationNo= b.RegistrationNo,
+                            SeatNo = a.SeatNo,
+                            Bookable = a.Bookable,
+                            Space = a.Space,
+                            SpecialSeat = a.SpecialSeat,
+                            Status = a.Status,
+                            UpperLower = a.UpperLower,
+                            Row = a.Row,
+                            Col = a.Col,
+                            State = a.State
+                        };
+            return seats;
         }
 
         // GET: api/bus/{Id}/routes
@@ -246,6 +280,36 @@ namespace OBTS.API.Controllers
                 {
                     throw;
                 }
+            }
+
+            //generate seat details
+            SeatsController s = new SeatsController();
+            IQueryable<SeatDTO> seats=  s.GetSeatsByBus(route.BusId);
+
+            foreach(SeatDTO seat in seats)
+            {
+                SeatDetail sd = new SeatDetail();
+                sd.BusId = seat.BusId;
+                sd.Bookable = seat.Bookable;
+                sd.Col = seat.Col;
+                sd.RouteId = route.RouteId;
+                sd.Row = seat.Row;
+                sd.SeatDetailId = seat.SeatId;
+                sd.SeatNo = seat.SeatNo;
+                sd.Space = seat.Space;
+                sd.SpecialSeat = seat.SpecialSeat;
+                sd.State = (short)(seat.Bookable?OBTSEnum.BookState.Available:OBTSEnum.BookState.NotAvailable);
+                db.SeatDetails.Add(sd);
+            }
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                    throw;
+                
             }
 
             return CreatedAtRoute("DefaultApi", new { id = route.RouteId }, route);

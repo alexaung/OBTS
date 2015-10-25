@@ -128,6 +128,8 @@ namespace OBTS.API.Models
         public System.Data.Entity.DbSet<OBTS.API.Models.Bank> Banks { get; set; }
 
         public System.Data.Entity.DbSet<OBTS.API.Models.Booking> Bookings { get; set; }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.SeatDetail> SeatDetails { get; set; }
     
     }
 }

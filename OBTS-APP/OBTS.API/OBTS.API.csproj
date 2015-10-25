@@ -230,6 +230,7 @@
     <Compile Include="Controllers\RouteDetailsController.cs" />
     <Compile Include="Controllers\RoutePointsController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
+    <Compile Include="Controllers\SeatDetailsController.cs" />
     <Compile Include="Controllers\SeatsController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -281,6 +282,7 @@
     <Compile Include="Models\DTO\RouteDTO.cs" />
     <Compile Include="Models\DTO\RoutePointDTO.cs" />
     <Compile Include="Models\ApplicationDbContext .cs" />
+    <Compile Include="Models\DTO\SeatDetailDTO.cs" />
     <Compile Include="Models\DTO\SeatDTO.cs" />
     <Compile Include="Models\EntityBaseUpdate.cs" />
     <Compile Include="Models\EntityBase.cs" />
@@ -294,6 +296,7 @@
     <Compile Include="Models\Route.cs" />
     <Compile Include="Models\RouteDetail.cs" />
     <Compile Include="Models\RoutePoint.cs" />
+    <Compile Include="Models\SeatDetail.cs" />
     <Compile Include="Models\Seat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\FacebookAuthProvider.cs" />

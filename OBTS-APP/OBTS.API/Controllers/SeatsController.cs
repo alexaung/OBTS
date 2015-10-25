@@ -17,8 +17,8 @@ namespace OBTS.API.Controllers
     public class SeatsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private string strBusType = OPTSEnum.ToString(OPTSEnum.Types.BusType);
-        private string strBrand = OPTSEnum.ToString(OPTSEnum.Types.Brand);
+        private string strBusType = OBTSEnum.ToString(OBTSEnum.Types.BusType);
+        private string strBrand = OBTSEnum.ToString(OBTSEnum.Types.Brand);
 
         // GET: api/Seats
         public IQueryable<Seat> GetSeats()

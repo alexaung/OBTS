@@ -15,7 +15,7 @@ namespace OBTS.API.Models
 
     
 
-    public sealed class OPTSEnum
+    public sealed class OBTSEnum
     {
         public enum Types
         {
@@ -35,7 +35,14 @@ namespace OBTS.API.Models
             Amenities
         }
 
-      
+        public enum BookState
+        {
+            NotAvailable=0,
+            Selected=1,
+            Booked=2,
+            Available=3
+        }
+
         public static string ToString(Enum value)
         {
             FieldInfo fi = value.GetType().GetField(value.ToString());

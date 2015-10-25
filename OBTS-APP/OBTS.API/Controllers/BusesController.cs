@@ -22,8 +22,8 @@ namespace OBTS.API.Controllers
     public class BusesController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
-        private string strBusType = OPTSEnum.ToString(OPTSEnum.Types.BusType);
-        private string strBrand = OPTSEnum.ToString(OPTSEnum.Types.Brand);
+        private string strBusType = OBTSEnum.ToString(OBTSEnum.Types.BusType);
+        private string strBrand = OBTSEnum.ToString(OBTSEnum.Types.Brand);
 
         // Typed lambda expression for Select() method. 
         private static readonly Expression<Func<CodeTable, CodeValueDTO>> AsCodeValueDTO =

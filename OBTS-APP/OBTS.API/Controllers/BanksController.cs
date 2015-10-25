@@ -17,8 +17,8 @@ namespace OBTS.API.Controllers
     public class BanksController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private string strUserType = OPTSEnum.ToString(OPTSEnum.Types.UserType);
-        private string strOperator = OPTSEnum.ToString(OPTSEnum.Types.Operator);
+        private string strUserType = OBTSEnum.ToString(OBTSEnum.Types.UserType);
+        private string strOperator = OBTSEnum.ToString(OBTSEnum.Types.Operator);
        
         // GET: api/Banks
         public IQueryable<BankDTO> GetBanks()

@@ -20,7 +20,7 @@ namespace OBTSAPI.Controllers
     public class BusFeaturesController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
-        private string strBusFeatures = OPTSEnum.ToString(OPTSEnum.Types.BusFeatures);
+        private string strBusFeatures = OBTSEnum.ToString(OBTSEnum.Types.BusFeatures);
 
         private static readonly Expression<Func<CodeTable, CodeValueDTO>> AsCodeValueDTO =
            a => new CodeValueDTO

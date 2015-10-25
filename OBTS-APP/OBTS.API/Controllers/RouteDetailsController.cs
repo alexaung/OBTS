@@ -19,7 +19,7 @@ namespace OBTS.API.Controllers
     public class RouteDetailsController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
-        private string strAmenities = OPTSEnum.ToString(OPTSEnum.Types.Amenities);
+        private string strAmenities = OBTSEnum.ToString(OBTSEnum.Types.Amenities);
 
         // GET: api/routedetails
         [Route("api/routesamenities", Name = "GetRouteDetails")]
