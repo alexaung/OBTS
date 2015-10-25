@@ -12,25 +12,6 @@ function calendarCtrl($scope, $http, routeService) {
     var y = date.getFullYear();
     $scope.events = []
   
-    // Events
-    //$scope.events = [
-    //    { title: 'ရန္ကုန္-မန္းေလး', start: new Date(y, m, 1) },
-    //    { title: 'ရန္ကုန္-ေနျပည္ေတာ္', start: new Date(y, m, 1) },
-    //    { title: 'ရန္ကုန္-ေမာ္လျမိဳင္', start: new Date(y, m, 1) },
-    //    { title: 'ခရီးစဥ္ အားလံုး', start: new Date(y, m, 1) },
-    //    { title: 'ရန္ကုန္-မန္းေလး', start: new Date(y, m, 2) },
-    //    { title: 'ရန္ကုန္-ေနျပည္ေတာ္', start: new Date(y, m, 2) },
-    //    { title: 'ရန္ကုန္-ေမာ္လျမိဳင္', start: new Date(y, m, 2) },
-    //    { title: 'ခရီးစဥ္ အားလံုး', start: new Date(y, m, 2) },
-    //    { title: 'ရန္ကုန္-မန္းေလး', start: new Date(y, m, 5) },
-    //    { title: 'ရန္ကုန္-ေနျပည္ေတာ္', start: new Date(y, m, 5) },
-    //    { title: 'ရန္ကုန္-ေမာ္လျမိဳင္', start: new Date(y, m, 5) },
-    //    { title: 'ခရီးစဥ္ အားလံုး', start: new Date(y, m, 5) },
-    //    { title: 'ရန္ကုန္-မန္းေလး', start: new Date(y, m, 20) },
-    //    { title: 'ရန္ကုန္-ေနျပည္ေတာ္', start: new Date(y, m, 25) },
-    //    { title: 'ရန္ကုန္-ေမာ္လျမိဳင္', start: new Date(y, m, 15) },
-    //    { title: 'ခရီးစဥ္ အားလံုး', start: new Date(y, m, 15) },
-    //];
        
    
 

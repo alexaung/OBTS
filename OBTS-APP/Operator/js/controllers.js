@@ -2602,6 +2602,7 @@ angular
     .controller('routeListCtrl', routeListCtrl)
     .controller('routeEditCtrl', routeListCtrl)
     .controller('calendarCtrl', calendarCtrl)
+    .controller('searchCtrl', searchCtrl)
     .controller('dashboardFlotOne', dashboardFlotOne)
     .controller('dashboardFlotTwo', dashboardFlotTwo)
     .controller('dashboardMap', dashboardMap)

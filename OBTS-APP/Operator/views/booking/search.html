@@ -19,12 +19,37 @@
         <div class="panel-heading">
             Search 
         </div>
-        <div class="panel-body">
-            <p>
-                <button type="button" class="btn btn-outline btn-primary btn-rounded" ng-model="main.radioModel" btn-radio="'oneway'">One Way</button>
-                <button type="button" class="btn btn-outline btn-primary btn-rounded" ng-model="main.radioModel" btn-radio="'rerutn'">Return</button>
-            </p>
-        </div>
-        {{main.radioModel}}
+        <form class="form-horizontal" role="form" name="search" novalidate ng-controller="searchCtrl" ng-submit="search()" ng-init="initSearch()">
+            <div class="panel-body">
+                <p>
+                    <button type="button" class="btn btn-outline btn-primary btn-rounded" ng-model="main.radioModel" btn-radio="'oneway'">One Way</button>
+                    <button type="button" class="btn btn-outline btn-primary btn-rounded" ng-model="main.radioModel" btn-radio="'rerutn'">Return</button>
+                </p>
+
+
+                <div class="form-group">
+                    <div class="row">
+                        <label class="col-md-1 control-label">{{ 'FROM' | translate }}</label>
+                        <div class="col-md-3">
+                            <select class="form-control m-b" name="Source_CityId" ng-model="search.Source_CityId" ng-options="city.CityId as city.CityDesc for city in cities" required></select>
+                            <div ng-show="search.Source_CityId.$invalid && search.submitted ">
+                                <small class="text-danger" ng-show="search.Source_CityId.$error.required">Please select a from city.</small>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-outline btn-primary dim" type="button" ng-click="reTweet()"><i class="fa fa-retweet"></i></button>
+                        </div>
+                        <label class="col-md-1 control-label">{{ 'TO' | translate }}</label>
+                        <div class="col-md-3">
+                            <select class="form-control m-b" name="Destination_CityId" ng-model="search.Destination_CityId" ng-options="city.CityId as city.CityDesc for city in cities" required></select>
+                            <div ng-show="search.Destination_CityId.$invalid && search.submitted ">
+                                <small class="text-danger" ng-show="search.Destination_CityId.$error.required">Please select a to city.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{main.radioModel}}
+        </form>
     </div>
 </div>
