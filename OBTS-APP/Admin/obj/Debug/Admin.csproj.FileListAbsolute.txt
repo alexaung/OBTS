@@ -3,9 +3,3 @@ C:\Projects\OBTS\Admin\bin\Admin.dll
 C:\Projects\OBTS\Admin\bin\Admin.pdb
 C:\Projects\OBTS\Admin\obj\Debug\Admin.dll
 C:\Projects\OBTS\Admin\obj\Debug\Admin.pdb
-C:\Projects\OBTS\OBTS\OBTS-APP\Admin\bin\Admin.dll.config
-C:\Projects\OBTS\OBTS\OBTS-APP\Admin\bin\Admin.dll
-C:\Projects\OBTS\OBTS\OBTS-APP\Admin\bin\Admin.pdb
-C:\Projects\OBTS\OBTS\OBTS-APP\Admin\obj\Debug\Admin.csprojResolveAssemblyReference.cache
-C:\Projects\OBTS\OBTS\OBTS-APP\Admin\obj\Debug\Admin.dll
-C:\Projects\OBTS\OBTS\OBTS-APP\Admin\obj\Debug\Admin.pdb

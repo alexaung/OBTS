@@ -10,8 +10,3 @@ C:\Projects\OBTS\OBTS-APP\Web\bin\Web.pdb
 C:\Projects\OBTS\OBTS-APP\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache
 C:\Projects\OBTS\OBTS-APP\Web\obj\Debug\Web.dll
 C:\Projects\OBTS\OBTS-APP\Web\obj\Debug\Web.pdb
-C:\Projects\OBTS\OBTS\OBTS-APP\Web\bin\Web.dll.config
-C:\Projects\OBTS\OBTS\OBTS-APP\Web\bin\Web.dll
-C:\Projects\OBTS\OBTS\OBTS-APP\Web\bin\Web.pdb
-C:\Projects\OBTS\OBTS\OBTS-APP\Web\obj\Debug\Web.dll
-C:\Projects\OBTS\OBTS\OBTS-APP\Web\obj\Debug\Web.pdb

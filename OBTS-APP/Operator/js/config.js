@@ -6,7 +6,7 @@
  * Initial there are written state for all view in theme.
  *
  */
-function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider, $httpProvider) {
+function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdleProvider, KeepaliveProvider, $httpProvider,$locationProvider) {
 
     $httpProvider.interceptors.push('authInterceptorService');
     // Configure Idle settings
@@ -89,7 +89,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                         {
                             name: 'cgNotify',
                             files: ['css/plugins/angular-notify/angular-notify.min.css', 'js/plugins/angular-notify/angular-notify.min.js']
-                        }
+                        }                       
                     ]);
                 }
             }
@@ -263,7 +263,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl: "views/landing.html",
             data: { pageTitle: 'Landing page', specialClass: 'landing-page' }
         });
-
+    
+    // use the HTML5 History API
+    //$locationProvider.html5Mode(true);
 }
 angular
     .module('inspinia')

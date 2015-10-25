@@ -50,7 +50,9 @@ namespace OBTS.API.Controllers
                             Space=b.Space,
                             SpecialSeat=b.SpecialSeat,
                             Status=b.Status,
-                            UpperLower=b.UpperLower
+                            UpperLower=b.UpperLower,
+                            Row =b.Row,
+                            Col = b.Col
                         };
             return seats;
         }
@@ -102,6 +104,35 @@ namespace OBTS.API.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        [ResponseType(typeof(OBTSResponse))]
+        [Route("api/seats/BulkInsertSeats", Name = "BulkInsertSeats")]
+        public async Task<IHttpActionResult> BulkInsertSeats(Seat[] seats)
+        {
+            OBTSResponse rep=new OBTSResponse();
+
+            foreach(Seat seat in seats)
+            {
+                db.Seats.Add(seat);
+            }
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                rep.Fail = false;
+                rep.Message = ex.Message;
+            }
+
+            rep.Success = true;
+            rep.Message = "";
+
+            return Ok(rep);
+        }
+
+
 
         // POST: api/Seats
         [ResponseType(typeof(Seat))]
