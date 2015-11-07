@@ -132,6 +132,35 @@ namespace OBTS.API.Controllers
             return Ok(rep);
         }
 
+        [ResponseType(typeof(OBTSResponse))]
+        [Route("api/seats/BulkUpdateSeats", Name = "BulkUpdateSeats")]
+        public async Task<IHttpActionResult> BulkUpdateSeats(Seat[] seats)
+        {
+            
+            OBTSResponse rep = new OBTSResponse();
+            rep.Success = true;
+            rep.Message = "";
+
+            foreach (Seat seat in seats)
+            {
+                if (SeatExists(seat.SeatId))
+                {
+                    db.Entry(seat).State = EntityState.Modified;
+                }
+            }
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                rep.Fail = false;
+                rep.Message = ex.Message;
+            }
+
+            return Ok(rep);
+        }
 
 
         // POST: api/Seats

@@ -104,7 +104,7 @@ namespace OBTS.API.Controllers
         {
             var seats = from a in db.SeatDetails
                         join r in db.Routes on a.RouteId equals r.RouteId
-                        join b in db.Buses on a.BusId equals b.BusId
+                        join b in db.Buses on r.BusId equals b.BusId
                         where a.RouteId.Equals(Id)
                         join ct1 in db.CodeTables on b.BusType equals ct1.KeyCode
                         where ct1.Title.Equals(strBusType)
@@ -114,7 +114,7 @@ namespace OBTS.API.Controllers
                         select new SeatDetailDTO()
                         {
                             SeatDetailId = a.SeatDetailId,
-                            BusId = a.BusId,
+                            RouteId= r.RouteId,
                             Company = b.Company,
                             BrandDesc = ct.Value,
                             BusTypeDesc = ct1.Value,
@@ -254,6 +254,37 @@ namespace OBTS.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+
+        [ResponseType(typeof(OBTSResponse))]
+        [Route("api/routes/BulkUpdateRouteSeats", Name = "BulkUpdateRouteSeats")]
+        public async Task<IHttpActionResult> BulkUpdateRouteSeats(SeatDetail[] seats)
+        {
+            OBTSResponse rep = new OBTSResponse();
+            rep.Success = true;
+            rep.Message = "";
+
+            foreach (SeatDetail seat in seats)
+            {
+                if (RouteExists(seat.SeatDetailId))
+                {
+                    db.Entry(seat).State = EntityState.Modified;
+                }
+                
+            }
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                rep.Fail = false;
+                rep.Message = ex.Message;
+            }
+
+            return Ok(rep);
+        }
+
         // POST: api/Routes
         [ResponseType(typeof(Route))]
         public async Task<IHttpActionResult> PostRoute(Route route)
@@ -289,7 +320,7 @@ namespace OBTS.API.Controllers
             foreach(SeatDTO seat in seats)
             {
                 SeatDetail sd = new SeatDetail();
-                sd.BusId = seat.BusId;
+               // sd.BusId = seat.BusId;
                 sd.Bookable = seat.Bookable;
                 sd.Col = seat.Col;
                 sd.RouteId = route.RouteId;

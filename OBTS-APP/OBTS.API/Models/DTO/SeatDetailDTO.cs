@@ -33,9 +33,9 @@ namespace OBTS.API.Models.DTO
 
         public short UpperLower { get; set; }
 
-        public short Row { get; set; }
+        public string Row { get; set; }
 
-        public short Col { get; set; }
+        public string Col { get; set; }
 
         public short State { get; set; }
 
