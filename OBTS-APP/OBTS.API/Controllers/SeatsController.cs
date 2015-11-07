@@ -54,6 +54,8 @@ namespace OBTS.API.Controllers
                             Row =b.Row,
                             Col = b.Col
                         };
+
+            seats = seats.OrderBy(u => u.Row);
             return seats;
         }
 

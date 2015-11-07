@@ -129,6 +129,8 @@ namespace OBTS.API.Controllers
                             Col = a.Col,
                             State = a.State
                         };
+
+            seats = seats.OrderBy(u => u.Row);
             return seats;
         }
 
