@@ -66,5 +66,25 @@ function busService($http, ngAuthSettings) {
                     return error;
                 });
     };
+
+
+    busServiceFactory.loadBusSeats = function (busid) {
+        return $http.get(serviceBase + 'bus/'+busid+'/seats').success(function (response, status, headers, config) {
+            return response;
+        }).error(function (error, status, headers, config) {
+            return error;
+        });
+    };
+
+    busServiceFactory.bulkInsertSeats = function (seats) {
+        return $http.post(serviceBase + 'seats/BulkInsertSeats' , seats).
+                success(function (response, status, headers, config) {
+                    return response;
+                }).
+                error(function (error, status, headers, config) {
+                    return error;
+                });
+    };
+
     return busServiceFactory;
 }

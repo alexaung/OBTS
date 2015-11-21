@@ -4,9 +4,9 @@
 <div class="modal-body" ng-controller="busEditCtrl">
     <div >
         <form class="form-horizontal" role="form" name="busEdit" novalidate ng-submit="save()" ng-init="initBusEdit(this)" >
-           
+            
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">{{ 'BUSBRAND' | translate }}</label>
+                    <label class="col-sm-3 control-label">{{ 'BUSBRAND' | translate }} </label>
                     <div class="col-sm-9">
                         <select class="form-control m-b" name="Brand" ng-model="bus.Brand" ng-options="brand.KeyCode as brand.Value for brand in brands" required></select>
                         <div ng-show=" busEdit.Brand.$invalid && busEdit.submitted ">
@@ -140,6 +140,7 @@
                     <label class="col-sm-3 control-label">{{ 'STATUS' | translate }}</label>
 
                     <div class="col-sm-9">
+                        {{statusTypes}}
                         <select class="form-control m-b" name="statusType" ng-model="bus.Status" ng-options="statusType.KeyCode as statusType.Value for statusType in statusTypes" />
                     </div>
                 </div>

@@ -55,7 +55,7 @@ namespace OBTS.API.Controllers
                             Col = b.Col
                         };
 
-            seats = seats.OrderBy(u => u.Row);
+            seats = seats.OrderBy(u => u.Row).ThenBy(u=>u.Col);
             return seats;
         }
 
@@ -115,7 +115,13 @@ namespace OBTS.API.Controllers
             rep.Success = true;
             rep.Message = "";
 
-            foreach(Seat seat in seats)
+            foreach (Seat seat in seats)
+            {
+                if(SeatExists(seat.SeatId))
+                    await DeleteSeat(seat.SeatId);
+            }
+
+            foreach (Seat seat in seats)
             {
                 seat.SeatId=Guid.NewGuid();
                 db.Seats.Add(seat);

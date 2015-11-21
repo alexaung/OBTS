@@ -60,7 +60,12 @@ function config($translateProvider) {
 		    DEPARTURETIME: "Deperture Time",
 		    ARRIVALTIME: "Arrival Time",
 		    ROUTEFARE: "Fare",
-		    RECURSIVE: "ပံုမွန္ခရီးစဥ္"
+		    RECURSIVE: "ပံုမွန္ခရီးစဥ္",
+
+    	    //Search Form
+		    DEPARTDATE: "ထြက္ခြာမည္႔ေန႔",
+		    RETURNDATE: "Return",
+    	    NOOFPAX: "No. of pax",
 
         })
         .translations('en', {
@@ -120,8 +125,12 @@ function config($translateProvider) {
             DEPARTURETIME: "Deperture Time",
             ARRIVALTIME: "Arrival Time",
             ROUTEFARE: "Fare",
-            RECURSIVE: "Recursive"
+            RECURSIVE: "Recursive",
 
+            //Search Form
+            DEPARTDATE: "Depart",
+            RETURNDATE: "Return",
+            NOOFPAX: "No. of pax",
         });
 
     $translateProvider.preferredLanguage('en');
