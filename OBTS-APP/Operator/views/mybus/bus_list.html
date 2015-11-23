@@ -69,7 +69,7 @@
                                 <th>{{ 'BUSREGNO' | translate }}</th>
                                 <th>{{ 'BUSPERMITNO' | translate }}</th>
                                 <th>{{ 'BUSPERMITRENEWDATE' | translate }}</th>
-                                <th>No. of seats</th>
+                                <th>{{ 'NUMBEROFSEAT' | translate }}</th>
                                 <th>{{ 'STATUS' | translate }}</th>
                                 <th data-hide="all"></th>
                                 <th class="text-right" data-sort-ignore="true">Action</th>
@@ -95,7 +95,7 @@
                                     {{bus.PermitRenewDate | date:'dd-MMM-yyyy'}}
                                 </td>
                                 <td>
-                                    <button class="btn-white btn btn-xs" ng-click="openSeat(bus)"><i class="fa fa-folder"></i> View</button>
+                                    <button class="btn btn-w-m btn-xs btn-outline btn-info" ng-click="openSeat(bus)">{{bus.NoOfSeat}}</button>
                                 </td>
                                 <td>
                                     <div ng-switch on="bus.Status">

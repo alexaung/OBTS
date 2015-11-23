@@ -34,7 +34,8 @@ function config($translateProvider) {
 		    MESSAGEINFO: 'You have 42 messages and 6 notifications.',
 		    SEARCH: 'Search',
 		    CALENDAR: 'Calendar',
-    	    BOOKINGLIST: 'Booking List',
+		    BOOKINGLIST: 'Booking List',
+		    NUMBEROFSEAT: 'No. of seats',
 
     	    // Define bus information
 		    BUSBRAND: "အမွတ္တ႔ဆိပ္",
@@ -98,6 +99,7 @@ function config($translateProvider) {
             SEARCH: 'Search',
             CALENDAR: 'Calendar',
             BOOKINGLIST: 'Booking List',
+            NUMBEROFSEAT: 'No. of seats',
 
 
             

@@ -60,6 +60,7 @@
   <ItemGroup>
     <Content Include="controllers\loginController.js" />
     <Content Include="controllers\mybus\busSeatController.js" />
+    <Content Include="controllers\route\routeSeatController.js" />
     <Content Include="img\seat_available.png" />
     <Content Include="img\seat_reserved.png" />
     <Content Include="img\seat_selected.png" />
@@ -914,6 +915,7 @@
     <Content Include="js\ui-router\angular-ui-router.min.js" />
     <Content Include="services\mybusservice.js" />
     <Content Include="views\booking\calendar.html" />
+    <Content Include="views\booking\search.html" />
     <Content Include="views\common\content.html" />
     <Content Include="views\common\content_top_navigation.html" />
     <Content Include="views\common\footer.html" />
@@ -931,6 +933,7 @@
     <Content Include="views\landing.html" />
     <Content Include="views\mybus\bus_edit.html" />
     <Content Include="views\mybus\bus_seat.html" />
+    <Content Include="views\routes\route_seat.html" />
     <Content Include="views\routes\route_edit.html" />
     <Content Include="views\routes\route_list.html" />
     <Content Include="views\skin-config.html" />

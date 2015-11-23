@@ -32,19 +32,15 @@ namespace OBTS.API.Controllers
         {
 
             var seats = from b in db.Seats
-                        join o in db.Buses on b.BusId equals o.BusId
-                        join ct in db.CodeTables on o.BusType equals ct.KeyCode
-                        join ct1 in db.CodeTables on o.Brand equals ct1.KeyCode
-                        where ct.Title.Equals(strBrand) && ct1.Title.Equals(strBusType)
-                        where o.BusId.Equals(Id)
+                        where b.BusId.Equals(Id)
 
                         select new SeatDTO()
                         {
                             SeatId = b.SeatId,
                             BusId = b.BusId,
                             Company = b._bus.Company,
-                            BrandDesc = ct.Value,
-                            BusTypeDesc = ct1.Value,
+                            BrandDesc = string.Empty,
+                            BusTypeDesc = string.Empty,
                             SeatNo = b.SeatNo,
                             Bookable=b.Bookable,
                             Space=b.Space,
@@ -115,10 +111,13 @@ namespace OBTS.API.Controllers
             rep.Success = true;
             rep.Message = "";
 
-            foreach (Seat seat in seats)
+            if (seats.Length > 0)
             {
-                if(SeatExists(seat.SeatId))
-                    await DeleteSeat(seat.SeatId);
+                using (var context = new ApplicationDbContext())
+                {
+                    // delete existing records
+                    context.Database.ExecuteSqlCommand("DELETE FROM Seats WHERE BusId = {0}", seats[0].BusId);
+                }
             }
 
             foreach (Seat seat in seats)
@@ -139,7 +138,7 @@ namespace OBTS.API.Controllers
 
             return Ok(rep);
         }
-
+        /*
         [ResponseType(typeof(OBTSResponse))]
         [Route("api/seats/BulkUpdateSeats", Name = "BulkUpdateSeats")]
         public async Task<IHttpActionResult> BulkUpdateSeats(Seat[] seats)
@@ -169,7 +168,7 @@ namespace OBTS.API.Controllers
 
             return Ok(rep);
         }
-
+        */
 
         // POST: api/Seats
         [ResponseType(typeof(Seat))]

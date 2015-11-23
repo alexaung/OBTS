@@ -19,23 +19,50 @@ function busSeatController($scope, $modalInstance, $http, notify, busService, Sw
         this.formScope = scope;
         busService.loadBusSeats(busService.bus.BusId).success(function (data) {
             $scope.rows = [];
-            var row = data[0].Row;
-            var seats = [];
-            for (var i = 0; i < data.length; i++) {
-                if (row != data[i].Row) {
-                    $scope.rows.push(seats)
-                    seats = [];
-                    row = data[i].Row;
+            if (data.length > 0)
+            {
+                var row = data[0].Row;
+                var seats = [];
+                for (var i = 0; i < data.length; i++) {
+                    if (row != data[i].Row) {
+                        $scope.rows.push(seats)
+                        seats = [];
+                        row = data[i].Row;
+                    }
+                    seats.push(data[i]);
+
                 }
-                seats.push(data[i]);
-                
+                $scope.rows.push(seats)
             }
-                $scope.rows.push(seats)      
+                  
                
         }).error(function (err) {
             $scope.message = err.error_description;
         });
 
+    }
+    $scope.generate = function()
+    {
+        $scope.rows = [];
+        var k = 0;
+        for (var i = 0; i < $scope.seat.noOfRow; i++) {
+            k = 1;
+            var seats = [];
+            for (var j = 0; j < $scope.seat.noOfColumn; j++) {
+                seats.push({
+                    BusId: busService.bus.BusId,
+                    SeatNo: alphabet[i] + k,
+                    Bookable: true,
+                    Space: false,
+                    SpecialSeat: false,
+                    Status: 'status',
+                    UpperLower: 1,
+                    Row: i,
+                    Col: k++,
+                });
+            }
+            $scope.rows.push(seats)
+        }
     }
 
     $scope.generateClicked = function () {
@@ -57,40 +84,18 @@ function busSeatController($scope, $modalInstance, $http, notify, busService, Sw
             },
             function (isConfirm) {
                 if (isConfirm) {
-                    $scope.rows = [];
-                    var k = 0;
-                    for (var i = 0; i < $scope.seat.noOfRow; i++) {
-                        k = 1;
-                        var seats = [];
-                        for (var j = 0; j < $scope.seat.noOfColumn; j++) {
-                            seats.push({
-                                BusId: busService.bus.BusId,
-                                SeatNo: alphabet[i] + k,
-                                Bookable: true,
-                                Space: false,
-                                SpecialSeat: false,
-                                Status: 'status',
-                                UpperLower: 1,
-                                Row: i,
-                                Col: k++,
-                            });
-                        }
-                        $scope.rows.push(seats)
-                    }
-                } else {
+                    $scope.generate();
+                }
+                else {
                     ///SweetAlert.swal("Cancelled", "Your imaginary file is safe :)", "error");
                 }
             });
+        } else{
+            $scope.generate();
         }
-        
+    }    
 
-        
-        
-        //$scope.cols = [1, 2, 3, 4, 5, 6, 7, 8];
-        //reserved = ['A2', 'A3', 'C5', 'C6', 'C7', 'C8', 'J1', 'J2', 'J3', 'J4'];
-       
-
-    }
+   
     // seat onClick
     $scope.seatClicked = function(seat) {
         seat.Bookable = !seat.Bookable;

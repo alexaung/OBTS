@@ -130,7 +130,8 @@ namespace OBTS.API.Controllers
                             State = a.State
                         };
 
-            seats = seats.OrderBy(u => u.Row);
+            seats = seats.OrderBy(u => u.Row).ThenBy(u => u.Col); 
+            
             return seats;
         }
 

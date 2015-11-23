@@ -24,10 +24,12 @@
                
                 <div class="form-group">
                     <div class="row">
+                        {{cities}}
                         <label class="col-md-2 control-label">{{ 'FROM' | translate }}</label>
                         <div class="col-md-3 animated" id="fromCityBox">
-                            <select class="form-control m-b" name="Source_CityId" ng-model="search.Source_CityId" ng-options="city.CityId as city.CityDesc for city in cities" required></select>
-                            <div ng-show="search.Source_CityId.$invalid && search.submitted ">
+                            <select chosen  class="chosen-select form-control m-b" ng-model="search.Source_CityId" ng-options="city.CityId as city.CityDesc for city in cities">
+                            </select>
+                           <div ng-show="search.Source_CityId.$invalid && search.submitted ">
                                 <small class="text-danger" ng-show="search.Source_CityId.$error.required">Please select a from city.</small>
                             </div>
                         </div>
@@ -36,7 +38,7 @@
                         </div>
                         <label class="col-md-1 control-label">{{ 'TO' | translate }}</label>
                         <div class="col-md-3 animated"  id="toCityBox">
-                            <select class="form-control m-b" name="Destination_CityId" ng-model="search.Destination_CityId" ng-options="city.CityId as city.CityDesc for city in cities" required></select>
+                            <select chosen class="form-control m-b"  ng-model="search.Destination_CityId" ng-options="city.CityId as city.CityDesc for city in cities" required></select>
                             <div ng-show="search.Destination_CityId.$invalid && search.submitted ">
                                 <small class="text-danger" ng-show="search.Destination_CityId.$error.required">Please select a to city.</small>
                             </div>
