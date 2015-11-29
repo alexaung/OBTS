@@ -74,6 +74,42 @@ namespace OBTS.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [ResponseType(typeof(OBTSResponse))]
+        [Route("api/seatdetails/BulkInsertSeatDetails", Name = "BulkInsertSeatDetails")]
+        public async Task<IHttpActionResult> BulkInsertSeatDetails(SeatDetail[] seats)
+        {
+            OBTSResponse rep = new OBTSResponse();
+            rep.Success = true;
+            rep.Message = "";
+
+            if (seats.Length > 0)
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    // delete existing records
+                    context.Database.ExecuteSqlCommand("DELETE FROM SeatDetails WHERE RouteId = {0}", seats[0].RouteId);
+                }
+            }
+
+            foreach (SeatDetail seat in seats)
+            {
+                seat.SeatDetailId = Guid.NewGuid();
+                db.SeatDetails.Add(seat);
+            }
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                rep.Fail = false;
+                rep.Message = ex.Message;
+            }
+
+            return Ok(rep);
+        }
+
         // POST: api/SeatDetails
         [ResponseType(typeof(SeatDetail))]
         public async Task<IHttpActionResult> PostSeatDetail(SeatDetail seatDetail)

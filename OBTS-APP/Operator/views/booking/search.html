@@ -21,35 +21,67 @@
         </div>
         <form class="form-horizontal" role="form" name="search" novalidate ng-controller="searchCtrl" ng-submit="search()" ng-init="initSearch()">
             <div class="panel-body">
-                <p>
-                    <button type="button" class="btn btn-outline btn-primary btn-rounded" ng-model="main.radioModel" btn-radio="'oneway'">One Way</button>
-                    <button type="button" class="btn btn-outline btn-primary btn-rounded" ng-model="main.radioModel" btn-radio="'rerutn'">Return</button>
-                </p>
-
-
+               
                 <div class="form-group">
                     <div class="row">
-                        <label class="col-md-1 control-label">{{ 'FROM' | translate }}</label>
-                        <div class="col-md-3">
-                            <select class="form-control m-b" name="Source_CityId" ng-model="search.Source_CityId" ng-options="city.CityId as city.CityDesc for city in cities" required></select>
-                            <div ng-show="search.Source_CityId.$invalid && search.submitted ">
+                        {{cities}}
+                        <label class="col-md-2 control-label">{{ 'FROM' | translate }}</label>
+                        <div class="col-md-3 animated" id="fromCityBox">
+                            <select chosen  class="chosen-select form-control m-b" ng-model="search.Source_CityId" ng-options="city.CityId as city.CityDesc for city in cities">
+                            </select>
+                           <div ng-show="search.Source_CityId.$invalid && search.submitted ">
                                 <small class="text-danger" ng-show="search.Source_CityId.$error.required">Please select a from city.</small>
                             </div>
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline btn-primary dim" type="button" ng-click="reTweet()"><i class="fa fa-retweet"></i></button>
+                            <button class="btn btn-outline btn-primary dim" type="button" ng-click="reTweet()" ><i class="fa fa-retweet" id="btnTweet"></i></button>
                         </div>
                         <label class="col-md-1 control-label">{{ 'TO' | translate }}</label>
-                        <div class="col-md-3">
-                            <select class="form-control m-b" name="Destination_CityId" ng-model="search.Destination_CityId" ng-options="city.CityId as city.CityDesc for city in cities" required></select>
+                        <div class="col-md-3 animated"  id="toCityBox">
+                            <select chosen class="form-control m-b"  ng-model="search.Destination_CityId" ng-options="city.CityId as city.CityDesc for city in cities" required></select>
                             <div ng-show="search.Destination_CityId.$invalid && search.submitted ">
                                 <small class="text-danger" ng-show="search.Destination_CityId.$error.required">Please select a to city.</small>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            {{main.radioModel}}
-        </form>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">{{ 'DEPARTDATE' | translate }}</label>
+                    <div class="col-md-3">
+                        <div class="input-group date">
+                            <input name="RouteDate" id="RouteDate" type="datetime" class="form-control" date-time ng-model="route.RouteDate" view="date" min-view="date" auto-close="true" format="dd-MMM-yyyy" required>
+                            <span class="input-group-btn">
+                                <label class="btn btn-default form-control" for="RouteDate">
+                                    <i class="fa fa-calendar"></i>
+                                </label>
+                            </span>
+                        </div>
+                        <div ng-show=" routeEdit.PermitRenewDate.$invalid && routeEdit.submitted ">
+                            <small class="col-sm-3" /><small class="col-sm-9 text-danger" ng-show="routeEdit.RouteDate.$error.required">Please input Route Date</small>
+                        </div>
+                    </div>
+                    <div class="col-md-1" />
+                    <label class="col-md-1 control-label" ng-show="search.tripType=='return'">{{ 'RETURNDATE' | translate }}</label>
+                    <div class="col-md-3"  ng-show="search.tripType=='return'">
+                        <div class="input-group date">
+                            <input name="RouteDate" id="RouteDate" type="datetime" class="form-control" date-time ng-model="route.RouteDate" view="date" min-view="date" auto-close="true" format="dd-MMM-yyyy" required>
+                            <span class="input-group-btn">
+                                <label class="btn btn-default form-control" for="RouteDate">
+                                    <i class="fa fa-calendar"></i>
+                                </label>
+                            </span>
+                        </div>
+                        <div ng-show=" routeEdit.PermitRenewDate.$invalid && routeEdit.submitted ">
+                            <small class="col-sm-3" /><small class="col-sm-9 text-danger" ng-show="routeEdit.RouteDate.$error.required">Please input Route Date</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <button class="btn btn-primary col-md-1 col-sm-offset-8" type="submit">Search</button>
+                </div>
+        </div>
+                    
+</form>
     </div>
 </div>

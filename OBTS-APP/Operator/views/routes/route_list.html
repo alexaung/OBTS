@@ -68,7 +68,7 @@
                                 <th>{{ 'BUSREGNO' | translate }}</th>
                                 <th>{{ 'ROUTEDATE' | translate }}</th>
                                 <th>{{ 'DEPARTURETIME' | translate }}</th>
-                                <th>{{ 'ARRIVALTIME' | translate }}</th>
+                                <th>{{ 'NUMBEROFSEAT' | translate }}</th>
                                 <th>{{ 'ROUTEFARE' | translate }}</th>
                                 <th class="text-right" data-sort-ignore="true">Action</th>
 
@@ -84,7 +84,7 @@
                                     {{route.DestinationCity}}
                                 </td>
                                 <td>
-                                    {{route.BusId}}
+                                    {{route.RegistrationNo}}
                                 </td>
                                 <td>
                                     {{route.RouteDate | date:'dd-MMM-yyyy'}}
@@ -93,7 +93,7 @@
                                     {{route.DepartureTime}}
                                 </td>
                                 <td>
-                                    {{route.ArrivalTime}}
+                                    <button class="btn btn-w-m btn-xs btn-outline btn-info" ng-click="openSeat(route)">0</button>
                                 </td>
                                 <td>
                                     {{route.RouteFare}}

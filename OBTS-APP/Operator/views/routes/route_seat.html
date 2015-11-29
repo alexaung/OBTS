@@ -1,38 +1,12 @@
 ﻿<div class="modal-header">
-    <h4 class="modal-title"><i class="fa fa-bus modal-icon"></i> Bus Seating Layout</h4>
+    <h4 class="modal-title"><i class="fa fa-road modal-icon"></i> Route Seating Layout</h4>
 </div>
-<div class="modal-body" ng-controller="busSeatController">
+<div class="modal-body" ng-controller="routeSeatController">
     <div>
        
-        <form class="form-horizontal" role="form" name="busSeat" novalidate ng-submit="save()" ng-init="initBusSeat(this)">
+        <form class="form-horizontal" role="form" name="busSeat" novalidate ng-submit="save()" ng-init="initRouteSeat(this)">
             <div class="content">
-                <div class="row">
-                    <div class="col-md-4 col-sm-4">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Row</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="noOfRow" ng-model="seat.noOfRow">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Column</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="noOfColumn" ng-model="seat.noOfColumn">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 col-sm-4">
-                        <div class="form-group">
-                            <button type="button" class="btn btn-white" ng-click="generateClicked()">Generate</button>
-                        </div>
-                    </div>
-                </div>
-
                 <table class="seatLayout">
-
                     <tr>
                         <td class="padding-bottom"></td>
                         <td class="padding-bottom" ng-repeat="col in cols track by $index" ng-bind="col"></td>
@@ -51,10 +25,13 @@
                     <img src="img/seat_available.png">  Available
                     <img src="img/seat_reserved.png" class="padding-left">  Unavailable
                 </div>
-
-               
                 
                 <div class="hr-line-dashed"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">click <button type="button" class="btn btn-primary btn-xs" ng-click="copyClicked()">here</button> to copy seating plan from Bus information.</div>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15" id="tblSeatList">

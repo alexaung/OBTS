@@ -34,7 +34,8 @@ function config($translateProvider) {
 		    MESSAGEINFO: 'You have 42 messages and 6 notifications.',
 		    SEARCH: 'Search',
 		    CALENDAR: 'Calendar',
-    	    BOOKINGLIST: 'Booking List',
+		    BOOKINGLIST: 'Booking List',
+		    NUMBEROFSEAT: 'No. of seats',
 
     	    // Define bus information
 		    BUSBRAND: "အမွတ္တ႔ဆိပ္",
@@ -60,7 +61,12 @@ function config($translateProvider) {
 		    DEPARTURETIME: "Deperture Time",
 		    ARRIVALTIME: "Arrival Time",
 		    ROUTEFARE: "Fare",
-		    RECURSIVE: "ပံုမွန္ခရီးစဥ္"
+		    RECURSIVE: "ပံုမွန္ခရီးစဥ္",
+
+    	    //Search Form
+		    DEPARTDATE: "ထြက္ခြာမည္႔ေန႔",
+		    RETURNDATE: "Return",
+    	    NOOFPAX: "No. of pax",
 
         })
         .translations('en', {
@@ -93,6 +99,7 @@ function config($translateProvider) {
             SEARCH: 'Search',
             CALENDAR: 'Calendar',
             BOOKINGLIST: 'Booking List',
+            NUMBEROFSEAT: 'No. of seats',
 
 
             
@@ -120,8 +127,12 @@ function config($translateProvider) {
             DEPARTURETIME: "Deperture Time",
             ARRIVALTIME: "Arrival Time",
             ROUTEFARE: "Fare",
-            RECURSIVE: "Recursive"
+            RECURSIVE: "Recursive",
 
+            //Search Form
+            DEPARTDATE: "Depart",
+            RETURNDATE: "Return",
+            NOOFPAX: "No. of pax",
         });
 
     $translateProvider.preferredLanguage('en');

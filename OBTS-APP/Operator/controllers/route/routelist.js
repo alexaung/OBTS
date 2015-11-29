@@ -16,6 +16,40 @@ function routeListCtrl($scope, $modal, $http, notify, routeService) {
 
     }
 
+    $scope.openSeat = function (route) {
+        routeService.route = route;
+        var modalInstance = $modal.open({
+            templateUrl: 'views/routes/route_seat.html',
+            controller: routeSeatController,
+            windowClass: "animated bounceInUp",
+            size: "lg",
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'datePicker',
+                            files: ['css/plugins/datapicker/angular-datapicker.css', 'js/plugins/datapicker/angular-datepicker.js']
+                        },
+                        {
+                            files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                        },
+                        {
+                            name: 'cgNotify',
+                            files: ['css/plugins/angular-notify/angular-notify.min.css', 'js/plugins/angular-notify/angular-notify.min.js']
+                        },
+                        {
+                            files: ['js/plugins/sweetalert/sweetalert.min.js', 'css/plugins/sweetalert/sweetalert.css']
+                        },
+                        {
+                            name: 'oitozero.ngSweetAlert',
+                            files: ['js/plugins/sweetalert/angular-sweetalert.min.js']
+                        }
+                    ]);
+                }
+            }
+        });
+    }
+
     $scope.open = function () {
         var modalInstance = $modal.open({
             templateUrl: 'views/routes/route_edit.html',

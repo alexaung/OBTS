@@ -53,11 +53,12 @@
         </div>
 
     </div>
-
+    
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox">
                 <div class="ibox-content" ng-controller="busListCtrl" data-ng-init="initBusList()">
+                   
                     <button class="btn btn-primary " type="button" ng-click="open()"><i class="fa fa-plus-circle"></i>&nbsp;Add</button>
                     <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15" id="tblbuslist" >
                         <thead>
@@ -68,7 +69,7 @@
                                 <th>{{ 'BUSREGNO' | translate }}</th>
                                 <th>{{ 'BUSPERMITNO' | translate }}</th>
                                 <th>{{ 'BUSPERMITRENEWDATE' | translate }}</th>
-                                <th>No. of seats</th>
+                                <th>{{ 'NUMBEROFSEAT' | translate }}</th>
                                 <th>{{ 'STATUS' | translate }}</th>
                                 <th data-hide="all"></th>
                                 <th class="text-right" data-sort-ignore="true">Action</th>
@@ -94,7 +95,7 @@
                                     {{bus.PermitRenewDate | date:'dd-MMM-yyyy'}}
                                 </td>
                                 <td>
-                                    <button class="btn-white btn btn-xs" ng-click="openSeat(bus)"><i class="fa fa-folder"></i> View</button>
+                                    <button class="btn btn-w-m btn-xs btn-outline btn-info" ng-click="openSeat(bus)">{{bus.NoOfSeat}}</button>
                                 </td>
                                 <td>
                                     <div ng-switch on="bus.Status">
@@ -130,7 +131,8 @@
                 </div>
             </div>
         </div>
+       
     </div>
-
+    
 
 </div>

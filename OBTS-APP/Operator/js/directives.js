@@ -452,3 +452,16 @@ angular
     .directive('landingScrollspy', landingScrollspy)
     .directive('fitHeight', fitHeight)
     .directive('myDirective', fooTable)
+    .directive('chosen', function () {
+        var linker = function (scope, element, attr) {
+            scope.$watch('cities', function () {
+                element.trigger('chosen:updated');
+            })
+            element.chosen();
+        }
+        return {
+            restric: 'A',
+            link: linker
+
+        }
+    })

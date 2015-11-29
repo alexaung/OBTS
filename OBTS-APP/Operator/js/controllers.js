@@ -2610,6 +2610,7 @@ angular
     .controller('calendarCtrl', calendarCtrl)
     .controller('searchCtrl', searchCtrl)
     .controller('busSeatController', busListCtrl)
+    .controller('routeSeatController', routeListCtrl)
     .controller('dashboardFlotOne', dashboardFlotOne)
     .controller('dashboardFlotTwo', dashboardFlotTwo)
     .controller('dashboardMap', dashboardMap)

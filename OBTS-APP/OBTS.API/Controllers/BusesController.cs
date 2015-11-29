@@ -42,8 +42,7 @@ namespace OBTS.API.Controllers
                         join ct1 in db.CodeTables on b.Brand equals ct1.KeyCode
                         where ct1.Title.Equals(strBrand)
                         join op in db.Operators on b.OperatorId equals op.OperatorId
- 
-                     select new BusDTO()
+                       select new BusDTO()
                          {
                                 BusId = b.BusId,
                                 Company=b.Company,
@@ -63,7 +62,8 @@ namespace OBTS.API.Controllers
                                 Description =b.Description,
                                 Status =b.Status,
                                 OperatorId=b.OperatorId,
-                                OperatorCompany= op.Company
+                                OperatorCompany= op.Company,
+                                NoOfSeat = 0
 
                          };
             return buses;

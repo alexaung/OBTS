@@ -11,6 +11,8 @@ namespace OBTS.API.Models.DTO
 
         public string Company { get; set; }
 
+        public short NoOfSeat { get; set; }
+
         public short Brand { get; set; }
 
         public string BrandDesc { get; set; }
