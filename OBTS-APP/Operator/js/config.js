@@ -179,9 +179,8 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                                    files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
                                },
                                {
-                                        insertBefore: '#loadBefore',
-                                        name: 'localytics.directives',
-                                        files: ['css/plugins/chosen/chosen.css','js/plugins/chosen/chosen.jquery.js','js/plugins/chosen/chosen.js']
+                                       
+                                        files: ['css/plugins/chosen/chosen.css','js/plugins/chosen/chosen.jquery.js']
                                 }
                             ]);
                         }
