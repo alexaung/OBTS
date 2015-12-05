@@ -15,7 +15,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
     });
 
     $stateProvider
-
         .state('index', {
             abstract: true,
             url: "/index",
@@ -24,13 +23,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
         .state('index.main', {
             url: "/main",
             templateUrl: "views/main.html",
-            data: { pageTitle: 'Example view' }
-        })
-        .state('index.minor', {
-            url: "/minor",
-            templateUrl: "views/minor.html",
-            data: { pageTitle: 'Example view' }
-        })
+            data: { pageTitle: 'Landing page', specialClass: 'landing-page' }
+        })         
+        
+        
 }
 angular
     .module('inspinia')

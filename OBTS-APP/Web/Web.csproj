@@ -92,6 +92,81 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="img\a1.jpg" />
+    <Content Include="img\a2.jpg" />
+    <Content Include="img\a3.jpg" />
+    <Content Include="img\a4.jpg" />
+    <Content Include="img\a5.jpg" />
+    <Content Include="img\a6.jpg" />
+    <Content Include="img\a7.jpg" />
+    <Content Include="img\a8.jpg" />
+    <Content Include="img\dashbard4_1.jpg" />
+    <Content Include="img\dashbard4_2.jpg" />
+    <Content Include="img\email_1.jpg" />
+    <Content Include="img\email_2.jpg" />
+    <Content Include="img\email_3.jpg" />
+    <Content Include="img\full_height.jpg" />
+    <Content Include="img\gallery\1.jpg" />
+    <Content Include="img\gallery\10.jpg" />
+    <Content Include="img\gallery\10s.jpg" />
+    <Content Include="img\gallery\11.jpg" />
+    <Content Include="img\gallery\11s.jpg" />
+    <Content Include="img\gallery\12.jpg" />
+    <Content Include="img\gallery\12s.jpg" />
+    <Content Include="img\gallery\1s.jpg" />
+    <Content Include="img\gallery\2.jpg" />
+    <Content Include="img\gallery\2s.jpg" />
+    <Content Include="img\gallery\3.jpg" />
+    <Content Include="img\gallery\3s.jpg" />
+    <Content Include="img\gallery\4.jpg" />
+    <Content Include="img\gallery\4s.jpg" />
+    <Content Include="img\gallery\5.jpg" />
+    <Content Include="img\gallery\5s.jpg" />
+    <Content Include="img\gallery\6.jpg" />
+    <Content Include="img\gallery\6s.jpg" />
+    <Content Include="img\gallery\7.jpg" />
+    <Content Include="img\gallery\7s.jpg" />
+    <Content Include="img\gallery\8.jpg" />
+    <Content Include="img\gallery\8s.jpg" />
+    <Content Include="img\gallery\9.jpg" />
+    <Content Include="img\gallery\9s.jpg" />
+    <Content Include="img\landing\avatar1.jpg" />
+    <Content Include="img\landing\avatar2.jpg" />
+    <Content Include="img\landing\avatar3.jpg" />
+    <Content Include="img\landing\avatar4.jpg" />
+    <Content Include="img\landing\avatar5.jpg" />
+    <Content Include="img\landing\avatar6.jpg" />
+    <Content Include="img\landing\avatar7.jpg" />
+    <Content Include="img\landing\avatar8.jpg" />
+    <Content Include="img\landing\avatar9.jpg" />
+    <Content Include="img\landing\avatar_all.png" />
+    <Content Include="img\landing\dashboard.png" />
+    <Content Include="img\landing\header_one.jpg" />
+    <Content Include="img\landing\header_two.jpg" />
+    <Content Include="img\landing\iphone.jpg" />
+    <Content Include="img\landing\laptop.png" />
+    <Content Include="img\landing\perspective.png" />
+    <Content Include="img\landing\shattered.png" />
+    <Content Include="img\landing\word_map.png" />
+    <Content Include="img\off_canvas.jpg" />
+    <Content Include="img\p1.jpg" />
+    <Content Include="img\p2.jpg" />
+    <Content Include="img\p3.jpg" />
+    <Content Include="img\p4.jpg" />
+    <Content Include="img\p5.jpg" />
+    <Content Include="img\p6.jpg" />
+    <Content Include="img\p7.jpg" />
+    <Content Include="img\p8.jpg" />
+    <Content Include="img\profile.jpg" />
+    <Content Include="img\profile_big.jpg" />
+    <Content Include="img\profile_small.jpg" />
+    <Content Include="img\p_big1.jpg" />
+    <Content Include="img\p_big2.jpg" />
+    <Content Include="img\p_big3.jpg" />
+    <Content Include="img\seat_available.png" />
+    <Content Include="img\seat_reserved.png" />
+    <Content Include="img\seat_selected.png" />
+    <Content Include="img\zender_logo.png" />
     <Content Include="index.html" />
     <Content Include="js\angular\angular-animate.min.js.map" />
     <Content Include="js\angular\angular-aria.min.js.map" />
@@ -305,16 +380,14 @@
     <Content Include="views\common\ibox_tools.html" />
     <Content Include="views\common\navigation.html" />
     <Content Include="views\common\topnavbar.html" />
+    <Content Include="views\landing.html" />
     <Content Include="views\main.html" />
-    <Content Include="views\minor.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="img\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
