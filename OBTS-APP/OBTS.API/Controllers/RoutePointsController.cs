@@ -21,16 +21,18 @@ namespace OBTS.API.Controllers
         private ApplicationDbContext  db = new ApplicationDbContext ();
 
         // GET: api/RoutePoints
-        public IQueryable<RoutePoint> GetRoutePoints()
+        [ResponseType(typeof(RoutePoint))]
+        public async Task<IHttpActionResult> GetRoutePoints()
         {
-            return db.RoutePoints;
+            return Ok((await(db.RoutePoints).ToListAsync()).AsQueryable());
         }
 
         // GET: api/route/{Id}/routepoints
+        [ResponseType(typeof(RoutePointDTO))]
         [Route("api/route/{Id}/routepoints", Name = "GetRoutePointsByRoute")]
-        public IQueryable<RoutePointDTO> GetRoutePointsByRoute(Guid Id)
+        public async Task<IHttpActionResult> GetRoutePointsByRoute(Guid Id)
         {
-            var routepoints = from o in db.RoutePoints
+            var routepoints =await( from o in db.RoutePoints
                     where o.RouteId.Equals(Id)
                               select new RoutePointDTO(){
 
@@ -40,9 +42,9 @@ namespace OBTS.API.Controllers
                                     DroppingPoint=o.DroppingPoint,
                                     BoardingTime=o.BoardingTime,
                                     DroppingTime=o.DroppingTime
-                              };
+                              }).ToListAsync();
 
-            return routepoints;
+            return Ok(routepoints.AsQueryable());
         }
 
         // GET: api/RoutePoint/5

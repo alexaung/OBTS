@@ -25,9 +25,9 @@ namespace OBTS.API.Models
 
         public short UpperLower { get; set; }
 
-        public string Row { get; set; }
+        public int Row { get; set; }
 
-        public string Col { get; set; }
+        public int Col { get; set; }
 
         public short State { get; set; }
 

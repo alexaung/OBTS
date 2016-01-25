@@ -19,35 +19,36 @@ namespace OBTS.API.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private string strUserType = OBTSEnum.ToString(OBTSEnum.Types.UserType);
         private string strOperator = OBTSEnum.ToString(OBTSEnum.Types.Operator);
-       
+
         // GET: api/Banks
-        public IQueryable<BankDTO> GetBanks()
+        [ResponseType(typeof(BankDTO))]
+        public async Task<IHttpActionResult> GetBanks()
         {
-            
 
-            var banks = from b in db.Banks
-                        join ct in db.CodeTables on b.UserTypeCode equals ct.KeyCode
-                        from o in db.Operators 
-                        .Where(w =>w.OperatorId == b.UserId).DefaultIfEmpty()
-                        from a in db.Agents
-                        .Where(x =>x.AgentId == b.UserId).DefaultIfEmpty()
-                        where ct.Title.Equals(strUserType)
+            var banks = await (from b in db.Banks
+                               join ct in db.CodeTables on b.UserTypeCode equals ct.KeyCode
+                               from o in db.Operators
+                               .Where(w => w.OperatorId == b.UserId).DefaultIfEmpty()
+                               from a in db.Agents
+                               .Where(x => x.AgentId == b.UserId).DefaultIfEmpty()
+                               where ct.Title.Equals(strUserType)
 
-                        select new BankDTO()
-                             {
-                                 BankId=b.BankId,
-                                 UserId=b.UserId,
-                                 UserName = (ct.Value.Equals(strOperator) ? o.Company : a.Comapany),
-                                 UserTypeDesc=ct.Value,
-                                 BankName=b.BankName,
-                                 Branch=b.Branch,
-                                 AccountNumber=b.AccountNumber,
-                                 LFSCCode=b.LFSCCode,
-                                 Logo=b.Logo
-                             };
+                               select new BankDTO()
+                               {
+                                   BankId = b.BankId,
+                                   UserId = b.UserId,
+                                   UserName = (ct.Value.Equals(strOperator) ? o.Company : a.Comapany),
+                                   UserTypeDesc = ct.Value,
+                                   BankName = b.BankName,
+                                   Branch = b.Branch,
+                                   AccountNumber = b.AccountNumber,
+                                   LFSCCode = b.LFSCCode,
+                                   Logo = b.Logo
+                               }
+                        ).ToListAsync();
 
 
-            return banks;
+            return Ok(banks.AsQueryable());
         }
 
         // GET: api/Banks/5

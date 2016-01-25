@@ -58,6 +58,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="controllers\booking\calendar.js" />
+    <Content Include="controllers\booking\search.js" />
     <Content Include="controllers\loginController.js" />
     <Content Include="controllers\mybus\busSeatController.js" />
     <Content Include="controllers\route\routeSeatController.js" />
@@ -915,6 +917,7 @@
     <Content Include="js\ui-router\angular-ui-router.min.js" />
     <Content Include="services\mybusservice.js" />
     <Content Include="views\booking\calendar.html" />
+    <Content Include="views\booking\searchresult.html" />
     <Content Include="views\booking\search.html" />
     <Content Include="views\common\content.html" />
     <Content Include="views\common\content_top_navigation.html" />

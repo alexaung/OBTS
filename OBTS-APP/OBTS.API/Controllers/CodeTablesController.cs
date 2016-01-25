@@ -35,30 +35,36 @@ namespace OBTS.API.Controllers
             {
                 Title = a.Title,
             };
-             
+
         // GET: api/CodeTables
-        public IQueryable<CodeTable> GetCodeTables()
+        [ResponseType(typeof(CodeTable))]
+        public async Task<IHttpActionResult> GetCodeTables()
         {
-            return db.CodeTables;
+            return Ok((await(db.CodeTables).ToListAsync()).AsQueryable());
         }
 
         // GET: api/codetables/title/title-value
+        [ResponseType(typeof(CodeValueDTO))]
         [Route("api/codetables/title/{Title}", Name = "GetCodeByTitle")]
-        public IQueryable<CodeValueDTO> GetCodeByTitle(string Title)
+        public async Task<IHttpActionResult> GetCodeByTitle(string Title)
         {
+            var codes = await (db.CodeTables
+                .Where(b => b.Title == Title).Select(AsCodeValueDTO)
+                ).ToListAsync();
             // City city = await db.Cities.FindAsync(id);
-            return db.CodeTables
-            .Where(b => b.Title == Title)
-            .Select(AsCodeValueDTO);
+            return Ok(codes.AsQueryable());
         }
 
         // GET: api/codetables/titles
+        [ResponseType(typeof(CodeTitleDTO))]
         [Route("api/codetables/titles", Name = "GetCodeTableTitles")]
-        public IQueryable<CodeTitleDTO> GetCodeTableTitles()
+        public async Task<IHttpActionResult> GetCodeTableTitles()
         {
             // City city = await db.Cities.FindAsync(id);
-            return db.CodeTables
-            .Select(AsCodeTitleDTO).Distinct();
+            var codes = await (db.CodeTables
+                .Select(AsCodeTitleDTO).Distinct()
+             ).ToListAsync();
+            return Ok(codes.AsQueryable());
         }
 
         // GET: api/CodeTables/5

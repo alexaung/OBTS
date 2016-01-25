@@ -22,10 +22,11 @@ namespace OBTS.API.Controllers
         private string strAmenities = OBTSEnum.ToString(OBTSEnum.Types.Amenities);
 
         // GET: api/routedetails
-        [Route("api/routesamenities", Name = "GetRouteDetails")]
-        public IQueryable<RouteDetailDTO> GetRouteDetails()
+        [ResponseType(typeof(RouteDetailDTO))]
+        [Route("api/routedetails/amenities", Name = "GetRouteDetails")]
+        public async Task<IHttpActionResult> GetRouteDetails()
         {
-            var routedetails = from b in db.RouteDetails
+            var routedetails =await( from b in db.RouteDetails
                         join ct in db.CodeTables on b.AmenitiesCodeId equals ct.KeyCode
                                where ct.Title.Equals(strAmenities)
 
@@ -36,15 +37,16 @@ namespace OBTS.API.Controllers
                                     AmenitiesCodeId=b.AmenitiesCodeId,
                                     Amenities=ct.Value
 
-                                };
-            return routedetails;
+                                }).ToListAsync();
+            return Ok(routedetails.AsQueryable());
         }
 
         // GET: api/route/{Id}/routedetails
+        [ResponseType(typeof(RouteDetailDTO))]
         [Route("api/route/{Id}/amenities", Name = "GetRouteDetailsByRoute")]
-        public IQueryable<RouteDetailDTO> GetRouteDetailsByRoute(Guid Id)
+        public async Task<IHttpActionResult> GetRouteDetailsByRoute(Guid Id)
         {
-            var routedetails = from b in db.RouteDetails
+            var routedetails =await( from b in db.RouteDetails
                                join ct in db.CodeTables on b.AmenitiesCodeId equals ct.KeyCode
                                where ct.Title.Equals(strAmenities) && b.RouteId.Equals(Id)
 
@@ -55,16 +57,16 @@ namespace OBTS.API.Controllers
                                    AmenitiesCodeId = b.AmenitiesCodeId,
                                    Amenities = ct.Value
 
-                               };
-            return routedetails;
+                               }).ToListAsync();
+            return Ok(routedetails.AsQueryable());
         }
 
         // GET: api/routeamenity/5
         [ResponseType(typeof(RouteDetail))]
-        [Route("api/routeamenity/{Id}", Name = "GetRouteDetail")]
+        [Route("api/routedetail/{Id}/amenities", Name = "GetRouteDetail")]
         public async Task<IHttpActionResult> GetRouteDetail(Guid id)
         {
-            var routedetails = from b in db.RouteDetails
+            var routeDetail = await( from b in db.RouteDetails
                                join ct in db.CodeTables on b.AmenitiesCodeId equals ct.KeyCode
                                where ct.Title.Equals(strAmenities) && b.RouteDetailId.Equals(id)
 
@@ -75,9 +77,9 @@ namespace OBTS.API.Controllers
                                    AmenitiesCodeId = b.AmenitiesCodeId,
                                    Amenities = ct.Value
 
-                               };
+                               }).SingleOrDefaultAsync(r => r.RouteDetailId == id);
 
-            RouteDetailDTO routeDetail = await routedetails.SingleOrDefaultAsync(r => r.RouteDetailId == id);
+            //RouteDetailDTO routeDetail = await routedetails;
             if (routeDetail == null)
             {
                 return NotFound();

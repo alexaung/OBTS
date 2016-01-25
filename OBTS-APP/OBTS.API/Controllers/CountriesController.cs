@@ -39,40 +39,48 @@ namespace OBTS.API.Controllers
                 RegionDesc = x.CountryRegion.RegionDesc,
             };
 
-        [Authorize(Roles = "SuperAdmin,Admin")]
+        //[Authorize(Roles = "SuperAdmin,Admin")]
         // GET: api/Countries
-        public IQueryable<Country> GetCountries()
+        [ResponseType(typeof(Country))]
+        public async Task<IHttpActionResult> GetCountries()
         {
-            return db.Countries;
+            return Ok((await (db.Countries).ToListAsync()).AsQueryable());
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         // GET: api/country/1/cities
+        [ResponseType(typeof(CitiesCountryDTO))]
         [Route("api/country/{Id}/cities", Name = "GetCitiesByCountry")]
-        public IQueryable<CitiesCountryDTO> GetCitiesByCountry(Guid Id)
+        public async Task<IHttpActionResult> GetCitiesByCountry(Guid Id)
         {
             // City city = await db.Cities.FindAsync(id);
-            return db.Cities.Include(b => b.CountryRegion)
+            var cities=await( db.Cities.Include(b => b.CountryRegion)
             .Where(b => b.CountryRegion.CountryId == Id)
-            .Select(AsCitiesCountryDTO);
+            .Select(AsCitiesCountryDTO)).ToListAsync();
+
+            return Ok(cities.AsQueryable());
         }
 
-         [Authorize(Roles = "Operatpr")]
+        //[Authorize(Roles = "Operatpr")]
         // GET: api/country/1/regions
+        [ResponseType(typeof(RegionsCountryDTO))]
         [Route("api/country/{Id}/regions", Name = "GetRegionsByCountry")]
-        public IQueryable<RegionsCountryDTO> GetRegionsByCountry(Guid Id)
+        public async Task<IHttpActionResult> GetRegionsByCountry(Guid Id)
         {
             // City city = await db.Cities.FindAsync(id);
-            return db.Regions
+            var regions=await( db.Regions
             .Where(b => b.CountryId == Id)
-            .Select(AsRegionsCountryDTO);
+            .Select(AsRegionsCountryDTO)).ToListAsync();
+
+            return Ok(regions.AsQueryable());
         }
 
         // GET: api/country/{Id}/operators
+        [ResponseType(typeof(OperatorDTO))]
         [Route("api/country/{Id}/operators", Name = "GetOperatorsByCountry")]
-        public IQueryable<OperatorDTO> GetOperatorsByCountry(Guid Id)
+        public async Task<IHttpActionResult> GetOperatorsByCountry(Guid Id)
         {
-            var _operators = from o in db.Operators
+            var _operators =await( from o in db.Operators
                 .Include(o => o._city)
                 .Include(o => o._city.CountryRegion)
                 .Include(o => o._city.CountryRegion.Country)
@@ -99,10 +107,10 @@ namespace OBTS.API.Controllers
                                  Status = o.Status,
                                  UserName = o.UserName,
                                  Password = o.Password
-                             };
+                             }).ToListAsync();
 
 
-            return _operators;
+            return Ok(_operators.AsQueryable());
         }
 
         // GET: api/countries/country/1

@@ -32,13 +32,15 @@ namespace OBTS.API.Models
             [Description("BusFeatures")]
             BusFeatures,
             [Description("Amenities")]
-            Amenities
+            Amenities,
+            [Description("Currency")]
+            Currency
         }
 
         public enum BookState
         {
             NotAvailable=0,
-            Selected=1,
+            Space=1,
             Booked=2,
             Available=3
         }

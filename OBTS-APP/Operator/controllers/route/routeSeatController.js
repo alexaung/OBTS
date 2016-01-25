@@ -1,5 +1,5 @@
 ﻿/**
- * busListCtrl - Controller used to run modal view
+ * routeSeatController - Controller used to run modal view
  * used in Basic form view
  */
 function routeSeatController($scope, $modalInstance, $http, notify, routeService, busService, SweetAlert) {

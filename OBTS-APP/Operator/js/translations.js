@@ -7,7 +7,7 @@ function config($translateProvider) {
     $translateProvider
     	.translations('mm', {
 
-		            // Define all menu elements
+		    // Define all menu elements
     	    DASHBOARD: 'ဒတ္ရွ္ဘုတ္',
     	    MYBUSES: 'ႈါ႔ကား...',
     	    ROUTES: 'ဃရီးစဥ္',
@@ -66,7 +66,9 @@ function config($translateProvider) {
     	    //Search Form
 		    DEPARTDATE: "ထြက္ခြာမည္႔ေန႔",
 		    RETURNDATE: "Return",
-    	    NOOFPAX: "No. of pax",
+		    NOOFPAX: "No. of pax",
+
+            OPERATOR:"အောပရေတာ"
 
         })
         .translations('en', {
@@ -133,6 +135,7 @@ function config($translateProvider) {
             DEPARTDATE: "Depart",
             RETURNDATE: "Return",
             NOOFPAX: "No. of pax",
+            OPERATOR:"Operator"
         });
 
     $translateProvider.preferredLanguage('en');

@@ -18,11 +18,12 @@ namespace OBTS.API.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private string strBusType = OBTSEnum.ToString(OBTSEnum.Types.BusType);
-        
+
         // GET: api/Bookings
-        public IQueryable<BookingDTO> GetBookings()
+        [ResponseType(typeof(BookingDTO))]
+        public async Task<IHttpActionResult> GetBookings()
         {
-            var _bookings = from o in db.Bookings
+            var _bookings =await( from o in db.Bookings
                 from r in db.Routes .Where(c=>c.RouteId==o.RouteId).DefaultIfEmpty()
                 from c1 in db.Cities .Where(a=>a.CityId==o.ArrivalCity).DefaultIfEmpty()
                 from c2 in db.Cities .Where(b=>b.CityId==o.DepartureCity).DefaultIfEmpty()
@@ -49,17 +50,18 @@ namespace OBTS.API.Controllers
                                 RegNo=o.RegNo,
                                 Cupon=o.Cupon,
                                 Discount=o.Discount
-                             };
+                             }).ToListAsync();
 
-            return _bookings;
+            return Ok(_bookings.AsQueryable());
         }
 
         // GET: api/bookings/bus/{BusId}/route/{RouteId}
         //default filter date : TravelDate > current date & time
+        [ResponseType(typeof(BookingDTO))]
         [Route("api/bookings/bus/{BusId}/route/{RouteId}", Name = "GetBookingByBusRoute")]
-        public IQueryable<BookingDTO> GetBookingByBusRoute(Guid BusId, Guid RouteId)
+        public async Task<IHttpActionResult> GetBookingByBusRoute(Guid BusId, Guid RouteId)
         {
-            var bookings = from o in db.Bookings
+            var bookings = await (from o in db.Bookings
                            from r in db.Routes.Where(c => c.RouteId == o.RouteId).DefaultIfEmpty()
                            from c1 in db.Cities.Where(a => a.CityId == o.ArrivalCity).DefaultIfEmpty()
                            from c2 in db.Cities.Where(b => b.CityId == o.DepartureCity).DefaultIfEmpty()
@@ -88,8 +90,8 @@ namespace OBTS.API.Controllers
                              RegNo = o.RegNo,
                              Cupon = o.Cupon,
                              Discount = o.Discount
-                         };
-            return bookings;
+                         }).ToListAsync();
+            return Ok(bookings.AsQueryable());
         }
 
         // GET: api/Bookings/5

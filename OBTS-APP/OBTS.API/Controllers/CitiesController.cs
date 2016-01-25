@@ -22,10 +22,10 @@ namespace OBTS.API.Controllers
         private ApplicationDbContext  db = new ApplicationDbContext ();
 
         // GET: api/Cities
-        
-        public IQueryable<CityDTO> GetCities()
+        [ResponseType(typeof(CityDTO))]
+        public async Task<IHttpActionResult> GetCities()
         {
-            var cities = from b in db.Cities
+            var cities = await(from b in db.Cities
                          select new CityDTO()
                             {
                                 CityId = b.CityId,
@@ -34,15 +34,16 @@ namespace OBTS.API.Controllers
                                 RegionDesc = b.CountryRegion.RegionDesc,
                                 CountryId= b.CountryRegion.Country.CountryId,
                                 CountryDesc=b.CountryRegion.Country.CountryDesc
-                            };
-            return cities;
+                            }).ToListAsync();
+            return Ok(cities.AsQueryable());
         }
 
         // GET: api/city/{Id}/operators
+        [ResponseType(typeof(OperatorDTO))]
         [Route("api/city/{Id}/operators", Name = "GetOperatorsByCity")]
-        public IQueryable<OperatorDTO> GetOperatorsByCity(Guid Id)
+        public async Task<IHttpActionResult> GetOperatorsByCity(Guid Id)
         {
-            var _operators = from o in db.Operators
+            var _operators =await( from o in db.Operators
                 .Include(o => o._city)
                 .Include(o => o._city.CountryRegion)
                 .Include(o => o._city.CountryRegion.Country)
@@ -69,10 +70,10 @@ namespace OBTS.API.Controllers
                                  Status = o.Status,
                                  UserName = o.UserName,
                                  Password = o.Password
-                             };
+                             }).ToListAsync();
 
 
-            return _operators;
+            return Ok(_operators.AsQueryable());
         }
 
         // GET: api/Cities/5

@@ -21,16 +21,16 @@ namespace OBTS.API.Controllers
         private ApplicationDbContext  db = new ApplicationDbContext ();
 
         // GET: api/Agents
-        public IQueryable<AgentDTO> GetAgents()
+        [ResponseType(typeof(AgentDTO))]
+        public async Task<IHttpActionResult> GetAgents()
         {
-            
-            
-            var agents = from a in db.Agents
+
+            var agents = await db.Agents
                 .Include(a => a._city)
                 .Include(a => a._city.CountryRegion)
                 .Include(a => a._city.CountryRegion.Country)
-
-                        select new AgentDTO()
+                .Select(a =>
+                        new AgentDTO()
                         {
                             AgentId = a.AgentId,
                             Comapany = a.Comapany,
@@ -43,20 +43,20 @@ namespace OBTS.API.Controllers
                             Address = a.Address,
                             CityId = a.CityId,
                             CityName = a._city.CityDesc,
-                            RegionId=a._city.CountryRegion.RegionId,
-                            RegionName=a._city.CountryRegion.RegionDesc,
+                            RegionId = a._city.CountryRegion.RegionId,
+                            RegionName = a._city.CountryRegion.RegionDesc,
                             PinCode = a.PinCode,
                             CountryId = a._city.CountryRegion.Country.CountryId,
-                            CountryName= a._city.CountryRegion.Country.CountryDesc,
+                            CountryName = a._city.CountryRegion.Country.CountryDesc,
                             Mobile = a.Mobile,
-                            OfficePhone=a.OfficePhone,
+                            OfficePhone = a.OfficePhone,
                             Fax = a.Fax,
                             UserName2 = a.UserName2,
                             Password = a.Password,
-                            Logo =a.Logo,
-                            Status=a.Status
-                        };
-            return agents;
+                            Logo = a.Logo,
+                            Status = a.Status
+                        }).ToListAsync();
+            return Ok(agents.AsQueryable());
             
         }
 

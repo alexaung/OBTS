@@ -22,9 +22,10 @@ namespace OBTS.API.Controllers
 
 
         // GET: api/Operators
-        public IQueryable<OperatorDTO> GetOperators()
+        [ResponseType(typeof(OperatorDTO))]
+        public async Task<IHttpActionResult> GetOperators()
         {
-            var _operators = from o in db.Operators
+            var _operators =await( from o in db.Operators
                 .Include(o => o._city)
                // .Include(o=> o._city.CountryRegion)
                // .Include(o=> o._city.CountryRegion.Country)
@@ -50,10 +51,10 @@ namespace OBTS.API.Controllers
                     Status = o.Status,
                     UserName = o.UserName,
                     Password = o.Password
-                };
+                }).ToListAsync();
 
             
-            return _operators;
+            return Ok(_operators.AsQueryable());
         }
 
         // GET: api/Operator/5

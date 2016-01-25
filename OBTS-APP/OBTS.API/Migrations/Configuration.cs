@@ -1,24 +1,23 @@
 namespace OBTS.API.Migrations
 {
+    using System;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using OBTS.API.Infrastructure;
     using OBTS.API.Models;
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+    
 
     internal sealed class Configuration : DbMigrationsConfiguration<OBTS.API.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            //for testing --add remove column while data there
             AutomaticMigrationDataLossAllowed = true;
-
-            //SetSqlGenerator("System.Data.SqlClient", new CustomSqlServerMigrationSqlGenerator());
         }
+
+        
 
         protected override void Seed(OBTS.API.Models.ApplicationDbContext context)
         {
@@ -42,7 +41,7 @@ namespace OBTS.API.Migrations
 
             manager.Create(user, "P@assw0rd");
 
-           
+
 
             if (roleManager.Roles.Count() == 0)
             {
@@ -58,7 +57,7 @@ namespace OBTS.API.Migrations
             manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
 
             /******* Code Table *******/
-            var toyota = new CodeTable { CodeTableId = Guid.Parse("fd04b5df-c172-49cf-91f4-04b7edb3d1eb"), KeyCode = 1, Title = "Brand", Value = "Toyota",CreatedBy=Guid.Parse(adminUser.Id),CreatedUtc=DateTime.UtcNow };
+            var toyota = new CodeTable { CodeTableId = Guid.Parse("fd04b5df-c172-49cf-91f4-04b7edb3d1eb"), KeyCode = 1, Title = "Brand", Value = "Toyota", CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
             var honda = new CodeTable { CodeTableId = Guid.Parse("96d27e43-12af-4ca4-867c-69c99ad76395"), KeyCode = 2, Title = "Brand", Value = "Honda", CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
             var scania = new CodeTable { CodeTableId = Guid.Parse("05051711-5008-49db-aec7-73c048583908"), KeyCode = 3, Title = "Brand", Value = "Scania", CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
             var volvo = new CodeTable { CodeTableId = Guid.Parse("75e3b687-1291-428d-ace9-a350e1af113f"), KeyCode = 4, Title = "Brand", Value = "Volvo", CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
@@ -87,7 +86,7 @@ namespace OBTS.API.Migrations
             var mandalay = new Region { RegionId = Guid.Parse("7C45BAF8-A0DB-4B7E-8BB6-2456FF7C7A4D"), RegionDesc = "Mandalay", CountryId = mm.CountryId, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
             context.Regions.AddOrUpdate(
                 r => r.RegionId,
-                yangon,mandalay
+                yangon, mandalay
                 );
 
             /******* City *******/
@@ -95,7 +94,7 @@ namespace OBTS.API.Migrations
             var mandalaycity = new City { CityId = Guid.Parse("89A647F4-324F-495E-80BF-B75F8249CC62"), CityDesc = "Mandalay", RegionId = mandalay.RegionId, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
             context.Cities.AddOrUpdate(
               c => c.CityId,
-              yangoncity,mandalaycity
+              yangoncity, mandalaycity
             );
 
             /******* Operator *******/
@@ -123,10 +122,10 @@ namespace OBTS.API.Migrations
             /******* Bus *******/
             var bus = new Bus { BusId = Guid.Parse("73A2436E-EE50-4254-B649-6EAA4E56CD3F"), Company = "Mya mar lar", Brand = toyota.KeyCode, BusType = normalBusType.KeyCode, RegistrationNo = "11111111", PermitNumber = "1234567890", PermitRenewDate = DateTime.Parse("2015/01/01"), InsurancePolicyNumber = "123445", InsuranceCompany = "Pru", InsuranceValidFrom = DateTime.Parse("2015/01/01"), InsuranceValidTo = DateTime.Parse("2015/12/30"), VechiclePhoneNo = "111111", DriverName = "Mg Ba", Description = "Weekly yangon to mandalay", Status = true, OperatorId = elit.OperatorId, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
             var bus2 = new Bus { BusId = Guid.Parse("F5ECB397-88CB-4EA2-90F5-E7A3D9D9A229"), Company = "Mya mar lar2", Brand = toyota.KeyCode, BusType = normalBusType.KeyCode, RegistrationNo = "2222222", PermitNumber = "1234567890", PermitRenewDate = DateTime.Parse("2015/01/01"), InsurancePolicyNumber = "123445", InsuranceCompany = "Pru", InsuranceValidFrom = DateTime.Parse("2015/01/01"), InsuranceValidTo = DateTime.Parse("2015/12/30"), VechiclePhoneNo = "111111", DriverName = "Mg Ba2", Description = "Weekly yangon to mandalay", Status = true, OperatorId = elit.OperatorId, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
-            
+
             context.Buses.AddOrUpdate(
               b => b.BusId,
-              bus,bus2
+              bus, bus2
             );
 
             /******* Seat *******/
@@ -140,10 +139,10 @@ namespace OBTS.API.Migrations
             //route
             var route = new Route { RouteId = Guid.Parse("B03A4F96-E0A6-4B31-B2BC-D62F1E28528C"), BusId = bus.BusId, Source_CityId = yangoncity.CityId, Destination_CityId = mandalaycity.CityId, Recurrsive = true, RouteDate = DateTime.Parse("2015/01/01"), DepartureTime = TimeSpan.Parse("9:00"), ArrivalTime = TimeSpan.Parse("23:00"), RouteFare = 10000, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
             var route2 = new Route { RouteId = Guid.Parse("CCC8C693-D7C1-4192-A892-37B28824B307"), BusId = bus2.BusId, Source_CityId = yangoncity.CityId, Destination_CityId = mandalaycity.CityId, Recurrsive = true, RouteDate = DateTime.Parse("2015/01/01"), DepartureTime = TimeSpan.Parse("9:00"), ArrivalTime = TimeSpan.Parse("23:00"), RouteFare = 10000, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
-            
+
             context.Routes.AddOrUpdate(
               b => b.RouteId,
-              route,route2  
+              route, route2
             );
 
             //booking
@@ -157,7 +156,7 @@ namespace OBTS.API.Migrations
             );
 
             context.SaveChanges();
-            
+
         }
     }
 }

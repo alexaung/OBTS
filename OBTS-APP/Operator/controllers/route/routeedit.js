@@ -56,6 +56,7 @@ function routeEditCtrl($scope, $modalInstance, $http, notify, routeService) {
                 });
             }
             else {
+                $scope.route.RouteId = "73a2436e-ee50-4254-b649-6eaa4e56cd3f";
                 routeService.insert($scope.route).success(function (response) {
                     notify({ message: 'Route information is saved successfuly.', classes: 'alert-success', templateUrl: 'views/common/notify.html' });
                     $modalInstance.close();

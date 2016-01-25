@@ -80,7 +80,7 @@ namespace OBTS.API.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-
+            //try { 
             var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
 
             if (allowedOrigin == null) allowedOrigin = "*";
@@ -126,7 +126,11 @@ namespace OBTS.API.Providers
 
             var ticket = new AuthenticationTicket(identity, props);
             context.Validated(ticket);
-
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw;
+           // }
         }
 
         public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)

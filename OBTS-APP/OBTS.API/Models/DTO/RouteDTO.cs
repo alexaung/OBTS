@@ -42,5 +42,11 @@ namespace OBTS.API.Models.DTO
         public TimeSpan ArrivalTime { get; set; }
 
         public decimal RouteFare { get; set; }
+
+        public short Currency { get; set; }
+
+        public string CurrencyDesc { get; set; }
+
+        public IQueryable<SeatDetailDTO> seats { get; set; }
     }
 }

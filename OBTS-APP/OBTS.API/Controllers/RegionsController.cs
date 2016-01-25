@@ -30,34 +30,38 @@ namespace OBTS.API.Controllers
             };
 
         // GET: api/Regions
-        public IQueryable<CountryRegionDTO> GetRegions()
+        [ResponseType(typeof(CountryRegionDTO))]
+        public async Task<IHttpActionResult> GetRegions()
         {
-            var regions = from b in db.Regions
+            var regions =await( from b in db.Regions
                           select new CountryRegionDTO()
                         {
                             RegionId = b.RegionId,
                             RegionDesc = b.RegionDesc,
                             CountryId= b.CountryId,
                             CountryDesc = b.Country.CountryDesc
-                        };
-            return regions;
+                        }).ToListAsync();
+            return Ok(regions.AsQueryable());
         }
 
         // GET: api/region/1/cities
+        [ResponseType(typeof(CitiesRegionDTO))]
         [Route("api/region/{Id}/cities", Name = "GetCitiesByRegion")]
-        public IQueryable<CitiesRegionDTO> GetCitiesByRegion(Guid Id)
+        public async Task<IHttpActionResult> GetCitiesByRegion(Guid Id)
         {
             // City city = await db.Cities.FindAsync(id);
-            return db.Cities.Include(b => b.CountryRegion)
+            var cities=await( db.Cities.Include(b => b.CountryRegion)
             .Where(b => b.CountryRegion.RegionId == Id)
-            .Select(AsCitiesRegionDTO);
+            .Select(AsCitiesRegionDTO)).ToListAsync();
+            return Ok(cities.AsQueryable());
         }
 
         // GET: api/region/{Id}/operators
+        [ResponseType(typeof(OperatorDTO))]
         [Route("api/region/{Id}/operators", Name = "GetOperatorsByRegion")]
-        public IQueryable<OperatorDTO> GetOperatorsByRegion(Guid Id)
+        public async Task<IHttpActionResult> GetOperatorsByRegion(Guid Id)
         {
-            var _operators = from o in db.Operators
+            var _operators =await( from o in db.Operators
                 .Include(o => o._city)
                 .Include(o => o._city.CountryRegion)
                 .Include(o => o._city.CountryRegion.Country)
@@ -84,10 +88,10 @@ namespace OBTS.API.Controllers
                                  Status = o.Status,
                                  UserName = o.UserName,
                                  Password = o.Password
-                             };
+                             }).ToListAsync();
 
 
-            return _operators;
+            return Ok(_operators.AsQueryable());
         }
 
         // GET: api/region/1

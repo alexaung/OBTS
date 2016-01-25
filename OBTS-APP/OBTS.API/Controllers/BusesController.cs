@@ -18,7 +18,7 @@ using AutoMapper;
 
 namespace OBTS.API.Controllers
 {
-    [Authorize]
+  //  [Authorize]
     public class BusesController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
@@ -34,9 +34,10 @@ namespace OBTS.API.Controllers
             };
 
         // GET: api/Buses
-        public IQueryable<BusDTO> GetBuses()
+        [ResponseType(typeof(BusDTO))]
+        public async Task<IHttpActionResult> GetBuses()
         {
-           var buses = from b in db.Buses
+           var buses = await(from b in db.Buses
                         join ct in db.CodeTables on b.BusType equals  ct.KeyCode
                         where ct.Title.Equals(strBusType) 
                         join ct1 in db.CodeTables on b.Brand equals ct1.KeyCode
@@ -65,16 +66,17 @@ namespace OBTS.API.Controllers
                                 OperatorCompany= op.Company,
                                 NoOfSeat = 0
 
-                         };
-            return buses;
+                         }).ToListAsync();
+            return Ok(buses.AsQueryable());
         }
 
         // GET: api/Buses
+        [ResponseType(typeof(BusDTO))]
         [Route("api/buses/operator/{Id}", Name = "GetBusesByOperator")]
-        public IQueryable<BusDTO> GetBusesByOperator(Guid Id)
+        public async Task<IHttpActionResult> GetBusesByOperator(Guid Id)
         {
             
-            var buses = from b in db.Buses
+            var buses = await (from b in db.Buses
                         join ct in db.CodeTables on b.BusType equals ct.KeyCode
                         where ct.Title.Equals(strBusType) && b.OperatorId.Equals(Id)
                         join ct1 in db.CodeTables on b.Brand equals ct1.KeyCode
@@ -103,8 +105,8 @@ namespace OBTS.API.Controllers
                             OperatorId = b.OperatorId,
                             OperatorCompany = op.Company
 
-                        };
-            return buses;
+                        }).ToListAsync();
+            return Ok(buses.AsQueryable());
         }
 
         // GET: api/Buses/5
@@ -112,7 +114,7 @@ namespace OBTS.API.Controllers
         [Route("api/bus/{Id}", Name = "GetBus")]
         public async Task<IHttpActionResult> GetBus(Guid id)
         {
-            var buses = from b in db.Buses
+            var bus = await( from b in db.Buses
                         join ct in db.CodeTables on b.BusType equals ct.KeyCode
                         where ct.Title.Equals(strBusType) && b.BusId.Equals(id)
                         join ct1 in db.CodeTables on b.Brand equals ct1.KeyCode
@@ -141,8 +143,8 @@ namespace OBTS.API.Controllers
                             OperatorId = b.OperatorId,
                             OperatorCompany = op.Company
 
-                        };
-            BusDTO bus = await buses.SingleOrDefaultAsync(b => b.BusId == id);
+                        }).SingleOrDefaultAsync(b => b.BusId == id);
+            //BusDTO bus = await buses.SingleOrDefaultAsync(b => b.BusId == id);
             if (bus == null)
             {
                 return NotFound();

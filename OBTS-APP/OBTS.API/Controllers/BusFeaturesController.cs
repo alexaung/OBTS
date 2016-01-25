@@ -30,10 +30,11 @@ namespace OBTSAPI.Controllers
            };
 
         // GET: api/BusesFeatures
+        [ResponseType(typeof(BusFeatureDTO))]
         [Route("api/busesfeatures", Name = "GetBusFeatures")]
-        public IQueryable<BusFeatureDTO> GetBusFeatures()
+        public async Task<IHttpActionResult> GetBusFeatures()
         {
-            var features = from b in db.BusFeatures
+            var features =await( from b in db.BusFeatures
                         join ct in db.CodeTables on b.BusFeatureCode equals ct.KeyCode
                            where ct.Title.Equals(strBusFeatures)
 
@@ -43,16 +44,17 @@ namespace OBTSAPI.Controllers
                             BusId =b.BusId,
                             BusFeatureCode=ct.KeyCode,
                             BusFeatureDesc =ct.Value
-                        };
-            return features;
+                        }).ToListAsync();
+            return Ok(features.AsQueryable());
         }
 
         // GET: api/bus/{id}/features
+        [ResponseType(typeof(BusFeatureDTO))]
         [Route("api/bus/{Id}/features", Name = "GetFeaturesByBus")]
-        public IQueryable<BusFeatureDTO> GetFeaturesByBus(Guid Id)
+        public async Task<IHttpActionResult> GetFeaturesByBus(Guid Id)
         {
 
-            var features = from b in db.BusFeatures
+            var features = await(from b in db.BusFeatures
                            join ct in db.CodeTables on b.BusFeatureCode equals ct.KeyCode
                            where ct.Title.Equals(strBusFeatures) && b.BusId.Equals(Id)
 
@@ -62,9 +64,9 @@ namespace OBTSAPI.Controllers
                                BusId = b.BusId,
                                BusFeatureCode = ct.KeyCode,
                                BusFeatureDesc = ct.Value
-                           };
+                           }).ToListAsync();
 
-            return features;
+            return Ok(features.AsQueryable());
         }
 
         // GET: api/Bus/Feature/5

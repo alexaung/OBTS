@@ -21,17 +21,18 @@ namespace OBTS.API.Controllers
         private string strBrand = OBTSEnum.ToString(OBTSEnum.Types.Brand);
 
         // GET: api/Seats
-        public IQueryable<Seat> GetSeats()
+        [ResponseType(typeof(Seat))]
+        public async Task<IHttpActionResult> GetSeats()
         {
-            return db.Seats;
+            return Ok((await (db.Seats).ToListAsync()).AsQueryable());
         }
 
         // GET: api/bus/1/seats
+        [ResponseType(typeof(SeatDTO))]
         [Route("api/bus/{Id}/seats", Name = "GetSeatsByBus")]
-        public IQueryable<SeatDTO> GetSeatsByBus(Guid Id)
+        public async Task<IHttpActionResult> GetSeatsByBus(Guid Id)
         {
-
-            var seats = from b in db.Seats
+            var seats =await( from b in db.Seats
                         where b.BusId.Equals(Id)
 
                         select new SeatDTO()
@@ -49,10 +50,10 @@ namespace OBTS.API.Controllers
                             UpperLower=b.UpperLower,
                             Row =b.Row,
                             Col = b.Col
-                        };
+                        }).OrderBy(u => u.Row).ThenBy(u => u.Col).ToListAsync();
 
-            seats = seats.OrderBy(u => u.Row).ThenBy(u=>u.Col);
-            return seats;
+            
+            return Ok(seats.AsQueryable());
         }
 
         // GET: api/Seats/5

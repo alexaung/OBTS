@@ -25,6 +25,8 @@ namespace OBTS.API.Models
 
         public decimal RouteFare { get; set; }
 
+        public short Currency { get; set; }
+
         //navi properties
         //public City _Source_City { get; set; }
         //public City _Destination_City { get; set; }

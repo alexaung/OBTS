@@ -22,12 +22,15 @@ namespace OBTS.API.Models
     
         public ApplicationDbContext () : base("name=ApplicationDbContext ")
         {
+            //Database.Initialize(true);
         }
 
         public static ApplicationDbContext  Create()
         {
+           
             return new ApplicationDbContext ();
         }
+
 
         public override int SaveChanges()
         {
@@ -51,15 +54,16 @@ namespace OBTS.API.Models
 
            
             Guid userId = Guid.Empty;
-            if (HttpContext.Current != null)
+            if (HttpContext.Current != null && HttpContext.Current.User!=null)
             {
-                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-           
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                
                 var user = HttpContext.Current.User;
 
                 ApplicationUser appUser = userManager.FindByName(user.Identity.Name);
-
-                userId = Guid.Parse(appUser.Id);
+                if(appUser!=null)
+                    userId = Guid.Parse(appUser.Id);
+                else userId = Guid.Parse("6eda40fc-0b54-4958-b52a-7f48601395da");
             }
             else
                 userId = Guid.Parse("6eda40fc-0b54-4958-b52a-7f48601395da");
@@ -93,6 +97,24 @@ namespace OBTS.API.Models
                     ((EntityBase)entity.Entity).ModifiedBy = userId;
                 }
             }
+        }
+        /*
+        protected virtual void InitializeDatabase()
+        {
+            if (!Database.Exists())
+            {
+                //Database.Initialize(true);
+                new DatabaseInitializer().seed(this);
+            }
+        }*/
+
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<Agent>().HasMany(i => i.City).WithRequired().WillCascadeOnDelete(false);
+            modelBuilder.Conventions.Remove<System.Data.Entity.ModelConfiguration.Conventions.OneToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Remove<System.Data.Entity.ModelConfiguration.Conventions.OneToManyCascadeDeleteConvention>();
         }
 
         public System.Data.Entity.DbSet<OBTS.API.Models.Client> Clients { get; set; }
@@ -130,6 +152,11 @@ namespace OBTS.API.Models
         public System.Data.Entity.DbSet<OBTS.API.Models.Booking> Bookings { get; set; }
 
         public System.Data.Entity.DbSet<OBTS.API.Models.SeatDetail> SeatDetails { get; set; }
-    
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.Dummy> Dummies { get; set; }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.Passenger> Passengers { get; set; }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.ContactDetail> ContactDetails { get; set; }
     }
 }

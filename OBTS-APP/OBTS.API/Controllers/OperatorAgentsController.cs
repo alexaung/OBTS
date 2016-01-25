@@ -21,9 +21,10 @@ namespace OBTS.API.Controllers
         private ApplicationDbContext  db = new ApplicationDbContext ();
 
         // GET: api/OperatorAgents
-        public IQueryable<OperatorAgentDTO> GetOperatorAgents()
+        [ResponseType(typeof(OperatorAgentDTO))]
+        public async Task<IHttpActionResult> GetOperatorAgents()
         {
-            var agents = from o in db.OperatorAgents
+            var agents =await( from o in db.OperatorAgents
                 .Include(o => o._agent)
                 .Include(o=> o._operator)
                              
@@ -37,15 +38,16 @@ namespace OBTS.API.Controllers
                             DepositAmt = o.DepositAmt,
                             JointDate = o.JointDate,
                             CreatedDate = o.CreatedDate
-                        };
-            return agents;
+                        }).ToListAsync();
+            return Ok(agents.AsQueryable());
         }
 
         // GET: api/operator/{Id}/agents
+        [ResponseType(typeof(AgentsOperatorDTO))]
         [Route("api/operator/{Id}/agents", Name = "GetAgentsByOperator")]
-        public IQueryable<AgentsOperatorDTO> GetAgentsByOperator(Guid Id)
+        public async Task<IHttpActionResult> GetAgentsByOperator(Guid Id)
         {
-            var agents = from o in db.OperatorAgents
+            var agents =await( from o in db.OperatorAgents
                 .Include(o => o._agent)
                 .Include(o=> o._operator)
                 .Where (o=>o.OperatorId.Equals(Id))
@@ -81,15 +83,16 @@ namespace OBTS.API.Controllers
                              DepositAmt = o.DepositAmt,
                              JointDate = o.JointDate,
                              CreatedDate = o.CreatedDate
-                         };
-            return agents;
+                         }).ToListAsync();
+            return Ok(agents.AsQueryable());
         }
 
         // GET: api/agent/{Id}/operators
+        [ResponseType(typeof(OperatorsAgentDTO))]
         [Route("api/agent/{Id}/operators", Name = "GetOperatorsByAgent")]
-        public IQueryable<OperatorsAgentDTO> GetOperatorsByAgent(Guid Id)
+        public async Task<IHttpActionResult> GetOperatorsByAgent(Guid Id)
         {
-            var operators = from o in db.OperatorAgents
+            var operators =await( from o in db.OperatorAgents
                 .Include(o => o._agent)
                 .Include(o => o._operator)
                 .Where(o => o.AgentId.Equals(Id))
@@ -122,8 +125,8 @@ namespace OBTS.API.Controllers
                              DepositAmt = o.DepositAmt,
                              JointDate = o.JointDate,
                              CreatedDate = o.CreatedDate
-                         };
-            return operators;
+                         }).ToListAsync();
+            return Ok(operators.AsQueryable());
         }
 
         /*

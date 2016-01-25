@@ -49,7 +49,14 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                         {
                             name: 'angular-peity',
                             files: ['js/plugins/peity/jquery.peity.min.js', 'js/plugins/peity/angular-peity.js']
-                        }
+                        },
+                        {
+                            files: ['js/plugins/footable/footable.all.min.js', 'css/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['js/plugins/footable/angular-footable.js']
+                        },
                     ]);
                 }
             }
@@ -150,7 +157,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('booking.calendar', {
-            url: "/booking/calendar",
+            url: "/calendar",
             templateUrl: "views/booking/calendar.html",
             data: { pageTitle: 'Booking Calendar' },
             resolve: {
@@ -169,7 +176,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             }
         })
         .state('booking.search', {
-            url: "/booking/search",
+            url: "/search",
             templateUrl: "views/booking/search.html",
             data: { pageTitle: 'Booking Search' },
             resolve: {
@@ -181,10 +188,43 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                                {
                                        
                                         files: ['css/plugins/chosen/chosen.css','js/plugins/chosen/chosen.jquery.js']
-                                }
+                               },
+                               {
+                                   name: 'datePicker',
+                                   files: ['css/plugins/datapicker/angular-datapicker.css', 'js/plugins/datapicker/angular-datepicker.js']
+                               },
                             ]);
                         }
                     }
+        })
+        .state('booking.searchresult',{
+            url: "/searchresult/:FromCity/:ToCity/:DeptDate/:ReturnDate",
+            templateUrl: "views/booking/searchresult.html",
+            data: { pageTitle: 'Booking Search Result' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                       {
+                           files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                       },
+                        {
+                            name: 'datePicker',
+                            files: ['css/plugins/datapicker/angular-datapicker.css', 'js/plugins/datapicker/angular-datepicker.js']
+                        },
+                        {
+                            name: 'cgNotify',
+                            files: ['css/plugins/angular-notify/angular-notify.min.css', 'js/plugins/angular-notify/angular-notify.min.js']
+                        },
+                        {
+                            files: ['js/plugins/footable/footable.all.min.js', 'css/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['js/plugins/footable/angular-footable.js']
+                        },
+                    ]);
+                }
+            }
         })
         .state('mailbox', {
             abstract: true,

@@ -70,6 +70,16 @@ function routeService($http, ngAuthSettings) {
         });
     };
 
+    routeServiceFactory.searchRoutes = function (from,to,date) {
+        return $http.get(serviceBase + 'routes/'+from + "/" + to + "/" + date).success(function (response, status, headers, config) {
+            return response;
+        }).error(function (error, status, headers, config) {
+            return error;
+        });
+    };
+
+
+
     routeServiceFactory.loadRouteSeats = function (routeid) {
         return $http.get(serviceBase + 'route/' + routeid + '/seats').success(function (response, status, headers, config) {
             return response;

@@ -19,9 +19,10 @@ namespace OBTS.API.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/SeatDetails
-        public IQueryable<SeatDetail> GetSeatDetails()
+        [ResponseType(typeof(SeatDetail))]
+        public async Task<IHttpActionResult> GetSeatDetails()
         {
-            return db.SeatDetails;
+            return Ok((await(db.SeatDetails).ToListAsync()).AsQueryable());
         }
 
         // GET: api/SeatDetails/5
