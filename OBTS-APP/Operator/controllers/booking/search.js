@@ -99,7 +99,18 @@ function searchCtrl($scope, $http, $filter, $stateParams, $timeout, routeService
     // seat onClick
     $scope.seatClicked = function (seat) {
         seat.status = !seat.status;
-        
+        if ($scope.routes.length > 0) {
+            for (var i = 0; i < $scope.routes.length; i++) {
+                var route = $scope.routes[i];
+                route.totalSelectedSeats = 0;
+                for (var j = 0; j < route.rows.length; j++) {
+                    for (var k = 0; k < route.rows[j].length; k++) {
+                        route.totalSelectedSeats += route.rows[j][k].status ? 1 : 0;
+                    }
+                }
+                
+            }
+        }
         $timeout(function () {
             $('.table').trigger('footable_redraw');
         }, 100);
@@ -110,10 +121,13 @@ function searchCtrl($scope, $http, $filter, $stateParams, $timeout, routeService
         var d = new Date(Date.parse($scope.DeptDate));
         d.setDate(d.getDate() - 1);
         $scope.DeptDate = d;
+
+        window.location.href = '#/booking/searchresult/' + $scope.FromCityId + '/' + $scope.ToCityId + '/' + $filter('date')($scope.DeptDate, 'dd-MMM-yyyy') + '/' + $filter('date')($scope.ReturnDate, 'dd-MMM-yyyy');
     }
     $scope.nextday = function () {
         var d = new Date(Date.parse($scope.DeptDate));
         d.setDate(d.getDate() + 1);
         $scope.DeptDate = d;
+        window.location.href = '#/booking/searchresult/' + $scope.FromCityId + '/' + $scope.ToCityId + '/' + $filter('date')($scope.DeptDate, 'dd-MMM-yyyy') + '/' + $filter('date')($scope.ReturnDate, 'dd-MMM-yyyy');
     }
 }
