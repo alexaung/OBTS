@@ -9,7 +9,9 @@ namespace OBTS.API.Models
     {
         public Guid BookingId { get; set; }
 
-        public Guid RouteId { get; set; }
+        public string BookingRefId { get; set; }
+        
+        public string UserId { get; set; }
 
         public DateTime BookingOn { get; set; }
 
@@ -19,19 +21,8 @@ namespace OBTS.API.Models
 
         public string ContactNo { get; set; }
 
-        public Guid DepartureCity { get; set; }
-
-        public Guid ArrivalCity { get; set; }
-
-        public DateTime TravelDate { get; set; }
-
-        public decimal TotalAmt { get; set; }
-
-        public string RegNo { get; set; }
-
         public string Cupon { get; set; }
 
         public decimal Discount { get; set; }
-
     }
 }

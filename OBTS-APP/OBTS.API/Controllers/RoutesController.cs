@@ -66,23 +66,23 @@ namespace OBTS.API.Controllers
         }
 
         // GET: api/route/{Id}/seats
-        [ResponseType(typeof(SeatDetailDTO))]
+        [ResponseType(typeof(RouteSeatDTO))]
         [Route("api/route/{Id}/seats", Name = "GetSeatsByRoute")]
         public async Task<IHttpActionResult> GetSeatsByRoute(Guid Id)
         {
 
             var seats =await( from a in db.Routes
                          join ct1 in db.Buses on a.BusId equals ct1.BusId
-                         join ct in db.SeatDetails on a.RouteId equals ct.RouteId
+                         join ct in db.RouteSeats on a.RouteId equals ct.RouteId
                          join ct3 in db.CodeTables on ct1.BusType equals ct3.KeyCode
                          where ct3.Title.Equals(strBusType)
                          join ct4 in db.CodeTables on ct1.Brand equals ct4.KeyCode
                          where ct4.Title.Equals(strBrand)
                          where a.RouteId.Equals(Id)
 
-                         select new SeatDetailDTO()
+                         select new RouteSeatDTO()
                          {
-                             SeatDetailId = ct.SeatDetailId,
+                             RouteSeatId = ct.RouteSeatId,
                              BusId = a.BusId,
                              RouteId = ct.RouteId,
                              Company = ct1.Company,
@@ -100,7 +100,7 @@ namespace OBTS.API.Controllers
                              State = ct.State
                          }).OrderBy(u => u.Row).ThenBy(u => u.Col).ToListAsync();
 
-            //List<SeatDetailDTO> seat =(List<SeatDetailDTO>) seats.OrderBy(u => u.Row).ThenBy(u => u.Col);
+            //List<RouteSeatDTO> seat =(List<RouteSeatDTO>) seats.OrderBy(u => u.Row).ThenBy(u => u.Col);
 
             return Ok(seats.AsQueryable());
         }
@@ -151,9 +151,9 @@ namespace OBTS.API.Controllers
         /*
         // GET: api/route/{Id}/seats
         [Route("api/route/{Id}/seats", Name = "GetSeatsByRoute")]
-        public IQueryable<SeatDetailDTO> GetSeatsByRoute(Guid Id)
+        public IQueryable<RouteSeatDTO> GetSeatsByRoute(Guid Id)
         {
-            var seats = from a in db.SeatDetails
+            var seats = from a in db.RouteSeats
                         join r in db.Routes on a.RouteId equals r.RouteId
                         join b in db.Buses on r.BusId equals b.BusId
                         where a.RouteId.Equals(Id)
@@ -162,9 +162,9 @@ namespace OBTS.API.Controllers
                         join ct in db.CodeTables on b.Brand equals ct.KeyCode
                         where ct.Title.Equals(strBrand)
 
-                        select new SeatDetailDTO()
+                        select new RouteSeatDTO()
                         {
-                            SeatDetailId = a.SeatDetailId,
+                            RouteSeatId = a.RouteSeatId,
                             RouteId= r.RouteId,
                             Company = b.Company,
                             BrandDesc = ct.Value,
@@ -234,7 +234,7 @@ namespace OBTS.API.Controllers
             List<RouteDTO> _list = routes;//.ToList();
             foreach(RouteDTO d in _list)
             {
-                var seats =await( from a in db.SeatDetails
+                var seats =await( from a in db.RouteSeats
                             join r in db.Routes on a.RouteId equals r.RouteId
                             join b in db.Buses on r.BusId equals b.BusId
                             where a.RouteId.Equals(d.RouteId)
@@ -243,9 +243,9 @@ namespace OBTS.API.Controllers
                             join ct in db.CodeTables on b.Brand equals ct.KeyCode
                             where ct.Title.Equals(strBrand)
 
-                            select new SeatDetailDTO()
+                            select new RouteSeatDTO()
                             {
-                                SeatDetailId = a.SeatDetailId,
+                                RouteSeatId = a.RouteSeatId,
                                 RouteId = r.RouteId,
                                 Company = b.Company,
                                 BrandDesc = ct.Value,
@@ -357,15 +357,15 @@ namespace OBTS.API.Controllers
 
         [ResponseType(typeof(OBTSResponse))]
         [Route("api/routes/BulkUpdateRouteSeats", Name = "BulkUpdateRouteSeats")]
-        public async Task<IHttpActionResult> BulkUpdateRouteSeats(SeatDetail[] seats)
+        public async Task<IHttpActionResult> BulkUpdateRouteSeats(RouteSeat[] seats)
         {
             OBTSResponse rep = new OBTSResponse();
             rep.Success = true;
             rep.Message = "";
 
-            foreach (SeatDetail seat in seats)
+            foreach (RouteSeat seat in seats)
             {
-                if (RouteExists(seat.SeatDetailId))
+                if (RouteExists(seat.RouteSeatId))
                 {
                     db.Entry(seat).State = EntityState.Modified;
                 }
@@ -436,18 +436,18 @@ namespace OBTS.API.Controllers
 
             foreach (SeatDTO seat in seats)
             {
-                SeatDetail sd = new SeatDetail();
+                RouteSeat sd = new RouteSeat();
                // sd.BusId = seat.BusId;
                 sd.Bookable = seat.Bookable;
                 sd.Col = seat.Col;
                 sd.RouteId = route.RouteId;
                 sd.Row = seat.Row;
-                sd.SeatDetailId = seat.SeatId;
+                sd.RouteSeatId = seat.SeatId;
                 sd.SeatNo = seat.SeatNo;
                 sd.Space = seat.Space;
                 sd.SpecialSeat = seat.SpecialSeat;
                 sd.State = (short)(seat.Bookable?OBTSEnum.BookState.Available:OBTSEnum.BookState.NotAvailable);
-                db.SeatDetails.Add(sd);
+                db.RouteSeats.Add(sd);
             }
 
             try

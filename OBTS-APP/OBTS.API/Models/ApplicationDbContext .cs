@@ -151,7 +151,11 @@ namespace OBTS.API.Models
 
         public System.Data.Entity.DbSet<OBTS.API.Models.Booking> Bookings { get; set; }
 
-        public System.Data.Entity.DbSet<OBTS.API.Models.SeatDetail> SeatDetails { get; set; }
+        public System.Data.Entity.DbSet<OBTS.API.Models.BookingDetail> BookingDetails { get; set; }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.BookingPassenger> BookingPassengers { get; set; }
+
+        public System.Data.Entity.DbSet<OBTS.API.Models.RouteSeat> RouteSeats { get; set; }
 
         public System.Data.Entity.DbSet<OBTS.API.Models.Dummy> Dummies { get; set; }
 

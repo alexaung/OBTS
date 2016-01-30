@@ -146,13 +146,11 @@ namespace OBTS.API.Migrations
             );
 
             //booking
-            var booking = new Booking { BookingId = Guid.Parse("3BD88E86-ACF3-432F-A016-53D9EF52D11D"), BookingOn = DateTime.Parse("2015/01/01"), MainContact = "Mg Ba", Email = "Mgba@gmail.com", ContactNo = "123123", DepartureCity = yangoncity.CityId, ArrivalCity = mandalaycity.CityId, TravelDate = DateTime.Parse("2015/01/01"), TotalAmt = 10000, RegNo = "", Cupon = "", Discount = 0, RouteId = route.RouteId, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
-            var booking2 = new Booking { BookingId = Guid.Parse("E5C70E19-1B5A-43FD-905F-43B04D677356"), BookingOn = DateTime.Parse("2015/01/01"), MainContact = "Mg Ba2", Email = "Mgba2@gmail.com", ContactNo = "123123", DepartureCity = yangoncity.CityId, ArrivalCity = mandalaycity.CityId, TravelDate = DateTime.Parse("2015/01/01"), TotalAmt = 10000, RegNo = "", Cupon = "", Discount = 0, RouteId = route2.RouteId, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
-            var booking3 = new Booking { BookingId = Guid.Parse("24A711A3-3A14-490A-9788-688DA6E4DC31"), BookingOn = DateTime.Parse("2015/01/01"), MainContact = "Mg Ba3", Email = "Mgba3@gmail.com", ContactNo = "123123", DepartureCity = yangoncity.CityId, ArrivalCity = mandalaycity.CityId, TravelDate = DateTime.Parse("2015/01/01"), TotalAmt = 10000, RegNo = "", Cupon = "", Discount = 0, RouteId = route.RouteId, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
+            var booking = new Booking { BookingId = Guid.Parse("3BD88E86-ACF3-432F-A016-53D9EF52D11D"),BookingRefId="ABC",UserId= user.Id.ToString(), BookingOn = DateTime.Parse("2015/01/01"), MainContact = "Mg Ba", Email = "Mgba@gmail.com", ContactNo = "123123",Cupon = "", Discount = 0,CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
 
             context.Bookings.AddOrUpdate(
               b => b.BookingId,
-              booking, booking2, booking3
+              booking
             );
 
             context.SaveChanges();

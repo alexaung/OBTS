@@ -47,6 +47,6 @@ namespace OBTS.API.Models.DTO
 
         public string CurrencyDesc { get; set; }
 
-        public IQueryable<SeatDetailDTO> seats { get; set; }
+        public IQueryable<RouteSeatDTO> seats { get; set; }
     }
 }
