@@ -253,13 +253,9 @@
     <Compile Include="Infrastructure\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Infrastructure\ExtendedClaimsProvider.cs" />
     <Compile Include="Infrastructure\RolesFromClaims.cs" />
-    <Compile Include="Migrations\201512091409443_AddRoutesColumn.cs" />
+    <EmbeddedResource Include="Migrations\201508220747592_Initial.resx" />
     <Compile Include="Migrations\201512091409443_AddRoutesColumn.Designer.cs">
-      <DependentUpon>201512091409443_AddRoutesColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512210726555_AddContactDetial.cs" />
-    <Compile Include="Migrations\201512210726555_AddContactDetial.Designer.cs">
-      <DependentUpon>201512210726555_AddContactDetial.cs</DependentUpon>
+      <DependentUpon>201508220747592_Initial.resx</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -386,11 +382,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512091409443_AddRoutesColumn.resx">
-      <DependentUpon>201512091409443_AddRoutesColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512210726555_AddContactDetial.resx">
-      <DependentUpon>201512210726555_AddContactDetial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512091409443_AddRoutesColumn.Designer.resx">
+      <DependentUpon>201508220747592_Initial.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
