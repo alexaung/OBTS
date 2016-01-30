@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.myanmar.obts.obts">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.myanmar.obts.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="locked"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.myanmar.obts.CitiesSearchActivity"
+            android:screenOrientation="locked"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.myanmar.obts.RoutesActivity"
+            android:label="@string/title_activity_route_list"
+            android:screenOrientation="locked"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.myanmar.obts.SeatsActivity"
+            android:label="@string/title_activity_seats"
+            android:screenOrientation="locked"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.myanmar.obts.RoutePointActivity"
+            android:label="@string/title_activity_boarding_point"
+            android:screenOrientation="locked"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.myanmar.obts.ContactDetailsActivity"
+            android:label="@string/title_activity_contact_details"
+            android:screenOrientation="locked"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.myanmar.obts.PaymentOptionsActivity"
+            android:label="@string/title_activity_payment_options"
+            android:screenOrientation="locked"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.myanmar.obts.CalendarActivity"
+            android:label="@string/title_activity_calendar"
+            android:screenOrientation="locked"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.myanmar.obts.HandlerActivity"
+            android:label="@string/title_activity_handler"
+            android:screenOrientation="locked"
+            android:theme="@android:style/Theme.Dialog"></activity>
+    </application>
+
+</manifest>

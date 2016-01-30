@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="?android:attr/selectableItemBackground">
+
+    <TableLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:stretchColumns="*">
+        <TableRow>
+            <TextView
+                android:id="@+id/txtRouteTime"
+                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:text="03:30 pm - 08:30 pm" />
+
+            <TextView
+                android:id="@+id/txtRouteFare"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="SGD21"
+                android:gravity="right"
+                android:textAlignment="textEnd"
+                />
+        </TableRow>
+                <TableRow>
+            <TextView
+                android:id="@+id/txtCompany"
+                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+
+                android:text="Qistna Express" />
+
+            <TextView
+                android:id="@+id/txtRouteDuration"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+
+                android:text="5 hours"
+                android:gravity="right"
+                android:textAlignment="textEnd"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/txtBusType"
+                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+
+                android:text="SVIP" />
+
+            <TextView
+                android:id="@+id/txtTotalSeats"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+
+                android:text="22 seats"
+                android:gravity="right"
+                android:textAlignment="textEnd"
+                />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

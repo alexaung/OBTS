@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">OBTS</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_city_list">CityListActivity</string>
+    <string name="txtFrom">From</string>
+    <string name="txtTo">To</string>
+    <string name="search_hint">Search Cities</string>
+    <string name="search_label">Search</string>
+    <string name="title_activity_search_cities">SearchCitiesActivity</string>
+    <string name="searchhint">Search</string>
+    <string name="title_activity_list_search">ListSearch</string>
+    <string name="title_activity_cities_search">CitiesSearchActivity</string>
+    <string name="title_activity_route_list">RouteListActivity</string>
+    <string name="title_activity_seats">SeatsActivity</string>
+
+    <item name="TAG_SEAT_ID" type="id" />
+    <item name="TAG_SEATSTATE" type="id" />
+    <item name="TAG_SEAT_SELECTED" type="id" />
+    <string name="title_activity_boarding_point">BoardingPointActivity</string>
+    <string name="boarding_point">Enter a boarding point</string>
+    <string name="title_activity_dropping_point">DroppingPointActivity</string>
+    <string name="dropping_point">Enter a dropping point</string>
+    <string name="title_activity_contact_details">ContactDetailsActivity</string>
+    <string name="enter_full_name">Enter full name</string>
+    <string name="enter_age">Enter age</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="ictype">ID Type</string>
+    <string name="icnric">NRIC</string>
+    <string name="passport">Passport</string>
+    <string name="primarypassenger">Primary passenger</string>
+    <string name="seat">Seat</string>
+    <string name="icnumber">Enter NRIC/Passpor</string>
+    <string name="copassenger">Co-passenger</string>
+    <string name="continue_booking">Continue booking</string>
+    <string name="terms_and_conditions">I agree to all the <a href="mailto:support@cleverfinger.com.au?Subject=Lost%20Password" target="_top">Terms and Conditions</a></string>
+    <string name="contact_note1">Please note your ticket details will be sent to this email id and mobile.</string>
+    <string name="contact_note2">Please note NRIC/Passport details should be provided for one of the travellers.</string>
+    <string name="title_activity_payment_options">PaymentOptionsActivity</string>
+    <string name="payment_options">Payment options</string>
+    <string name="how_to_pay">How would you like to pay?</string>
+    <string name="select_ur_seat">Select your seat</string>
+    <string name="creditdebitcard">Credit/Debit Card</string>
+    <string name="boardingfrom">Boarding from</string>
+    <string name="title_activity_calendar">CalendarActivity</string>
+    <!--calendar-->
+    <string name="Customized">Customized</string>
+    <string name="Decorator">Decorator</string>
+    <string name="RTL">RTL</string>
+    <string name="Dialog">Dialog</string>
+    <string name="DisplayOnly">DisplayOnly</string>
+    <string name="Range">Range</string>
+    <string name="Multi">Multi</string>
+    <string name="Single">Single</string>
+    <string name="title_activity_handler">HandlerActivity</string>
+</resources>

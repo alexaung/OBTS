@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="?android:attr/selectableItemBackground">
+
+    <TableLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:stretchColumns="*">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/txtBoardingPoint"
+                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:text="Pan Soe Tan Gone Kyaw" />
+
+            <TextView
+                android:id="@+id/txtBoardingTime"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="3:30 AM"
+                android:gravity="right"
+                android:textAlignment="textEnd"
+                />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/txtDroppingPoint"
+                android:layout_height="wrap_content"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:text="Mdy Bu Dar Gyi" />
+
+            <TextView
+                android:id="@+id/txtDroppingTime"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="8:30 PM"
+                android:gravity="right"
+                android:textAlignment="textEnd"
+                />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
