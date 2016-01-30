@@ -141,7 +141,6 @@ namespace OBTS.API.Models
         
         public System.Data.Entity.DbSet<OBTS.API.Models.Route> Routes { get; set; }
         
-        public System.Data.Entity.DbSet<OBTS.API.Models.RouteDetail> RouteDetails { get; set; }
         
         public System.Data.Entity.DbSet<OBTS.API.Models.RoutePoint> RoutePoints { get; set; }
 

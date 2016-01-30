@@ -235,10 +235,8 @@
     <Compile Include="Controllers\PassengersController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
-    <Compile Include="Controllers\RouteDetailsController.cs" />
     <Compile Include="Controllers\RoutePointsController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
-    <Compile Include="Controllers\SeatDetailsController.cs" />
     <Compile Include="Controllers\SeatsController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -253,15 +251,13 @@
     <Compile Include="Infrastructure\ClaimsAuthorizationAttribute.cs" />
     <Compile Include="Infrastructure\ExtendedClaimsProvider.cs" />
     <Compile Include="Infrastructure\RolesFromClaims.cs" />
-    <EmbeddedResource Include="Migrations\201508220747592_Initial.resx" />
-    <Compile Include="Migrations\201512091409443_AddRoutesColumn.Designer.cs">
-      <DependentUpon>201508220747592_Initial.resx</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Booking.cs" />
+    <Compile Include="Models\BookingDetail.cs" />
+    <Compile Include="Models\BookingPassenger.cs" />
     <Compile Include="Models\Bus.cs" />
     <Compile Include="Models\BusFeature.cs" />
     <Compile Include="Models\City.cs" />
@@ -271,11 +267,12 @@
     <Compile Include="Models\ContactDetail.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\CreateRoleBindingModel.cs" />
-    <Compile Include="Models\DatabaseInitializer.cs" />
     <Compile Include="Models\DTO\AgentDTO.cs" />
     <Compile Include="Models\DTO\AgentsOperatorDTO.cs" />
     <Compile Include="Models\DTO\BankDTO.cs" />
+    <Compile Include="Models\DTO\BookingDetailDTO.cs" />
     <Compile Include="Models\DTO\BookingDTO.cs" />
+    <Compile Include="Models\DTO\BookingPassengerDTO.cs" />
     <Compile Include="Models\DTO\BusDTO.cs" />
     <Compile Include="Models\DTO\BusFeatureDTO.cs" />
     <Compile Include="Models\DTO\CitiesCountryDTO.cs" />
@@ -289,10 +286,10 @@
     <Compile Include="Models\DTO\OperatorDTO.cs" />
     <Compile Include="Models\DTO\OperatorsAgentDTO.cs" />
     <Compile Include="Models\DTO\RegionsCountryDTO.cs" />
-    <Compile Include="Models\DTO\RouteDetailDTO.cs" />
     <Compile Include="Models\DTO\RouteDTO.cs" />
     <Compile Include="Models\DTO\RoutePointDTO.cs" />
     <Compile Include="Models\ApplicationDbContext .cs" />
+    <Compile Include="Models\DTO\RouteSeatDTO.cs" />
     <Compile Include="Models\DTO\SeatDetailDTO.cs" />
     <Compile Include="Models\DTO\SeatDTO.cs" />
     <Compile Include="Models\Dummy.cs" />
@@ -307,8 +304,8 @@
     <Compile Include="Models\RefreshToken.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Route.cs" />
-    <Compile Include="Models\RouteDetail.cs" />
     <Compile Include="Models\RoutePoint.cs" />
+    <Compile Include="Models\RouteSeat.cs" />
     <Compile Include="Models\SeatDetail.cs" />
     <Compile Include="Models\Seat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -380,11 +377,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512091409443_AddRoutesColumn.Designer.resx">
-      <DependentUpon>201508220747592_Initial.resx</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

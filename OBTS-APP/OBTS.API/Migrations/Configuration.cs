@@ -153,6 +153,24 @@ namespace OBTS.API.Migrations
               booking
             );
 
+
+            //booking
+            var bookingdetail = new BookingDetail { BookingDetailId=Guid.Parse("23D6D1F2-9A44-4F6B-BC9A-F7BDC8DD6CAD"),  BookingId = Guid.Parse("3BD88E86-ACF3-432F-A016-53D9EF52D11D"), RouteId = route.RouteId, RouteFare =25000 , CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
+
+            context.BookingDetails.AddOrUpdate(
+              b => b.BookingDetailId,
+              bookingdetail
+            );
+
+            //booking
+            var bookingpassenger = new BookingPassenger { BookingPassengerId = Guid.Parse("2CDFB9C3-6454-4403-9255-CF23697A8F95"), BookingId = booking.BookingId, RouteId = route.RouteId, PassengerName = "Mg Mg", IDType="NRIC", IDNumber="123343", Age=30, Gender="M", CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
+
+            context.BookingPassengers.AddOrUpdate(
+              b => b.BookingPassengerId,
+              bookingpassenger
+            );
+
+
             context.SaveChanges();
 
         }
