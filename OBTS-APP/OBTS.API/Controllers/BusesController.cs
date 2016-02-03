@@ -18,7 +18,7 @@ using AutoMapper;
 
 namespace OBTS.API.Controllers
 {
-  //  [Authorize]
+    [Authorize]
     public class BusesController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
