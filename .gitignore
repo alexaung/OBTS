@@ -109,3 +109,9 @@ PublishProfiles/
 _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
+OBTS-APP/.vs/config/applicationhost.config
+*.cache
+*.dll
+OBTS-APP/Operator/bin/Operator.pdb
+*.dll
+OBTS-APP/Operator/obj/Debug/Operator.pdb
