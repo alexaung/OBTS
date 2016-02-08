@@ -919,6 +919,7 @@
     <Content Include="services\bookingservice.js" />
     <Content Include="services\routeservice.js" />
     <Content Include="views\booking\calendar.html" />
+    <Content Include="views\booking\bookingdetails.html" />
     <Content Include="views\booking\searchresult.html" />
     <Content Include="views\booking\search.html" />
     <Content Include="views\common\content.html" />

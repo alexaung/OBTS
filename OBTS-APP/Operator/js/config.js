@@ -226,6 +226,35 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('booking.bookingdetails', {
+            url: "/bookingdetails",
+            templateUrl: "views/booking/bookingdetails.html",
+            data: { pageTitle: 'Booking Details' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                       {
+                           files: ['css/plugins/iCheck/custom.css', 'js/plugins/iCheck/icheck.min.js']
+                       },
+                        {
+                            name: 'datePicker',
+                            files: ['css/plugins/datapicker/angular-datapicker.css', 'js/plugins/datapicker/angular-datepicker.js']
+                        },
+                        {
+                            name: 'cgNotify',
+                            files: ['css/plugins/angular-notify/angular-notify.min.css', 'js/plugins/angular-notify/angular-notify.min.js']
+                        },
+                        {
+                            files: ['js/plugins/footable/footable.all.min.js', 'css/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['js/plugins/footable/angular-footable.js']
+                        },
+                    ]);
+                }
+            }
+        })
         .state('mailbox', {
             abstract: true,
             url: "/mailbox",

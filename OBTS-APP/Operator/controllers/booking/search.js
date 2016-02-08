@@ -4,7 +4,7 @@
  * CalendarCtrl - Controller for Calendar
  * Store data events for calendar
  */
-function searchCtrl($scope, $http, $filter, $stateParams, $timeout, routeService) {
+function searchCtrl($scope, $http, $filter, $stateParams, $timeout, notify, routeService) {
 
     
     $scope.initSearchResult = function () {
@@ -124,45 +124,52 @@ function searchCtrl($scope, $http, $filter, $stateParams, $timeout, routeService
 
     $scope.continue = function () {
          
-        if ($scope.ReturnDate != undefined && $scope.IsReturn != "TRUE")
+        if ($scope.ReturnDate !== "undefined" && !$scope.IsReturn)
             window.location.href = '#/booking/searchresult/' + $scope.FromCityId + '/' + $scope.ToCityId + '/' + $filter('date')($scope.DeptDate, 'dd-MMM-yyyy') + '/' + $filter('date')($scope.ReturnDate, 'dd-MMM-yyyy') + '/true';
         else
-            window.location.href = '#/bookingdetials/'
+            window.location.href = '#/booking/bookingdetails'
     }
 
     
 
     $scope.prevday = function () {
+        var returnDate = new Date(Date.parse($scope.ReturnDate));
+        var deptDate = new Date(Date.parse($scope.DeptDate));
 
         if ($scope.IsReturn) {
-            var d = new Date(Date.parse($scope.ReturnDate));
-            d.setDate(d.getDate() - 1);
-            $scope.ReturnDate = d;
+            returnDate.setDate(returnDate.getDate() - 1);
+
         }
         else {
-            var d = new Date(Date.parse($scope.DeptDate));
-            d.setDate(d.getDate() - 1);
-            $scope.DeptDate = d;
+            deptDate.setDate(deptDate.getDate() - 1);
         }
-        if ($scope.ReturnDate <= $scope.DeptDate)
+        if (returnDate <= deptDate)
             notify({ message: 'Return date cannot be less than departure date.', classes: 'alert-danger', templateUrl: 'views/common/notify.html' });
-        else
+        else {
+            $scope.ReturnDate = returnDate;
+            $scope.DeptDate = deptDate;
             window.location.href = '#/booking/searchresult/' + $scope.FromCityId + '/' + $scope.ToCityId + '/' + $filter('date')($scope.DeptDate, 'dd-MMM-yyyy') + '/' + $filter('date')($scope.ReturnDate, 'dd-MMM-yyyy') + '/' + $scope.IsReturn;
+        }
     }
     $scope.nextday = function () {
+        var returnDate = new Date(Date.parse($scope.ReturnDate));
+        var deptDate = new Date(Date.parse($scope.DeptDate));
+
         if ($scope.IsReturn) {
-            var d = new Date(Date.parse($scope.ReturnDate));
-            d.setDate(d.getDate() + 1);
-            $scope.ReturnDate = d;
+            returnDate.setDate(returnDate.getDate() + 1);
+            
         }
         else {
-            var d = new Date(Date.parse($scope.DeptDate));
-            d.setDate(d.getDate() + 1);
-            $scope.DeptDate = d;
+            deptDate.setDate(deptDate.getDate() + 1);
         }
-        if ($scope.ReturnDate <= $scope.DeptDate)
+        if (returnDate <= deptDate)
             notify({ message: 'Return date cannot be less than departure date.', classes: 'alert-danger', templateUrl: 'views/common/notify.html' });
         else
+        {
+            $scope.ReturnDate = returnDate;
+            $scope.DeptDate = deptDate;
             window.location.href = '#/booking/searchresult/' + $scope.FromCityId + '/' + $scope.ToCityId + '/' + $filter('date')($scope.DeptDate, 'dd-MMM-yyyy') + '/' + $filter('date')($scope.ReturnDate, 'dd-MMM-yyyy') + '/' + $scope.IsReturn;
+        }
+            
     }
 }
