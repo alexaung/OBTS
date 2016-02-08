@@ -167,7 +167,7 @@ public class RoutesActivity extends AppCompatActivity {
 
         ServiceGenerator.RoutesService client = ServiceGenerator.createService(ServiceGenerator.RoutesService.class);//,"ncs\\minh","P@ssw0rd");
         // Fetch and print a list of the contributors to this library.
-        Call<ArrayList<RoutesRowItems>> call=  client.getRoutes(ticketPackage.getFromCity().getName(), ticketPackage.getToCity().getName(), ticketPackage.getRouteDate());
+        Call<ArrayList<RoutesRowItems>> call=  client.getRoutes(ticketPackage.getFromCity().getId(), ticketPackage.getToCity().getId(), ticketPackage.getRouteDate());
         call.enqueue(new Callback<ArrayList<RoutesRowItems>>() {
             @Override
             public void onResponse(Response<ArrayList<RoutesRowItems>> response, Retrofit retrofit) {
