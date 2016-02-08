@@ -33,32 +33,32 @@ import retrofit.http.Path;
  * Created by minh on 7/12/2015.
  */
 public class ServiceGenerator {
-    public static final String API_BASE_URL = "http://10.70.223.223:80";
+    public static final String API_BASE_URL = "http://192.168.0.141";
 
     private static OkHttpClient httpClient = new OkHttpClient();
 
     public interface CitiesService {
-        @GET("/obts.api/api/cities")
+        @GET("/api/cities")
         public Call<ArrayList<CitiesRowItems>> getCities();
     }
 
     public interface RoutesService {
-        @GET("/obts.api/api/routes/{FromCity}/{ToCity}/{RouteDate}")
+        @GET("/api/routes/{FromCity}/{ToCity}/{RouteDate}")
         public Call<ArrayList<RoutesRowItems>> getRoutes(@Path("FromCity") String FromCity,@Path("ToCity") String ToCity,@Path("RouteDate") String RouteDate);
     }
 
     public interface RoutesPointService {
-       @GET("/obts.api/api/route/{Id}/routepoints")
+       @GET("/api/route/{Id}/routepoints")
         public Call<ArrayList<RoutePointsRowItems>> getRoutePoints(@Path("Id") String Id);
     }
 
     public interface ContactDetailsService{
-        @POST("/obts.api/api/ContactDetails")
+        @POST("/api/ContactDetails")
         Call<ContactDetails> insert(@Field("RouteId") String RouteId, @Field("Email") String Email, @Field("Mobile") String Mobile);
     }
 
     public interface PassengersService{
-        @POST("/obts.api/api/Passengers")
+        @POST("/api/Passengers")
         Call<Passenger> insert(@Field("ContactDetailId") String ContactDetailId, @Field("FullName") String FullName,
                                @Field("Age") short Age, @Field("Gender") short Gender, @Field("IDType") short IDType,
                                @Field("IDNumber") String IDNumber, @Field("isPrimaryContact") boolean isPrimaryContact,
