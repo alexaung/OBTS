@@ -237,6 +237,7 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\RoutePointsController.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
+    <Compile Include="Controllers\RouteSeatsController.cs" />
     <Compile Include="Controllers\SeatsController.cs">
       <SubType>Code</SubType>
     </Compile>
