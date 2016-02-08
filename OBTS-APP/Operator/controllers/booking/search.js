@@ -99,22 +99,22 @@ function searchCtrl($scope, $http, $filter, $stateParams, $timeout, routeService
     // seat onClick
     $scope.seatClicked = function (seat) {
         seat.status = !seat.status;
-        if ($scope.routes.length > 0) {
-            for (var i = 0; i < $scope.routes.length; i++) {
-                var route = $scope.routes[i];
-                route.totalSelectedSeats = 0;
-                for (var j = 0; j < route.rows.length; j++) {
-                    for (var k = 0; k < route.rows[j].length; k++) {
-                        route.totalSelectedSeats += route.rows[j][k].status ? 1 : 0;
-                    }
-                }
-                
+        
+        $scope.selectedroute.totalSelectedSeats = 0;
+        for (var j = 0; j < $scope.selectedroute.rows.length; j++) {
+            for (var k = 0; k < $scope.selectedroute.rows[j].length; k++) {
+                $scope.selectedroute.totalSelectedSeats += $scope.selectedroute.rows[j][k].status ? 1 : 0;
             }
         }
         $timeout(function () {
             $('.table').trigger('footable_redraw');
         }, 100);
         
+    }
+
+    $scope.viewSeats = function (route) {
+        
+        $scope.selectedroute = $scope.selectedroute!==undefined ? undefined : route;
     }
 
     $scope.prevday = function () {

@@ -72,6 +72,10 @@ namespace OBTS.API.Migrations
             var agentUserType = new CodeTable { CodeTableId = Guid.Parse("DADA8FBE-5F8E-42B1-8EC6-9E80E2354769"), KeyCode = 2, Title = "UserType", Value = "Agent", CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
             context.CodeTables.AddOrUpdate(c => c.CodeTableId, operatorUserType, agentUserType);
 
+            var currencyType = new CodeTable { CodeTableId = Guid.Parse("77997C96-FC86-4D2F-8F85-4F79442ECEE9"), KeyCode = 0, Title = "Currency", Value = "Kyat", CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
+            
+            context.CodeTables.AddOrUpdate(c => c.CodeTableId, currencyType);
+
 
             /******* Country *******/
             var mm = new Country { CountryId = Guid.Parse("FCF16A65-991D-41F5-AA1B-21118422AD74"), CountryDesc = "Myanmar", CountryCode = "MM", CurrencyCode = "MMK", Currency = "Kyat", Rate = 1000, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
@@ -129,12 +133,12 @@ namespace OBTS.API.Migrations
             );
 
             /******* Seat *******/
-            var seat1 = new Seat { SeatId = Guid.Parse("EFB1F89B-4960-490F-8949-105D6BE2E0B4"), BusId = bus.BusId, SeatNo = "1", Bookable = true, Space = false, SpecialSeat = true, Status = true, UpperLower = 1, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
-            var seat2 = new Seat { SeatId = Guid.Parse("58D66967-2F6D-415B-B58C-1F62504C3137"), BusId = bus.BusId, SeatNo = "2", Bookable = false, Space = true, SpecialSeat = false, Status = true, UpperLower = 2, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
-            context.Seats.AddOrUpdate(
-              b => b.SeatId,
-              seat1, seat2
-            );
+            //var seat1 = new Seat { SeatId = Guid.Parse("EFB1F89B-4960-490F-8949-105D6BE2E0B4"), BusId = bus.BusId, SeatNo = "1", Bookable = true, Space = false, SpecialSeat = true, Status = true, UpperLower = 1, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
+            //var seat2 = new Seat { SeatId = Guid.Parse("58D66967-2F6D-415B-B58C-1F62504C3137"), BusId = bus.BusId, SeatNo = "2", Bookable = false, Space = true, SpecialSeat = false, Status = true, UpperLower = 2, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
+            //context.Seats.AddOrUpdate(
+            //  b => b.SeatId,
+            //  seat1, seat2
+            //);
 
             //route
             var route = new Route { RouteId = Guid.Parse("B03A4F96-E0A6-4B31-B2BC-D62F1E28528C"), BusId = bus.BusId, Source_CityId = yangoncity.CityId, Destination_CityId = mandalaycity.CityId, Recurrsive = true, RouteDate = DateTime.Parse("2015/01/01"), DepartureTime = TimeSpan.Parse("9:00"), ArrivalTime = TimeSpan.Parse("23:00"), RouteFare = 10000, CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };

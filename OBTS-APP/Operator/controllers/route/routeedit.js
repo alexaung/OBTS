@@ -41,8 +41,8 @@ function routeEditCtrl($scope, $modalInstance, $http, notify, routeService) {
     $scope.save = function () {
 
         if (this.formScope.routeEdit.$valid) {
-            $scope.route.DepartureTime = $scope.route.DepartureDateTime.getHours() + ":" + $scope.route.DepartureDateTime.getMinutes() + $scope.route.DepartureDateTime.getSeconds();
-            $scope.route.ArrivalTime = $scope.route.ArrivalDateTime.getHours() + ":" + $scope.route.ArrivalDateTime.getMinutes() + $scope.route.ArrivalDateTime.getSeconds();
+            $scope.route.DepartureTime = $scope.route.DepartureDateTime.getHours() + ":" + $scope.route.DepartureDateTime.getMinutes() + ":" + $scope.route.DepartureDateTime.getSeconds();
+            $scope.route.ArrivalTime = $scope.route.ArrivalDateTime.getHours() + ":" + $scope.route.ArrivalDateTime.getMinutes() + ":" + $scope.route.ArrivalDateTime.getSeconds();
             if ($scope.route.RouteId) {    
                 routeService.update($scope.route).success(function (response) {
                     notify({ message: 'Route information is saved successfuly.', classes: 'alert-success', templateUrl: 'views/common/notify.html' });

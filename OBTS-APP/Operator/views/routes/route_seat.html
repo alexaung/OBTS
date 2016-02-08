@@ -4,7 +4,7 @@
 <div class="modal-body" ng-controller="routeSeatController">
     <div>
        
-        <form class="form-horizontal" role="form" name="busSeat" novalidate ng-submit="save()" ng-init="initRouteSeat(this)">
+        <form class="form-horizontal" role="form" name="routeSeat" novalidate ng-submit="save()" ng-init="initRouteSeat(this)">
             <div class="content">
                 <table class="seatLayout">
                     <tr>
@@ -46,7 +46,7 @@
                         <tbody ng-repeat="row in rows">
                             <tr ng-repeat="s in row">
                                 <td  class="col-xs-2">
-                                   <input type="text" class="form-control" name="seatno" ng-model="s.SeatNo"></td>
+                                <input type="text" class="form-control" name="seatno" ng-model="s.SeatNo"></td>
                                 <td><input icheck type="checkbox" class="form-control" name="bookable" ng-model="s.Bookable" required></td>
                                 <td><input icheck type="checkbox" class="form-control" name="space" ng-model="s.Space" required></td>
                             </tr>

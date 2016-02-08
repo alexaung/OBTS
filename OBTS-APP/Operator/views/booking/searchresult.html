@@ -31,99 +31,186 @@
     </div>
 
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+        <div class="ibox-content">
+            <div class="row show-grid">
+                <div class="col-md-2">{{ 'OPERATOR' | translate }}</div>
+                <div class="col-md-2">{{ 'DEPARTURETIME' | translate }}</div>
+                <div class="col-md-2">{{ 'ARRIVALTIME' | translate }}</div>
+                <div class="col-md-2">{{ 'NUMBEROFSEAT' | translate }}</div>
+                <div class="col-md-4">{{ 'ROUTEFARE' | translate }}</div>
+            </div>
+            <div>
+                <div class="feed-activity-list">
+                    <div class="feed-element" ng-repeat="route in routes">
+                        <div ng-show="selectedroute==undefined || selectedroute.RouteId == route.RouteId">
+                            <div class="pull-left col-md-2">
+                                <h3>
+                                    {{route.Company}}
+                                </h3>
+                                <i class="fa fa-star text-navy" /> <i class="fa fa-star text-navy" /> <i class="fa fa-star text-navy" /> <i class="fa fa-star text-navy" /> <i class="fa fa-star text-muted" />
 
+                            </div>
+                            <div class="media-body">
+                                <button type="button" class="btn btn-primary btn-xs pull-right" ng-click="viewSeats(route)">
+                                    <span ng-show="selectedroute==undefined" >
+                                        View Seats
+                                    </span>
+                                    <span ng-show="selectedroute!==undefined">
+                                        Back
+                                    </span>
+                                </button>
+                                <h3>
+                                    <span><i class="fa fa-clock-o"></i>{{route.DepartureTime}}</span>
+                                    <span style="padding-left:6em"><i class="fa fa-clock-o"></i>{{route.ArrivalTime}}</span>
+                                    <span style="padding-left:6em">{{route.seats.length}} <small>seats</small></span>
+                                    <span style="padding-left:6em">{{route.RouteFare}} <small>Kyats</small></span>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox">
-                    <div class="ibox-content">
-                       
-                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15" id="tblroutelist">
-                            <thead>
-                                <tr>
-
-                                    <th data-toggle="true">{{ 'OPERATOR' | translate }}</th>
-                                    <th>{{ 'DEPARTURETIME' | translate }}</th>
-                                    <th>{{ 'ARRIVALTIME' | translate }}</th>
-                                    <th>{{ 'NUMBEROFSEAT' | translate }}</th>
-                                    <th>{{ 'ROUTEFARE' | translate }}</th>
-                                    <th data-hide="all"></th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-show="routes.length<1" my-directive>
-                                    <td colspan="5">
-                                        Oops! No tickets were found for this route today.
-                                    </td>
-                                    
-                                </tr>
-                                <tr ng-repeat="route in routes" my-directive>
-                                    <td>
-                                        {{route.Company}}
-                                        <i class="fa fa-star-o"/> <i class="fa fa-star-o" /> <i class="fa fa-star-o" /> <i class="fa fa-star-o" /> <i class="fa fa-star" />
-                                    </td>
-                                   
-                                    <td>
-                                        <i class="fa fa-clock-o"></i> {{route.DepartureTime}}
-                                    </td>
-                                    <td>
-                                        <i class="fa fa-clock-o"></i> {{route.ArrivalTime}}
-                                    </td>
-                                    <td>
-                                         {{route.seats.length}} seats
-                                    </td>
-                                    <td>
-                                        {{route.RouteFare}} (Kyats)
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-7">
-                                                    <div ng-repeat="row in route.rows">
-                                                        <div style="position:relative;display: inline" ng-repeat="s in row">
-                                                            <img ng-show="s.Space" src="img/seat_space.png">
-                                                            <a href="">
-                                                                <img ng-show="s.Bookable&&!s.Space&&!s.status" src="img/seat_available.png" ng-click="seatClicked(s)">
-                                                                <img ng-show="s.Bookable&&!s.Space&&s.status" src="img/seat_selected.png" ng-click="seatClicked(s)">
-                                                            </a>
-                                                            <img ng-show="!s.Bookable&&!s.Space" src="img/seat_reserved.png">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div>
-                                                        <h4>Total Fare: <strong style="padding-left:3em" ng-show="route.totalSelectedSeats>0">{{route.totalSelectedSeats * route.RouteFare}}</strong> <small style="padding-left:1em">Kyats</small> </h4>
-                                                    </div>
-                                                    <div style="position:relative;display: inline">
-                                                        <h4>
-                                                            Selected Seats:
-                                                        </h4>
-                                                                <div style="position:relative;display: inline" ng-repeat="row in route.rows">
-                                                                    <div style="position:relative;display: inline" ng-repeat="s in row | filter: { status: 'true' }">
-                                                                        {{s.SeatNo}},
-                                                                    </div>
-                                                                </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="6">
-                                        <ul class="pagination pull-right"></ul>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div ng-repeat="row in selectedroute.rows">
+                                <div style="position:relative;display: inline" ng-repeat="s in row">
+                                    <img ng-show="s.Space" src="img/seat_space.png">
+                                    <a href="">
+                                        <img ng-show="s.Bookable&&!s.Space&&!s.status" src="img/seat_available.png" ng-click="seatClicked(s)">
+                                        <img ng-show="s.Bookable&&!s.Space&&s.status" src="img/seat_selected.png" ng-click="seatClicked(s)">
+                                    </a>
+                                    <img ng-show="!s.Bookable&&!s.Space" src="img/seat_reserved.png">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div>
+                                <h4>Total Fare: <strong style="padding-left:3em" ng-show="selectedroute.totalSelectedSeats>0">{{selectedroute.totalSelectedSeats * selectedroute.RouteFare}}</strong> <small style="padding-left:1em">Kyats</small> </h4>
+                            </div>
+                            <div style="position:relative;display: inline">
+                                <h4>
+                                    Selected Seats:
+                                </h4>
+                                <div style="position:relative;display: inline" ng-repeat="row in selectedroute.rows">
+                                    <div style="position:relative;display: inline" ng-repeat="s in row | filter: { status: 'true' }">
+                                        {{s.SeatNo}},
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <!--<div class="row" ng-show="routes.length<1">
+                <div class="col-md-12">
+                    Oops! No tickets were found for this route today.
+                    <br /> Please select another date to search again.
+                </div>
+            </div>-->
+            <!--<div class="row show-grid" ng-repeat="route in routes">
+                <div class="col-md-3" style="height:44px">
+                    {{route.Company}}
+                    <i class="fa fa-star-o" /> <i class="fa fa-star-o" /> <i class="fa fa-star-o" /> <i class="fa fa-star-o" /> <i class="fa fa-star" />
+                </div>
+                <div class="col-md-3" style="height:44px">
+                    <i class="fa fa-clock-o"></i> {{route.DepartureTime}}
 
+                    <span style="padding-left:5em">
+                        <i class="fa fa-clock-o"></i> {{route.ArrivalTime}}
+                    </span>
+                </div>
+                <div class="col-md-2" style="height:44px">
+                    <span>{{route.seats.length}} seats</span>
+                </div>
+                <div class="col-md-2" style="height:44px">
+                    <span>{{route.RouteFare}} (Kyats)</span>
+                </div>
+                <div class="col-md-2" style="height:44px">
+                    <span><button type="button" class="btn btn-primary btn-xs">View Seats</button></span>
+                </div>
+            </div>-->
+                <!--<table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15" id="tblroutelist">
+            <thead>
+                <tr>
+
+                    <th data-toggle="true">{{ 'OPERATOR' | translate }}</th>
+                    <th>{{ 'DEPARTURETIME' | translate }}</th>
+                    <th>{{ 'ARRIVALTIME' | translate }}</th>
+                    <th>{{ 'NUMBEROFSEAT' | translate }}</th>
+                    <th>{{ 'ROUTEFARE' | translate }}</th>
+                    <th data-hide="all"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-show="routes.length<1" my-directive>
+                    <td colspan="5">
+                        Oops! No tickets were found for this route today.
+                    </td>
+
+                </tr>
+                <tr ng-repeat="route in routes" my-directive>
+                    <td>
+                        {{route.Company}}
+                        <i class="fa fa-star-o"/> <i class="fa fa-star-o" /> <i class="fa fa-star-o" /> <i class="fa fa-star-o" /> <i class="fa fa-star" />
+                    </td>
+
+                    <td>
+                        <i class="fa fa-clock-o"></i> {{route.DepartureTime}}
+                    </td>
+                    <td>
+                        <i class="fa fa-clock-o"></i> {{route.ArrivalTime}}
+                    </td>
+                    <td>
+                            {{route.seats.length}} seats
+                    </td>
+                    <td>
+                        {{route.RouteFare}} (Kyats)
+                    </td>
+                    <td>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div ng-repeat="row in route.rows">
+                                        <div style="position:relative;display: inline" ng-repeat="s in row">
+                                            <img ng-show="s.Space" src="img/seat_space.png">
+                                            <a href="">
+                                                <img ng-show="s.Bookable&&!s.Space&&!s.status" src="img/seat_available.png" ng-click="seatClicked(s)">
+                                                <img ng-show="s.Bookable&&!s.Space&&s.status" src="img/seat_selected.png" ng-click="seatClicked(s)">
+                                            </a>
+                                            <img ng-show="!s.Bookable&&!s.Space" src="img/seat_reserved.png">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div>
+                                        <h4>Total Fare: <strong style="padding-left:3em" ng-show="route.totalSelectedSeats>0">{{route.totalSelectedSeats * route.RouteFare}}</strong> <small style="padding-left:1em">Kyats</small> </h4>
+                                    </div>
+                                    <div style="position:relative;display: inline">
+                                        <h4>
+                                            Selected Seats:
+                                        </h4>
+                                                <div style="position:relative;display: inline" ng-repeat="row in route.rows">
+                                                    <div style="position:relative;display: inline" ng-repeat="s in row | filter: { status: 'true' }">
+                                                        {{s.SeatNo}},
+                                                    </div>
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <ul class="pagination pull-right"></ul>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>-->
+        </div>
     </div>
 </div>

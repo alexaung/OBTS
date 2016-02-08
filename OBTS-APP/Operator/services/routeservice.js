@@ -89,7 +89,7 @@ function routeService($http, ngAuthSettings) {
     };
 
     routeServiceFactory.bulkInsertSeats = function (seats) {
-        return $http.post(serviceBase + 'seatdetails/BulkInsertSeatDetails', seats).
+        return $http.post(serviceBase + 'routes/BulkUpdateRouteSeats', seats).
                 success(function (response, status, headers, config) {
                     return response;
                 }).
