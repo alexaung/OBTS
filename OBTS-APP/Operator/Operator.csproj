@@ -916,6 +916,8 @@
     <Content Include="js\ui-router\angular-ui-router.js" />
     <Content Include="js\ui-router\angular-ui-router.min.js" />
     <Content Include="services\mybusservice.js" />
+    <Content Include="services\bookingservice.js" />
+    <Content Include="services\routeservice.js" />
     <Content Include="views\booking\calendar.html" />
     <Content Include="views\booking\searchresult.html" />
     <Content Include="views\booking\search.html" />

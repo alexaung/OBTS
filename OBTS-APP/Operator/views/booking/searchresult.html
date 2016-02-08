@@ -12,20 +12,20 @@
     <div class="ibox-content text-center row  border-bottom white-bg " ng-show="ReturnDate!='undefined'">
         <div class="col-md-6" style="border-right:  thin solid #808080;">
             <h2>
-                <span class="text-navy">{{FromCity.CityDesc}} <i class="fa fa-long-arrow-right"></i> {{ToCity.CityDesc}}</span>
+                <span class="{{IsReturn ? 'text-muted':'text-navy'}}">{{FromCity.CityDesc}} <i class="fa fa-long-arrow-right"></i> {{ToCity.CityDesc}}</span>
             </h2>
 
             <h4>
-                <a href="" ng-click="prevday()"><i class="fa fa-chevron-circle-left"></i></a> <span class="text-navy">{{DeptDate | date:'dd-MMM-yyyy'}}</span> <a href="" ng-click="nextday()"><i class="fa fa-chevron-circle-right"></i></a>
+                <a href="" ng-click="prevday()"><i class="fa fa-chevron-circle-left {{IsReturn ? 'text-muted':''}}"></i></a> <span class="{{IsReturn ? 'text-muted':'text-navy'}}">{{DeptDate | date:'dd-MMM-yyyy'}}</span> <a href="" ng-click="nextday()"><i class="fa fa-chevron-circle-right {{IsReturn ? 'text-muted':''}}"></i></a>
             </h4>
         </div>
         <div class="col-md-6">
             <h2>
-                <span class="text-muted">{{ToCity.CityDesc}} <i class="fa fa-long-arrow-right"></i> {{FromCity.CityDesc}}</span>
+                <span class="{{IsReturn ? 'text-navy':'text-muted'}}">{{ToCity.CityDesc}} <i class="fa fa-long-arrow-right"></i> {{FromCity.CityDesc}}</span>
             </h2>
 
             <h4>
-                <a href="" ng-click="prevday()"><i class="fa fa-chevron-circle-left text-muted"></i></a> <span class="text-muted">{{ReturnDate | date:'dd-MMM-yyyy'}}</span> <a href="" ng-click="nextday()"><i class="fa fa-chevron-circle-right text-muted"></i></a>
+                <a href="" ng-click="prevday()"><i class="fa fa-chevron-circle-left {{IsReturn ? '':'text-muted'}}"></i></a> <span class="{{IsReturn ? 'text-navy':'text-muted'}}">{{ReturnDate | date:'dd-MMM-yyyy'}}</span> <a href="" ng-click="nextday()"><i class="fa fa-chevron-circle-right {{IsReturn ? '':'text-muted'}}"></i></a>
             </h4>
         </div>
     </div>
@@ -48,7 +48,6 @@
                                     {{route.Company}}
                                 </h3>
                                 <i class="fa fa-star text-navy" /> <i class="fa fa-star text-navy" /> <i class="fa fa-star text-navy" /> <i class="fa fa-star text-navy" /> <i class="fa fa-star text-muted" />
-
                             </div>
                             <div class="media-body">
                                 <button type="button" class="btn btn-primary btn-xs pull-right" ng-click="viewSeats(route)">
@@ -64,13 +63,12 @@
                                     <span style="padding-left:6em"><i class="fa fa-clock-o"></i>{{route.ArrivalTime}}</span>
                                     <span style="padding-left:6em">{{route.seats.length}} <small>seats</small></span>
                                     <span style="padding-left:6em">{{route.RouteFare}} <small>Kyats</small></span>
-
                                 </h3>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="container">
+                <div class="container" ng-show="selectedroute!==undefined">
                     <div class="row">
                         <div class="col-md-7">
                             <div ng-repeat="row in selectedroute.rows">
@@ -97,6 +95,12 @@
                                         {{s.SeatNo}},
                                     </div>
                                 </div>
+                            </div>
+                            <hr/>
+                            <div>
+                                <button type="button" class="btn btn-primary btn-xs" ng-click="continue()">
+                                    Continue
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -198,7 +198,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     }
         })
         .state('booking.searchresult',{
-            url: "/searchresult/:FromCity/:ToCity/:DeptDate/:ReturnDate",
+            url: "/searchresult/:FromCity/:ToCity/:DeptDate/:ReturnDate/:IsReturn",
             templateUrl: "views/booking/searchresult.html",
             data: { pageTitle: 'Booking Search Result' },
             resolve: {
