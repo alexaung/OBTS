@@ -1,4 +1,4 @@
-<!--
+﻿<!--
 * INSPINIA - Responsive Admin Theme
 * Version 2.4
 *
@@ -21,10 +21,21 @@
 
     <!-- Font awesome -->
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-
+    
     <!-- Main Inspinia CSS files -->
     <link href="css/animate.css" rel="stylesheet">
-    <link id="loadBefore" href="css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 
 </head>
@@ -33,49 +44,56 @@
 <!-- Main controller with serveral data used in Inspinia theme on diferent view -->
 <body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
 
-<!-- Main view  -->
-<div ui-view></div>
 
-<!-- jQuery and Bootstrap -->
-<script src="js/jquery/jquery-2.1.1.min.js"></script>
-<script src="js/plugins/jquery-ui/jquery-ui.js"></script>
-<script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- Navigation -->
+    <div ng-include="'views/common/navigation.html'"></div>
 
-<!-- MetsiMenu -->
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <!-- Main view  -->
+    <div ui-view></div>
+    <!-- Footer -->
+    <!--<div ng-include="'views/common/footer.html'"></div>-->
+    <!-- jQuery and Bootstrap -->
+    <script src="js/jquery/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery/jquery.carousel.fullscreen.js"></script>
+    <script src="js/plugins/jquery-ui/jquery-ui.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery/jquery.easing.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+    <!-- MetsiMenu -->
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
-<!-- SlimScroll -->
-<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-<!-- Peace JS -->
-<script src="js/plugins/pace/pace.min.js"></script>
+    <!-- Peace JS -->
+    <script src="js/plugins/pace/pace.min.js"></script>
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
 
-<!-- Custom and plugin javascript -->
-<script src="js/inspinia.js"></script>
+    <!-- Main Angular scripts-->
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/angular/angular-sanitize.js"></script>
+    <script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+    <script src="js/angular-translate/angular-translate.min.js"></script>
+    <script src="js/ui-router/angular-ui-router.min.js"></script>
+    <script src="js/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script src="js/plugins/angular-idle/angular-idle.js"></script>
 
-<!-- Main Angular scripts-->
-<script src="js/angular/angular.min.js"></script>
-<script src="js/angular/angular-sanitize.js"></script>
-<script src="js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
-<script src="js/angular-translate/angular-translate.min.js"></script>
-<script src="js/ui-router/angular-ui-router.min.js"></script>
-<script src="js/bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
-<script src="js/plugins/angular-idle/angular-idle.js"></script>
-
-<!--
- You need to include this script on any page that has a Google Map.
- When using Google Maps on your own site you MUST signup for your own API key at:
- https://developers.google.com/maps/documentation/javascript/tutorial#api_key
- After your sign up replace the key in the URL below..
--->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>
-
-<!-- Anglar App Script -->
-<script src="js/app.js"></script>
-<script src="js/config.js"></script>
-<script src="js/translations.js"></script>
-<script src="js/directives.js"></script>
-<script src="js/controllers.js"></script>
-
+    <!--
+     You need to include this script on any page that has a Google Map.
+     When using Google Maps on your own site you MUST signup for your own API key at:
+     https://developers.google.com/maps/documentation/javascript/tutorial#api_key
+     After your sign up replace the key in the URL below..
+    -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="js/jquery/grayscale.js"></script>
+    <!-- Anglar App Script -->
+    <script src="js/app.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/controllers.js"></script>
 </body>
 </html>
