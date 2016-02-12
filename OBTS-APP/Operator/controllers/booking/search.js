@@ -4,7 +4,7 @@
  * CalendarCtrl - Controller for Calendar
  * Store data events for calendar
  */
-function searchCtrl($scope, $http, $filter, $stateParams, $timeout, notify, routeService) {
+function searchCtrl($scope, $http, $filter, $stateParams, $timeout, notify, routeService, bookingService) {
 
     
     $scope.initSearchResult = function () {
@@ -13,36 +13,35 @@ function searchCtrl($scope, $http, $filter, $stateParams, $timeout, notify, rout
         $scope.DeptDate = $stateParams.DeptDate;
         $scope.ReturnDate = $stateParams.ReturnDate;
         $scope.IsReturn = $stateParams.IsReturn.toLowerCase() == "true";
-
-        
+        bookingService.booking.returnRoute = undefined;
         routeService.searchRoutes($scope.IsReturn ? $scope.ToCityId : $scope.FromCityId,
                                   $scope.IsReturn ? $scope.FromCityId : $scope.ToCityId,
                                   $scope.IsReturn ? $scope.ReturnDate : $scope.DeptDate).success(function (data) {
-            $scope.routes = data
+                                      $scope.routes = data
             
-            if ($scope.routes.length > 0) {
-                for (var i = 0; i < $scope.routes.length; i++) {
-                    var route = $scope.routes[i];
-                    route.rows = [];
-                    if (route.seats.length > 0) {
-                        var row = route.seats[0].Row;
-                        var seats = [];
-                        for (var j = 0; j < route.seats.length; j++) {
-                            if (row != route.seats[j].Row) {
-                                route.rows.push(seats)
-                                seats = [];
-                                row = route.seats[j].Row;
-                            }
-                            seats.push(route.seats[j]);
-                        }
-                        route.rows.push(seats)
-                    }
-                }
-            }
+                                      if ($scope.routes.length > 0) {
+                                          for (var i = 0; i < $scope.routes.length; i++) {
+                                              var route = $scope.routes[i];
+                                              route.rows = [];
+                                              if (route.seats.length > 0) {
+                                                  var row = route.seats[0].Row;
+                                                  var seats = [];
+                                                  for (var j = 0; j < route.seats.length; j++) {
+                                                      if (row != route.seats[j].Row) {
+                                                          route.rows.push(seats)
+                                                          seats = [];
+                                                          row = route.seats[j].Row;
+                                                      }
+                                                      seats.push(route.seats[j]);
+                                                  }
+                                                  route.rows.push(seats)
+                                              }
+                                          }
+                                      }
             
-        }).error(function (err) {
-            $scope.routes = null;
-        });
+                                  }).error(function (err) {
+                                      $scope.routes = null;
+                                  });
 
         routeService.loadCities().success(function (response) {
             $scope.cities = response;
@@ -123,7 +122,15 @@ function searchCtrl($scope, $http, $filter, $stateParams, $timeout, notify, rout
     }
 
     $scope.continue = function () {
-         
+        if ($scope.selectedroute.totalSelectedSeats == undefined || $scope.selectedroute.totalSelectedSeats <= 0) {
+            notify({ message: 'Please select a seat to continue.', classes: 'alert-warning', templateUrl: 'views/common/notify.html' });
+            return;
+        }
+        if($scope.IsReturn)
+            bookingService.booking.returnRoute = $scope.selectedroute;
+        else
+            bookingService.booking.departRoute = $scope.selectedroute;
+
         if ($scope.ReturnDate !== "undefined" && !$scope.IsReturn)
             window.location.href = '#/booking/searchresult/' + $scope.FromCityId + '/' + $scope.ToCityId + '/' + $filter('date')($scope.DeptDate, 'dd-MMM-yyyy') + '/' + $filter('date')($scope.ReturnDate, 'dd-MMM-yyyy') + '/true';
         else

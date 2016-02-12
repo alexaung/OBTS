@@ -1,4 +1,142 @@
-<div ng-controller="searchCtrl">
+<div ng-controller="bookingCtrl" data-ng-init="initBookingDetails()">
+    <form role="form" class="form-inline">
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-md-9">
+                    <h2>Contact Details</h2>
+                    <div class="form-group">
+                        <input type="text"  placeholder="Name"  class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Enter email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Phone" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-9">
+                    <h2>Passenger Details (Depart)</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>ID Type</th>
+                                    <th>ID Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="seat in booking.departRoute.seats | filter:{ status: true }">
+                                    <td>
+                                        <input type="text" placeholder="Enter Name" id="txtPassengerName" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Age" id="txtPassengerName"  size="2" class="form-control">
+                                    </td>
+                                    <td>
+                                        <select class="form-control m-b" name="account">
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control m-b" name="account">
+                                            <option>Passport</option>
+                                            <option>Female</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Enter Name" id="txtPassengerName" class="form-control">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <br/><br />
+                    <div class="text-center">
+                        {{booking.departRoute.SourceCity}} - {{booking.departRoute.DestinationCity}}
+                        <br />
+                        {{booking.departRoute.RouteDate | date:'dd-MMM-yyyy'}} {{booking.departRoute.DepartureTime}}
+                        <br />
+                        Bus No. {{booking.departRoute.RegistrationNo}}
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="{{booking.returnRoute !== undefined}}">
+                <div class="col-md-9">
+                    <h2>Passenger Details (Return)</h2>
+                </div>
+            </div>
+            <div class="row" ng-show="{{booking.returnRoute !== undefined}}">
+                <div class="col-md-9">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>ID Type</th>
+                                    <th>ID Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr seat in booking.returnRoute.seats | filter:{ status true }>
+                                    <td>
+                                        <input type="text" placeholder="Enter Name" id="txtPassengerName" class="form-control">
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Age" id="txtPassengerName" size="2" class="form-control">
+                                    </td>
+                                    <td>
+                                        <select class="form-control m-b" name="account">
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control m-b" name="account">
+                                            <option>Passport</option>
+                                            <option>Female</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Enter Name" id="txtPassengerName" class="form-control">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <br /><br />
+                    <div class="text-center">
+                        {{booking.returnRoute.SourceCity}} - {{booking.returnRoute.DestinationCity}}
+                        <br />
+                        {{booking.returnRoute.RouteDate | date:'dd-MMM-yyyy'}} {{booking.returnRoute.DepartureTime}}
+                        <br />
+                        Bus No. {{booking.returnRoute.RegistrationNo}}
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+       
+    </form>
+            
     
-   
+
 </div>

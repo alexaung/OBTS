@@ -2609,6 +2609,7 @@ angular
     .controller('routeEditCtrl', routeListCtrl)
     .controller('calendarCtrl', calendarCtrl)
     .controller('searchCtrl', searchCtrl)
+    .controller('bookingCtrl', bookingCtrl)
     .controller('busSeatController', busListCtrl)
     .controller('routeSeatController', routeListCtrl)
     .controller('dashboardFlotOne', dashboardFlotOne)
@@ -2617,7 +2618,8 @@ angular
     .controller('translateCtrl', translateCtrl)
     .factory("dataService", dataServiceFactory)
     .factory("busService", ['$http', 'ngAuthSettings', busService])
-     .factory("routeService", ['$http', 'ngAuthSettings', routeService])
+    .factory("routeService", ['$http', 'ngAuthSettings', routeService])
+    .factory("bookingService", ['$http', 'ngAuthSettings', bookingService])
     .factory('authInterceptorService', ['$q', '$location', 'localStorageService', authInterceptorService])
     .factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSettings', authService])
     .constant('ngAuthSettings', {

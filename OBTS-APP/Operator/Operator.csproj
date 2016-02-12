@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="controllers\booking\calendar.js" />
+    <Content Include="controllers\booking\booking.js" />
     <Content Include="controllers\booking\search.js" />
     <Content Include="controllers\loginController.js" />
     <Content Include="controllers\mybus\busSeatController.js" />
