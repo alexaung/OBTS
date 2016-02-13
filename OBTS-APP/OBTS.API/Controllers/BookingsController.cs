@@ -36,19 +36,181 @@ namespace OBTS.API.Controllers
                                 Email=o.Email,
                                 ContactNo=o.ContactNo,
                                 Cupon=o.Cupon,
-                                Discount=o.Discount
+                                Discount=o.Discount,
+                                BookingStatus=o.BookingStatus
                              }).ToListAsync();
 
             return Ok(_bookings.AsQueryable());
         }
 
-        // GET: api/bookings/{BookingRefId}
-        //default filter date : TravelDate > current date & time
+        // GET: api/booking/{BookingRefId}
         [ResponseType(typeof(BookingDTO))]
-        [Route("api/bookings/{BookingRefId}", Name = "GetBookingByBookingRefId")]
+        [Route("api/booking/{BookingRefId}", Name = "GetBookingByBookingRefId")]
         public async Task<IHttpActionResult> GetBookingByBookingRefId(string BookingRefId)
         {
-            var bookings = await (from o in db.Bookings
+            var _bookings = await (from o in db.Bookings
+                                   from u in db.Users.Where(u1 => u1.Id == o.UserId).DefaultIfEmpty()
+                                   where o.BookingRefId.Equals(BookingRefId)
+
+                                   select new BookingDTO()
+                                   {
+                                       BookingId = o.BookingId,
+                                       BookingRefId = o.BookingRefId,
+                                       UserId = u.Id,
+                                       UserName = u.UserName,
+                                       BookingOn = o.BookingOn,
+                                       MainContact = o.MainContact,
+                                       Email = o.Email,
+                                       ContactNo = o.ContactNo,
+                                       Cupon = o.Cupon,
+                                       Discount = o.Discount,
+                                       BookingStatus=o.BookingStatus
+                                   }).ToListAsync();
+
+            return Ok(_bookings.AsQueryable());
+        }
+
+        [ResponseType(typeof(OBTSResponse))]
+        [Route("api/booking/InsertBooking", Name = "InsertBooking")]
+        public async Task<IHttpActionResult> InsertBooking(BookingDTO booking)
+        {
+            OBTSResponse rep = new OBTSResponse();
+            rep.Success = true;
+            rep.Message = "";
+
+            if (booking != null)
+            {
+                Booking _booking = new Booking();
+                _booking.BookingId = Guid.NewGuid();
+                _booking.BookingOn = booking.BookingOn;
+                _booking.BookingRefId = booking.BookingRefId;
+                _booking.BookingStatus = booking.BookingStatus;
+                _booking.ContactNo = booking.ContactNo;
+                _booking.Cupon = booking.Cupon;
+                _booking.Discount = booking.Discount;
+                _booking.Email = booking.Email;
+                _booking.MainContact = booking.MainContact;
+                _booking.UserId = booking.UserId;
+
+                db.Bookings.Add(_booking);
+            }
+
+            BookingDetail bd = new BookingDetail();
+            if (booking.DepartBookingDetail != null) { 
+                bd = new BookingDetail();
+                bd.BookingDetailId = Guid.NewGuid();
+                bd.BookingId = booking.BookingId;
+                bd.RouteFare = booking.DepartBookingDetail.RouteFare;
+                bd.RouteId = booking.DepartBookingDetail.RouteId;
+                db.BookingDetails.Add(bd);
+
+                foreach (BookingPassengerDTO p in booking.DepartBookingDetail.bookingPassengers)
+                {
+                    BookingPassenger passenger = new BookingPassenger();
+                    passenger.Age = p.Age;
+                    passenger.BookingDetailId = bd.BookingDetailId;
+                    passenger.BookingPassengerId = Guid.NewGuid();
+                    passenger.Gender = p.Gender;
+                    passenger.IDNumber = p.IDNumber;
+                    passenger.IDType = p.IDType;
+                    passenger.PassengerName = p.PassengerName;
+                    passenger.RouteSeatId = p.RouteSeatId;
+
+                    db.BookingPassengers.Add(passenger);
+                }
+            }
+
+            BookingDetail bd1 = new BookingDetail();
+            if (booking.ReturnBookingDetail != null)
+            {
+                
+                bd1.BookingDetailId = Guid.NewGuid();
+                bd1.BookingId = booking.BookingId;
+                bd1.RouteFare = booking.ReturnBookingDetail.RouteFare;
+                bd1.RouteId = booking.ReturnBookingDetail.RouteId;
+                db.BookingDetails.Add(bd1);
+
+                foreach (BookingPassengerDTO p in booking.ReturnBookingDetail.bookingPassengers)
+                {
+                    BookingPassenger passenger = new BookingPassenger();
+                    passenger.Age = p.Age;
+                    passenger.BookingDetailId = bd1.BookingDetailId;
+                    passenger.BookingPassengerId = Guid.NewGuid();
+                    passenger.Gender = p.Gender;
+                    passenger.IDNumber = p.IDNumber;
+                    passenger.IDType = p.IDType;
+                    passenger.PassengerName = p.PassengerName;
+                    passenger.RouteSeatId = p.RouteSeatId;
+
+                    db.BookingPassengers.Add(passenger);
+                }
+            }
+
+
+            try
+            {
+                await db.SaveChangesAsync();
+
+                short seatstate = 0;
+                if (booking.BookingStatus == (short)OBTSEnum.BookState.Confirmed)
+                    seatstate = (short)OBTSEnum.SeatState.Confirmed;
+                if (booking.BookingStatus == (short)OBTSEnum.BookState.UnConfirm)
+                    seatstate = (short)OBTSEnum.SeatState.UnConfirm;
+                if (booking.BookingStatus == (short)OBTSEnum.BookState.Cancelled)
+                    seatstate = (short)OBTSEnum.SeatState.Available;
+
+                //booking status to seat status =>booking confirmed,unconfirm,cancelled
+                foreach (BookingPassengerDTO p in booking.DepartBookingDetail.bookingPassengers)
+                {
+                    using (var context = new ApplicationDbContext())
+                    {
+                        context.Database.ExecuteSqlCommand("UPDATE RouteSeats SET State={0}  WHERE RouteSeatId = {1}", seatstate, p.RouteSeatId);
+                    }
+                }
+
+                foreach (BookingPassengerDTO p in booking.ReturnBookingDetail.bookingPassengers)
+                {
+                    using (var context = new ApplicationDbContext())
+                    {
+                        context.Database.ExecuteSqlCommand("UPDATE RouteSeats SET State={0}  WHERE RouteSeatId = {1}", seatstate, p.RouteSeatId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                rep.Fail = false;
+                rep.Message = ex.Message;
+            }
+
+            return Ok(rep);
+        }
+
+        // GET: api/booking/{BookingRefId}/details
+        //default filter date : TravelDate > current date & time
+        [ResponseType(typeof(BookingDTO))]
+        [Route("api/booking/{BookingRefId}/details", Name = "GetBookingDetailsByBookingRefId")]
+        public async Task<IHttpActionResult> GetBookingDetailsByBookingRefId(string BookingRefId)
+        {
+            var _bookings = await (from o in db.Bookings
+                            from u in db.Users.Where(u1 => u1.Id == o.UserId).DefaultIfEmpty()
+                            where o.BookingRefId.Equals(BookingRefId)
+
+                            select new BookingDTO()
+                            {
+                                BookingId = o.BookingId,
+                                BookingRefId = o.BookingRefId,
+                                UserId = u.Id,
+                                UserName = u.UserName,
+                                BookingOn = o.BookingOn,
+                                MainContact = o.MainContact,
+                                Email = o.Email,
+                                ContactNo = o.ContactNo,
+                                Cupon = o.Cupon,
+                                Discount = o.Discount,
+                                BookingStatus=o.BookingStatus
+                            }).ToListAsync();
+
+            var bookingdetails = await (from o in db.Bookings
                            from b in db.BookingDetails.Where(b1 => b1.BookingId == o.BookingId).DefaultIfEmpty()                           
                            from r in db.Routes.Where(c => c.RouteId == b.RouteId).DefaultIfEmpty()
                            from bus in db.Buses.Where(b2 => b2.BusId == r.BusId).DefaultIfEmpty()
@@ -59,6 +221,7 @@ namespace OBTS.API.Controllers
 
                            select new BookingDetailDTO()
                          {
+                             BookingDetailId = b.BookingDetailId,
                              BookingId = o.BookingId,
                              BookingRefId=o.BookingRefId,
                              RouteId = r.RouteId,
@@ -67,40 +230,78 @@ namespace OBTS.API.Controllers
                              BusTypeDesc = c3.Value,
                              VechiclePhoneNo = bus.VechiclePhoneNo,
                              BusDescription = bus.Description,
-                             BookingOn = o.BookingOn,
-                             MainContact = o.MainContact,
-                             Email = o.Email,
-                             ContactNo = o.ContactNo,
                              DepartureCity = r.Source_CityId,
                              DepartureCityDesc = c2.CityDesc,
                              ArrivalCity = r.Destination_CityId,
                              ArrivalCityDesc = c1.CityDesc,
                              RouteFare = b.RouteFare,
                              
-                         }).ToListAsync();
-            return Ok(bookings.AsQueryable());
+                         }).OrderBy(u => u.BookingDetailId).ToListAsync();
+
+            List<BookingDTO> bookingDTO = (List<BookingDTO>)_bookings;
+
+            List<BookingDetailDTO> bookingDetailDTO = (List<BookingDetailDTO>)bookingdetails;
+
+            
+            foreach (BookingDetailDTO dd in bookingDetailDTO)
+            {
+                var passengers = await (from o in db.Bookings
+                                        from d in db.BookingDetails.Where(d1 => d1.BookingId == o.BookingId).DefaultIfEmpty()
+                                        from b in db.BookingPassengers.Where(b1 => b1.BookingDetailId == d.BookingDetailId).DefaultIfEmpty()
+                                        from r in db.RouteSeats.Where(r1=>r1.RouteSeatId==b.RouteSeatId).DefaultIfEmpty()
+                                        where d.BookingDetailId.Equals(dd.BookingDetailId)
+
+                                        select new BookingPassengerDTO()
+                                        {
+                                            BookingPassengerId = b.BookingPassengerId,
+                                            BookingDetailId = d.BookingDetailId,
+                                            BookingRefId = o.BookingRefId,
+                                            PassengerName = b.PassengerName,
+                                            IDType = b.IDType,
+                                            IDNumber = b.IDNumber,
+                                            Age = b.Age,
+                                            Gender = b.Gender,
+                                            RouteSeatId=r.RouteSeatId,
+                                            SeatNo = r.SeatNo
+                                        }).ToListAsync();
+
+                List<BookingPassengerDTO> bookingPassengerDTO = (List<BookingPassengerDTO>)passengers;
+                dd.bookingPassengers = bookingPassengerDTO;
+            }
+
+            if(bookingDTO.Count>0)
+            { 
+                bookingDTO[0].DepartBookingDetail = bookingDetailDTO[0];
+                if(bookingDetailDTO.Count>1)
+                    bookingDTO[0].ReturnBookingDetail = bookingDetailDTO[1];
+            }
+            return Ok(bookingDTO.AsQueryable());
         }
 
         // GET: api/bookings/{BookingRefId}/passengers
         //default filter date : TravelDate > current date & time
         [ResponseType(typeof(BookingPassengerDTO))]
-        [Route("api/bookings/{BookingRefId}/passengers", Name = "GetBookingPassengersByBookingRefId")]
-        public async Task<IHttpActionResult> GetBookingPassengersByBookingRefId(string BookingRefId)
+        [Route("api/bookings/{BookingDetailId}/passengers", Name = "GetBookingPassengersByBookingDetailId")]
+        public async Task<IHttpActionResult> GetBookingPassengersByBookingDetailId(Guid BookingDetailId)
         {
             var bookings = await (from o in db.Bookings
-                                  from b in db.BookingPassengers.Where(b1 => b1.BookingId == o.BookingId).DefaultIfEmpty()
-                                  where o.BookingRefId.Equals(BookingRefId)
+                                  from d in db.BookingDetails.Where(d1 => d1.BookingId==o.BookingId).DefaultIfEmpty()
+                                  from b in db.BookingPassengers.Where(b1 => b1.BookingDetailId == d.BookingDetailId).DefaultIfEmpty()
+                                  from r in db.RouteSeats.Where(r1 => r1.RouteSeatId == b.RouteSeatId).DefaultIfEmpty()
+                                  where d.BookingDetailId.Equals(BookingDetailId)
 
                                   select new BookingPassengerDTO()
                                   {
                                       BookingPassengerId=b.BookingPassengerId,
-                                      BookingId = o.BookingId,
-                                      RouteId = b.RouteId,
+                                      BookingDetailId = d.BookingDetailId,
+                                      BookingRefId=o.BookingRefId,
                                       PassengerName = b.PassengerName,
                                       IDType=b.IDType,
                                       IDNumber=b.IDNumber,
                                       Age=b.Age,
-                                      Gender=b.Gender
+                                      Gender=b.Gender,
+                                      RouteSeatId=r.RouteSeatId,
+                                      SeatNo=r.SeatNo
                                   }).ToListAsync();
             return Ok(bookings.AsQueryable());
         }
@@ -112,19 +313,23 @@ namespace OBTS.API.Controllers
         public async Task<IHttpActionResult> GetBookingPassengersByRouteId(string BookingRefId,Guid RouteId)
         {
             var bookings = await (from o in db.Bookings
-                                  from b in db.BookingPassengers.Where(b1 => b1.BookingId == o.BookingId).DefaultIfEmpty()
-                                  where o.BookingRefId.Equals(BookingRefId) && b.RouteId.Equals(RouteId)
+                                  from d in db.BookingDetails.Where(d1=>d1.BookingId == o.BookingId).DefaultIfEmpty()
+                                  from b in db.BookingPassengers.Where(b1 => b1.BookingDetailId == d.BookingDetailId).DefaultIfEmpty()
+                                  from r in db.RouteSeats.Where(r1 => r1.RouteSeatId == b.RouteSeatId).DefaultIfEmpty()
+                                  where o.BookingRefId.Equals(BookingRefId) && d.RouteId.Equals(RouteId)
 
                                   select new BookingPassengerDTO()
                                   {
                                       BookingPassengerId = b.BookingPassengerId,
-                                      BookingId = o.BookingId,
-                                      RouteId = b.RouteId,
+                                      BookingDetailId = d.BookingDetailId,
+                                      BookingRefId= o.BookingRefId,
                                       PassengerName = b.PassengerName,
                                       IDType = b.IDType,
                                       IDNumber = b.IDNumber,
                                       Age = b.Age,
-                                      Gender = b.Gender
+                                      Gender = b.Gender,
+                                      RouteSeatId=r.RouteSeatId,
+                                      SeatNo=r.SeatNo
                                   }).ToListAsync();
             return Ok(bookings.AsQueryable());
         }
@@ -161,6 +366,29 @@ namespace OBTS.API.Controllers
             try
             {
                 await db.SaveChangesAsync();
+
+                ///update route seats
+
+                short seatstate = 0;
+                if (booking.BookingStatus == (short)OBTSEnum.BookState.Confirmed)
+                    seatstate = (short)OBTSEnum.SeatState.Confirmed;
+                if (booking.BookingStatus == (short)OBTSEnum.BookState.UnConfirm)
+                    seatstate = (short)OBTSEnum.SeatState.UnConfirm;
+                if (booking.BookingStatus == (short)OBTSEnum.BookState.Cancelled)
+                    seatstate = (short)OBTSEnum.SeatState.Available;
+
+                //booking status to seat status =>booking confirmed,unconfirm,cancelled
+                
+                using (var context = new ApplicationDbContext())
+                {
+                    context.Database.ExecuteSqlCommand("UPDATE RouteSeats SET[State] ={0} FROM RouteSeats "+
+                    "JOIN BookingPassengers on BookingPassengers.RouteSeatId = RouteSeats.RouteSeatId "+
+                    "JOIN BookingDetails on BookingDetails.BookingDetailId = BookingPassengers.BookingDetailId "+
+                    "JOIN Bookings on Bookings.BookingId = BookingDetails.BookingId "+
+                    "WHERE Bookings.BookingId = {1}", seatstate, booking.BookingId);
+                }
+                
+                ////
             }
             catch (DbUpdateConcurrencyException)
             {

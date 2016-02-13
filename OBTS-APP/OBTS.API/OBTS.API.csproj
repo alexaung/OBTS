@@ -220,19 +220,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\BookingDetailsController.cs" />
+    <Compile Include="Controllers\BookingPassengersController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\BusesController.cs" />
     <Compile Include="Controllers\BusFeaturesController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\CodeTablesController.cs" />
-    <Compile Include="Controllers\ContactDetailsController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\DummiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OperatorAgentsController.cs" />
     <Compile Include="Controllers\OperatorsController.cs" />
-    <Compile Include="Controllers\PassengersController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\RoutePointsController.cs" />
@@ -265,7 +265,6 @@
     <Compile Include="Models\ClaimBindingModel.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\CodeTable.cs" />
-    <Compile Include="Models\ContactDetail.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\CreateRoleBindingModel.cs" />
     <Compile Include="Models\DTO\AgentDTO.cs" />
@@ -281,7 +280,6 @@
     <Compile Include="Models\DTO\CityDTO.cs" />
     <Compile Include="Models\DTO\CodeTitleDTO.cs" />
     <Compile Include="Models\DTO\CodeValueDTO.cs" />
-    <Compile Include="Models\DTO\ContactDetailDTO.cs" />
     <Compile Include="Models\DTO\CountryRegionDTO.cs" />
     <Compile Include="Models\DTO\OperatorAgentDTO.cs" />
     <Compile Include="Models\DTO\OperatorDTO.cs" />
@@ -301,7 +299,6 @@
     <Compile Include="Models\OBTSResponse.cs" />
     <Compile Include="Models\Operator.cs" />
     <Compile Include="Models\OperatorAgent.cs" />
-    <Compile Include="Models\Passenger.cs" />
     <Compile Include="Models\RefreshToken.cs" />
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Route.cs" />

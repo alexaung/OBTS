@@ -446,7 +446,7 @@ namespace OBTS.API.Controllers
                 sd.SeatNo = seat.SeatNo;
                 sd.Space = seat.Space;
                 sd.SpecialSeat = seat.SpecialSeat;
-                sd.State = (short)(seat.Bookable?OBTSEnum.BookState.Available:OBTSEnum.BookState.NotAvailable);
+                sd.State = (short)(seat.Bookable?OBTSEnum.SeatState.Available:OBTSEnum.SeatState.NotAvailable);
                 db.RouteSeats.Add(sd);
             }
 

@@ -148,7 +148,7 @@ namespace OBTS.API.Migrations
               b => b.RouteId,
               route, route2
             );
-
+            /*
             //booking
             var booking = new Booking { BookingId = Guid.Parse("3BD88E86-ACF3-432F-A016-53D9EF52D11D"),BookingRefId="ABC",UserId= user.Id.ToString(), BookingOn = DateTime.Parse("2015/01/01"), MainContact = "Mg Ba", Email = "Mgba@gmail.com", ContactNo = "123123",Cupon = "", Discount = 0,CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
 
@@ -166,14 +166,16 @@ namespace OBTS.API.Migrations
               bookingdetail
             );
 
+            //route seat
+
             //booking
-            var bookingpassenger = new BookingPassenger { BookingPassengerId = Guid.Parse("2CDFB9C3-6454-4403-9255-CF23697A8F95"), BookingId = booking.BookingId, RouteId = route.RouteId, PassengerName = "Mg Mg", IDType="NRIC", IDNumber="123343", Age=30, Gender="M", CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
+            var bookingpassenger = new BookingPassenger { BookingPassengerId = Guid.Parse("2CDFB9C3-6454-4403-9255-CF23697A8F95"), BookingDetailId = bookingdetail.BookingDetailId, PassengerName = "Mg Mg", IDType="NRIC", IDNumber="123343", Age=30, Gender="M", CreatedBy = Guid.Parse(adminUser.Id), CreatedUtc = DateTime.UtcNow };
 
             context.BookingPassengers.AddOrUpdate(
               b => b.BookingPassengerId,
               bookingpassenger
             );
-
+            */
 
             context.SaveChanges();
 

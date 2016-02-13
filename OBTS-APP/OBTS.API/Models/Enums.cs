@@ -39,10 +39,18 @@ namespace OBTS.API.Models
 
         public enum BookState
         {
-            NotAvailable=0,
-            Space=1,
-            Booked=2,
-            Available=3
+            Confirmed=0,
+            UnConfirm = 1,
+            Cancelled=3
+        }
+
+        public enum SeatState
+        {
+            Available = 0,
+            Confirmed = 1,
+            UnConfirm =2,
+            NotAvailable = 3,
+            Space = 4
         }
 
         public static string ToString(Enum value)
