@@ -14,6 +14,10 @@
                         <input type="text" placeholder="Phone" class="form-control">
                     </div>
                 </div>
+                 <div class="col-md-3">
+                     <br/><br/>
+                    <h3>Total Fare: {{(booking.departRoute.RouteFare * booking.departRoute.totalSelectedSeats) + (booking.returnRoute !== undefined ? booking.returnRoute.RouteFare * booking.returnRoute.totalSelectedSeats : 0)}}</h3> 
+                 </div>
             </div>
             <hr/>
             <div class="row">
@@ -51,8 +55,8 @@
                                     </td>
                                     <td>
                                         <select class="form-control m-b" name="account">
+                                            <option>NIRC</option>
                                             <option>Passport</option>
-                                            <option>Female</option>
                                         </select>
                                     </td>
                                     <td>
@@ -65,12 +69,19 @@
                 </div>
                 <div class="col-md-3">
                     <br/><br />
-                    <div class="text-center">
-                        {{booking.departRoute.SourceCity}} - {{booking.departRoute.DestinationCity}}
+                    <div class="text-left">
+                        <span class="text-navy"><strong>{{booking.departRoute.SourceCity}} - {{booking.departRoute.DestinationCity}}</strong></span>
                         <br />
                         {{booking.departRoute.RouteDate | date:'dd-MMM-yyyy'}} {{booking.departRoute.DepartureTime}}
                         <br />
                         Bus No. {{booking.departRoute.RegistrationNo}}
+                        <br />
+                        Fare: {{booking.departRoute.RouteFare}} x {{booking.departRoute.totalSelectedSeats}} = {{booking.departRoute.RouteFare * booking.departRoute.totalSelectedSeats}} Kyats
+                        <br />
+                        Seats No.
+                        <div style="position:relative;display: inline" ng-repeat="s in booking.departRoute.seats | filter:{ status : true }">
+                            {{s.SeatNo}},
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,7 +105,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr seat in booking.returnRoute.seats | filter:{ status true }>
+                                <tr ng-repeat="seat in booking.returnRoute.seats | filter:{ status : true }">
                                     <td>
                                         <input type="text" placeholder="Enter Name" id="txtPassengerName" class="form-control">
                                     </td>
@@ -109,26 +120,33 @@
                                     </td>
                                     <td>
                                         <select class="form-control m-b" name="account">
+                                            <option>NIRC</option>
                                             <option>Passport</option>
-                                            <option>Female</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Enter Name" id="txtPassengerName" class="form-control">
+                                        <input type="text" placeholder="Enter ID number" id="txtIDNumber" class="form-control">
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div>x
                 <div class="col-md-3">
                     <br /><br />
-                    <div class="text-center">
-                        {{booking.returnRoute.SourceCity}} - {{booking.returnRoute.DestinationCity}}
+                    <div class="text-left">
+                        <span class="text-navy"><strong>{{booking.returnRoute.SourceCity}} - {{booking.returnRoute.DestinationCity}}</strong></span>
                         <br />
                         {{booking.returnRoute.RouteDate | date:'dd-MMM-yyyy'}} {{booking.returnRoute.DepartureTime}}
                         <br />
                         Bus No. {{booking.returnRoute.RegistrationNo}}
+                        <br />
+                        Fare: {{booking.returnRoute.RouteFare}} x {{booking.returnRoute.totalSelectedSeats}} = {{booking.returnRoute.RouteFare * booking.returnRoute.totalSelectedSeats}} Kyats
+                        <br />
+                        Seats No.
+                        <div style="position:relative;display: inline" ng-repeat="s in booking.returnRoute.seats | filter:{ status : true }">
+                         {{s.SeatNo}},
+                        </div>
                     </div>
                 </div>
             </div>
