@@ -158,8 +158,6 @@ namespace OBTS.API.Models
 
         public System.Data.Entity.DbSet<OBTS.API.Models.Dummy> Dummies { get; set; }
 
-        public System.Data.Entity.DbSet<OBTS.API.Models.Passenger> Passengers { get; set; }
-
-        public System.Data.Entity.DbSet<OBTS.API.Models.ContactDetail> ContactDetails { get; set; }
+      
     }
 }

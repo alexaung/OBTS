@@ -26,5 +26,11 @@ namespace OBTS.API.Models.DTO
         public string Cupon { get; set; }
 
         public decimal Discount { get; set; }
+
+        public BookingDetailDTO DepartBookingDetail { get; set; }
+
+        public BookingDetailDTO ReturnBookingDetail { get; set; }
+
+        public short BookingStatus { get; set; }
     }
 }

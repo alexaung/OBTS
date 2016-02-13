@@ -9,9 +9,7 @@ namespace OBTS.API.Models
     {
         public Guid BookingPassengerId { get; set; }
 
-        public Guid BookingId { get; set; }
-
-        public Guid RouteId { get; set; }
+        public Guid BookingDetailId { get; set; }
 
         public string PassengerName { get; set; }
         
@@ -22,6 +20,8 @@ namespace OBTS.API.Models
         public int Age { get; set; }
 
         public string Gender { get; set; }
+
+        public Guid RouteSeatId { get; set; }
 
     }
 }

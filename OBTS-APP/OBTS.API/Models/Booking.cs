@@ -24,5 +24,7 @@ namespace OBTS.API.Models
         public string Cupon { get; set; }
 
         public decimal Discount { get; set; }
+
+        public short BookingStatus { get; set; }// Cancelled,Confirmed,Pending Payment
     }
 }

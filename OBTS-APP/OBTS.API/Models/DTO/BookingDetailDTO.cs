@@ -7,6 +7,8 @@ namespace OBTS.API.Models.DTO
 {
     public class BookingDetailDTO
     {
+        public Guid BookingDetailId { get; set; }
+
         public Guid BookingId { get; set; }
 
         public string BookingRefId { get; set; }
@@ -23,15 +25,7 @@ namespace OBTS.API.Models.DTO
 
         public string BusDescription { get; set; }
 
-        //booking info
-        public DateTime BookingOn { get; set; }
-
-        public string MainContact { get; set; }
-
-        public string Email { get; set; }
-
-        public string ContactNo { get; set; }
-
+        
         public Guid DepartureCity { get; set; }
 
         public string DepartureCityDesc { get; set; }
@@ -42,6 +36,6 @@ namespace OBTS.API.Models.DTO
 
         public decimal RouteFare { get; set; }
 
-       
+        public List<BookingPassengerDTO> bookingPassengers { get; set; }
     }
 }
