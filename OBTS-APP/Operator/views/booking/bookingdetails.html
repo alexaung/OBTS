@@ -1,25 +1,25 @@
 <div ng-controller="bookingCtrl" data-ng-init="initBookingDetails()">
-    <form role="form" class="form-inline">
+    <form role="form" class="form-inline" name="bookingdetail" ng-submit="save()">
         <div class="ibox-content">
             <div class="row">
                 <div class="col-md-9">
                     <h2>Contact Details</h2>
                     <div class="form-group">
-                        <input type="text"  placeholder="Name"  class="form-control">
+                        <input type="text" placeholder="Name" class="form-control"  name="MainContact" ng-model="booking.MainContact" >
                     </div>
                     <div class="form-group">
-                        <input type="email" placeholder="Enter email" class="form-control">
+                        <input type="email" placeholder="Enter email" class="form-control" name="Email" ng-model="booking.Email">
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Phone" class="form-control">
+                        <input type="text" placeholder="Phone" class="form-control" name="ContactNo" ng-model="booking.ContactNo">
                     </div>
                 </div>
-                 <div class="col-md-3">
-                     <br/><br/>
-                    <h3>Total Fare: {{(booking.departRoute.RouteFare * booking.departRoute.totalSelectedSeats) + (booking.returnRoute !== undefined ? booking.returnRoute.RouteFare * booking.returnRoute.totalSelectedSeats : 0)}}</h3> 
-                 </div>
+                <div class="col-md-3">
+                    <br /><br />
+                    <h3>Total Fare: {{(booking.DepartBookingDetail.RouteFare * booking.DepartBookingDetail.totalSelectedSeats) + (booking.ReturnBookingDetail !== undefined ? booking.ReturnBookingDetail.RouteFare * booking.ReturnBookingDetail.totalSelectedSeats : 0)}} Kyats</h3>
+                </div>
             </div>
-            <hr/>
+            <hr />
             <div class="row">
                 <div class="col-md-9">
                     <h2>Passenger Details (Depart)</h2>
@@ -40,27 +40,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="seat in booking.departRoute.seats | filter:{ status: true }">
+                                <tr ng-repeat="passenger in booking.DepartBookingDetail.bookingPassengers">
                                     <td>
-                                        <input type="text" placeholder="Enter Name" id="txtPassengerName" class="form-control">
+                                        <input type="text" placeholder="Enter Name" name="PassengerName" ng-model="passenger.PassengerName"  class="form-control">
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Age" id="txtPassengerName"  size="2" class="form-control">
+                                        <input type="text" placeholder="Age"  name="Age" ng-model="passenger.Age" size="2" class="form-control">
                                     </td>
                                     <td>
-                                        <select class="form-control m-b" name="account">
+                                        <select class="form-control m-b" name="Age" ng-model="passenger.Gender">
                                             <option>Male</option>
                                             <option>Female</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-control m-b" name="account">
+                                        <select class="form-control m-b" name="IDType" ng-model="passenger.IDType">
                                             <option>NIRC</option>
                                             <option>Passport</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Enter Name" id="txtPassengerName" class="form-control">
+                                        <input type="text" placeholder="Enter ID Number" name="IDNumber" ng-model="passenger.IDNumber" class="form-control">
                                     </td>
                                 </tr>
                             </tbody>
@@ -68,29 +68,29 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <br/><br />
+                    <br /><br />
                     <div class="text-left">
-                        <span class="text-navy"><strong>{{booking.departRoute.SourceCity}} - {{booking.departRoute.DestinationCity}}</strong></span>
+                        <span class="text-navy"><strong>{{booking.DepartBookingDetail.DepartureCityDesc}} - {{booking.DepartBookingDetail.ArrivalCityDesc}}</strong></span>
                         <br />
-                        {{booking.departRoute.RouteDate | date:'dd-MMM-yyyy'}} {{booking.departRoute.DepartureTime}}
+                        {{booking.DepartBookingDetail.RouteDate | date:'dd-MMM-yyyy'}} {{booking.DepartBookingDetail.DepartureTime}}
                         <br />
-                        Bus No. {{booking.departRoute.RegistrationNo}}
+                        Bus No. {{booking.DepartBookingDetail.RegistrationNo}}
                         <br />
-                        Fare: {{booking.departRoute.RouteFare}} x {{booking.departRoute.totalSelectedSeats}} = {{booking.departRoute.RouteFare * booking.departRoute.totalSelectedSeats}} Kyats
+                        Fare: {{booking.DepartBookingDetail.RouteFare}} x {{booking.DepartBookingDetail.totalSelectedSeats}} = {{booking.DepartBookingDetail.RouteFare * booking.DepartBookingDetail.totalSelectedSeats}} Kyats
                         <br />
                         Seats No.
-                        <div style="position:relative;display: inline" ng-repeat="s in booking.departRoute.seats | filter:{ status : true }">
-                            {{s.SeatNo}},
+                        <div style="position:relative;display: inline" ng-repeat="passenger in booking.DepartBookingDetail.bookingPassengers">
+                            {{passenger.SeatNo}},
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" ng-show="{{booking.returnRoute !== undefined}}">
+            <div class="row" ng-show="{{booking.ReturnBookingDetail !== undefined}}">
                 <div class="col-md-9">
                     <h2>Passenger Details (Return)</h2>
                 </div>
             </div>
-            <div class="row" ng-show="{{booking.returnRoute !== undefined}}">
+            <div class="row" ng-show="{{booking.ReturnBookingDetail !== undefined}}">
                 <div class="col-md-9">
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -105,27 +105,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="seat in booking.returnRoute.seats | filter:{ status : true }">
+                                <tr ng-repeat="passenger in booking.ReturnBookingDetail.bookingPassengers">
                                     <td>
-                                        <input type="text" placeholder="Enter Name" id="txtPassengerName" class="form-control">
+                                        <input type="text" placeholder="Enter Name" name="PassengerName" ng-model="passenger.PassengerName" class="form-control">
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Age" id="txtPassengerName" size="2" class="form-control">
+                                        <input type="text" placeholder="Age" name="Age" ng-model="passenger.Age" size="2" class="form-control">
                                     </td>
                                     <td>
-                                        <select class="form-control m-b" name="account">
+                                        <select class="form-control m-b" name="Age" ng-model="passenger.Gender">
                                             <option>Male</option>
                                             <option>Female</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-control m-b" name="account">
+                                        <select class="form-control m-b" name="IDType" ng-model="passenger.IDType">
                                             <option>NIRC</option>
                                             <option>Passport</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Enter ID number" id="txtIDNumber" class="form-control">
+                                        <input type="text" placeholder="Enter ID Number" name="IDNumber" ng-model="passenger.IDNumber" class="form-control">
                                     </td>
                                 </tr>
                             </tbody>
@@ -135,26 +135,28 @@
                 <div class="col-md-3">
                     <br /><br />
                     <div class="text-left">
-                        <span class="text-navy"><strong>{{booking.returnRoute.SourceCity}} - {{booking.returnRoute.DestinationCity}}</strong></span>
+                        <span class="text-navy"><strong>{{booking.ReturnBookingDetail.DepartureCityDesc}} - {{booking.ReturnBookingDetail.ArrivalCityDesc}}</strong></span>
                         <br />
-                        {{booking.returnRoute.RouteDate | date:'dd-MMM-yyyy'}} {{booking.returnRoute.DepartureTime}}
+                        {{booking.ReturnBookingDetail.RouteDate | date:'dd-MMM-yyyy'}} {{booking.ReturnBookingDetail.DepartureTime}}
                         <br />
-                        Bus No. {{booking.returnRoute.RegistrationNo}}
+                        Bus No. {{booking.ReturnBookingDetail.RegistrationNo}}
                         <br />
-                        Fare: {{booking.returnRoute.RouteFare}} x {{booking.returnRoute.totalSelectedSeats}} = {{booking.returnRoute.RouteFare * booking.returnRoute.totalSelectedSeats}} Kyats
+                        Fare: {{booking.ReturnBookingDetail.RouteFare}} x {{booking.ReturnBookingDetail.totalSelectedSeats}} = {{booking.ReturnBookingDetail.RouteFare * booking.ReturnBookingDetail.totalSelectedSeats}} Kyats
                         <br />
                         Seats No.
-                        <div style="position:relative;display: inline" ng-repeat="s in booking.returnRoute.seats | filter:{ status : true }">
-                         {{s.SeatNo}},
+                        <div style="position:relative;display: inline" ng-repeat="passenger in booking.ReturnBookingDetail.bookingPassengers">
+                            {{passenger.SeatNo}},
                         </div>
                     </div>
                 </div>
             </div>
-            
-        </div>
-       
-    </form>
-            
-    
-
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary pull-right">Confirm Booking</button>
+                </div>
+            </div>
+    </div>
+    <br/>
+        <br />
+</form>
 </div>

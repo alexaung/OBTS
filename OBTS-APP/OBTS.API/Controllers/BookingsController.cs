@@ -77,13 +77,13 @@ namespace OBTS.API.Controllers
             OBTSResponse rep = new OBTSResponse();
             rep.Success = true;
             rep.Message = "";
-
+            Booking _booking = new Booking();
             if (booking != null)
             {
-                Booking _booking = new Booking();
+                
                 _booking.BookingId = Guid.NewGuid();
-                _booking.BookingOn = booking.BookingOn;
-                _booking.BookingRefId = booking.BookingRefId;
+                _booking.BookingOn = DateTime.Now;
+                _booking.BookingRefId = "ABC123"; //Generate Booking Ref ID
                 _booking.BookingStatus = booking.BookingStatus;
                 _booking.ContactNo = booking.ContactNo;
                 _booking.Cupon = booking.Cupon;

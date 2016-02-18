@@ -29,7 +29,7 @@
             </h4>
         </div>
     </div>
-
+   
     <div class="wrapper wrapper-content animated fadeInRight ecommerce">
         <div class="ibox-content">
             <div class="row show-grid">
@@ -41,8 +41,8 @@
             </div>
             <div>
                 <div class="feed-activity-list">
-                    <div class="feed-element" ng-repeat="route in routes">
-                        <div ng-show="selectedroute==undefined || selectedroute.RouteId == route.RouteId">
+                    <div class="feed-element product-box" ng-repeat="route in routes">
+                        <div class="ibox-content" ng-show="selectedroute==undefined || selectedroute.RouteId == route.RouteId">
                             <div class="pull-left col-md-2">
                                 <h3>
                                     {{route.Company}}
@@ -75,10 +75,10 @@
                                 <div style="position:relative;display: inline" ng-repeat="s in row">
                                     <img ng-show="s.Space" src="img/seat_space.png">
                                     <a href="">
-                                        <img ng-show="s.Bookable&&!s.Space&&!s.status" src="img/seat_available.png" ng-click="seatClicked(s)">
-                                        <img ng-show="s.Bookable&&!s.Space&&s.status" src="img/seat_selected.png" ng-click="seatClicked(s)">
+                                        <img ng-show="s.Bookable&&!s.Space&&s.State==SeatState.Available" src="img/seat_available.png" ng-click="seatClicked(s)">
+                                        <img ng-show="s.Bookable&&!s.Space&&s.State==SeatState.Selected" src="img/seat_selected.png" ng-click="seatClicked(s)">
                                     </a>
-                                    <img ng-show="!s.Bookable&&!s.Space" src="img/seat_reserved.png">
+                                    <img ng-show="(!s.Bookable || (s.State!= SeatState.Available && s.State!= SeatState.Selected))&&!s.Space" src="img/seat_reserved.png">
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                     Selected Seats:
                                 </h4>
                                 <div style="position:relative;display: inline" ng-repeat="row in selectedroute.rows">
-                                    <div style="position:relative;display: inline" ng-repeat="s in row | filter: { status: 'true' }">
+                                    <div style="position:relative;display: inline" ng-repeat="s in row | filter: { State: SeatState.Selected }">
                                         {{s.SeatNo}},
                                     </div>
                                 </div>

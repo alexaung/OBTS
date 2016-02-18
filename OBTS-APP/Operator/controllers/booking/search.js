@@ -5,7 +5,12 @@
  * Store data events for calendar
  */
 function searchCtrl($scope, $http, $filter, $stateParams, $timeout, notify, routeService, bookingService) {
-
+    $scope.SeatState = {
+        Available: 0,
+        UnConfirm: 2,
+        Selected: 8
+    }
+   
     
     $scope.initSearchResult = function () {
         $scope.FromCityId = $stateParams.FromCity;
@@ -13,7 +18,7 @@ function searchCtrl($scope, $http, $filter, $stateParams, $timeout, notify, rout
         $scope.DeptDate = $stateParams.DeptDate;
         $scope.ReturnDate = $stateParams.ReturnDate;
         $scope.IsReturn = $stateParams.IsReturn.toLowerCase() == "true";
-        bookingService.booking.returnRoute = undefined;
+        bookingService.booking.ReturnBookingDetail = undefined;
         routeService.searchRoutes($scope.IsReturn ? $scope.ToCityId : $scope.FromCityId,
                                   $scope.IsReturn ? $scope.FromCityId : $scope.ToCityId,
                                   $scope.IsReturn ? $scope.ReturnDate : $scope.DeptDate).success(function (data) {
@@ -102,12 +107,12 @@ function searchCtrl($scope, $http, $filter, $stateParams, $timeout, notify, rout
 
     // seat onClick
     $scope.seatClicked = function (seat) {
-        seat.status = !seat.status;
+        seat.State = seat.State != $scope.SeatState.Selected ? $scope.SeatState.Selected : $scope.SeatState.Available;
         
         $scope.selectedroute.totalSelectedSeats = 0;
         for (var j = 0; j < $scope.selectedroute.rows.length; j++) {
             for (var k = 0; k < $scope.selectedroute.rows[j].length; k++) {
-                $scope.selectedroute.totalSelectedSeats += $scope.selectedroute.rows[j][k].status ? 1 : 0;
+                $scope.selectedroute.totalSelectedSeats += $scope.selectedroute.rows[j][k].State == $scope.SeatState.Selected ? 1 : 0;
             }
         }
         $timeout(function () {
@@ -126,17 +131,34 @@ function searchCtrl($scope, $http, $filter, $stateParams, $timeout, notify, rout
             notify({ message: 'Please select a seat to continue.', classes: 'alert-warning', templateUrl: 'views/common/notify.html' });
             return;
         }
-        if($scope.IsReturn)
-            bookingService.booking.returnRoute = $scope.selectedroute;
+        if ($scope.IsReturn)
+        {
+            bookingService.booking.ReturnBookingDetail= $scope.bookingDetails();
+        }
         else
-            bookingService.booking.departRoute = $scope.selectedroute;
-
+        {
+            bookingService.booking.DepartBookingDetail = $scope.bookingDetails();;
+        }
         if ($scope.ReturnDate !== "undefined" && !$scope.IsReturn)
             window.location.href = '#/booking/searchresult/' + $scope.FromCityId + '/' + $scope.ToCityId + '/' + $filter('date')($scope.DeptDate, 'dd-MMM-yyyy') + '/' + $filter('date')($scope.ReturnDate, 'dd-MMM-yyyy') + '/true';
         else
             window.location.href = '#/booking/bookingdetails'
     }
+    $scope.bookingDetails = function () {
 
+        var bk = {}
+        bk.RouteId = $scope.selectedroute.RouteId;
+        bk.DepartureCityDesc = $scope.selectedroute.SourceCity;
+        bk.ArrivalCityDesc = $scope.selectedroute.DestinationCity;
+        bk.RouteDate = $scope.selectedroute.RouteDate;
+        bk.DepartureTime = $scope.selectedroute.DepartureTime;
+        bk.RegistrationNo = $scope.selectedroute.RegistrationNo;
+        bk.totalSelectedSeats = $scope.selectedroute.totalSelectedSeats;
+        bk.RouteFare = $scope.selectedroute.RouteFare;
+        bk.bookingPassengers = $filter('filter')($scope.selectedroute.seats, { State: $scope.SeatState.Selected });
+        return bk;
+       
+    }
     
 
     $scope.prevday = function () {
