@@ -3336,7 +3336,7 @@ function jstreeCtrl($scope) {
     ]
 
 }
-
+var serviceBase = 'http://localhost:57448/api/';
 /**
  *
  * Pass all functions into module
@@ -3380,5 +3380,16 @@ angular
     .controller('truncateCtrl', truncateCtrl)
     .controller('touchspinCtrl', touchspinCtrl)
     .controller('tourCtrl', tourCtrl)
-    .controller('jstreeCtrl', jstreeCtrl);
+    .controller('jstreeCtrl', jstreeCtrl)
+    .controller('searchCtrl', searchCtrl)
+    .controller('bookingCtrl', bookingCtrl)
+    .factory("dataService", dataServiceFactory)
+    .factory("routeService", ['$http', 'ngAuthSettings', routeService])
+    .factory("bookingService", ['$http', 'ngAuthSettings', bookingService])
+     .factory('authInterceptorService', ['$q', '$location', 'localStorageService', authInterceptorService])
+    .factory('authService', ['$http', '$q', 'localStorageService', 'ngAuthSettings', authService])
+    .constant('ngAuthSettings', {
+        apiServiceBaseUri: serviceBase,
+        clientId: 'ngAuthApp'
+    })
 

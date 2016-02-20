@@ -70,7 +70,21 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('index', {
             url: "/index",
             templateUrl: "views/main.html",
-            data: { pageTitle: 'Landing page', specialClass: 'landing-page' }
+            data: { pageTitle: 'Landing page', specialClass: 'landing-page' },
+            resolve: {
+                        loadPlugin: function ($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                {
+                                    name: 'datePicker',
+                                    files: ['css/plugins/datapicker/angular-datapicker.css', 'js/plugins/datapicker/angular-datepicker.js']
+                                },
+                                {
+                                    name: 'cgNotify',
+                                    files: ['css/plugins/angular-notify/angular-notify.min.css', 'js/plugins/angular-notify/angular-notify.min.js']
+                                }                       
+                            ]);
+        }
+    }
         });
 
 }

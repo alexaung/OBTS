@@ -58,6 +58,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="controllers\booking\booking.js" />
+    <Content Include="controllers\booking\search.js" />
     <Content Include="css\bootstrap.css.map" />
     <Content Include="css\bootstrap.min.css.map" />
     <Content Include="css\grayscale.css" />
@@ -115,6 +117,11 @@
     <Content Include="img\downloads-bg.jpg" />
     <Content Include="img\intro-bg.jpg" />
     <Content Include="img\L1.jpg" />
+    <Content Include="img\L1.png" />
+    <Content Include="img\L2.jpg" />
+    <Content Include="img\L2.png" />
+    <Content Include="img\L3.jpg" />
+    <Content Include="img\L4.jpg" />
     <Content Include="img\map-marker.png" />
     <Content Include="js\angular\angular-animate.min.js.map" />
     <Content Include="js\angular\angular-aria.min.js.map" />
@@ -1728,6 +1735,11 @@
     <Content Include="js\translations.js" />
     <Content Include="js\ui-router\angular-ui-router.js" />
     <Content Include="js\ui-router\angular-ui-router.min.js" />
+    <Content Include="services\authInterceptorService.js" />
+    <Content Include="services\authservice.js" />
+    <Content Include="services\bookingservice.js" />
+    <Content Include="services\DataService.js" />
+    <Content Include="services\routeservice.js" />
     <Content Include="views\common\content.html" />
     <Content Include="views\common\content_top_navigation.html" />
     <Content Include="views\common\footer.html" />
