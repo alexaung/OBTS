@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using OBTS.API.Models;
 using OBTS.API.Models.DTO;
+using OBTS.API.Extensions;
 
 namespace OBTS.API.Controllers
 {
@@ -70,119 +71,144 @@ namespace OBTS.API.Controllers
             return Ok(_bookings.AsQueryable());
         }
 
-        [ResponseType(typeof(OBTSResponse))]
+        [ResponseType(typeof(BookingDTO))]
         [Route("api/booking/InsertBooking", Name = "InsertBooking")]
         public async Task<IHttpActionResult> InsertBooking(BookingDTO booking)
         {
-            OBTSResponse rep = new OBTSResponse();
-            rep.Success = true;
-            rep.Message = "";
-            Booking _booking = new Booking();
-            if (booking != null)
+            using (var db = new ApplicationDbContext())
             {
-                
-                _booking.BookingId = Guid.NewGuid();
-                _booking.BookingOn = DateTime.Now;
-                _booking.BookingRefId = "ABC123"; //Generate Booking Ref ID
-                _booking.BookingStatus = booking.BookingStatus;
-                _booking.ContactNo = booking.ContactNo;
-                _booking.Cupon = booking.Cupon;
-                _booking.Discount = booking.Discount;
-                _booking.Email = booking.Email;
-                _booking.MainContact = booking.MainContact;
-                _booking.UserId = booking.UserId;
 
-                db.Bookings.Add(_booking);
-            }
 
-            BookingDetail bd = new BookingDetail();
-            if (booking.DepartBookingDetail != null) { 
-                bd = new BookingDetail();
-                bd.BookingDetailId = Guid.NewGuid();
-                bd.BookingId = booking.BookingId;
-                bd.RouteFare = booking.DepartBookingDetail.RouteFare;
-                bd.RouteId = booking.DepartBookingDetail.RouteId;
-                db.BookingDetails.Add(bd);
-
-                foreach (BookingPassengerDTO p in booking.DepartBookingDetail.bookingPassengers)
+                if (!ModelState.IsValid)
                 {
-                    BookingPassenger passenger = new BookingPassenger();
-                    passenger.Age = p.Age;
-                    passenger.BookingDetailId = bd.BookingDetailId;
-                    passenger.BookingPassengerId = Guid.NewGuid();
-                    passenger.Gender = p.Gender;
-                    passenger.IDNumber = p.IDNumber;
-                    passenger.IDType = p.IDType;
-                    passenger.PassengerName = p.PassengerName;
-                    passenger.RouteSeatId = p.RouteSeatId;
-
-                    db.BookingPassengers.Add(passenger);
+                    return BadRequest(ModelState);
                 }
-            }
 
-            BookingDetail bd1 = new BookingDetail();
-            if (booking.ReturnBookingDetail != null)
-            {
-                
-                bd1.BookingDetailId = Guid.NewGuid();
-                bd1.BookingId = booking.BookingId;
-                bd1.RouteFare = booking.ReturnBookingDetail.RouteFare;
-                bd1.RouteId = booking.ReturnBookingDetail.RouteId;
-                db.BookingDetails.Add(bd1);
 
-                foreach (BookingPassengerDTO p in booking.ReturnBookingDetail.bookingPassengers)
+                Booking _booking = new Booking();
+                if (booking != null)
                 {
-                    BookingPassenger passenger = new BookingPassenger();
-                    passenger.Age = p.Age;
-                    passenger.BookingDetailId = bd1.BookingDetailId;
-                    passenger.BookingPassengerId = Guid.NewGuid();
-                    passenger.Gender = p.Gender;
-                    passenger.IDNumber = p.IDNumber;
-                    passenger.IDType = p.IDType;
-                    passenger.PassengerName = p.PassengerName;
-                    passenger.RouteSeatId = p.RouteSeatId;
 
-                    db.BookingPassengers.Add(passenger);
+                    _booking.BookingId = Guid.NewGuid();
+                    _booking.BookingOn = DateTime.Now;
+                    _booking.BookingRefId = _booking.BookingRefId.GetRandomString(6); //Generate Booking Ref ID
+                    _booking.BookingStatus = booking.BookingStatus;
+                    _booking.ContactNo = booking.ContactNo;
+                    _booking.Cupon = booking.Cupon;
+                    _booking.Discount = booking.Discount;
+                    _booking.Email = booking.Email;
+                    _booking.MainContact = booking.MainContact;
+                    _booking.UserId = booking.UserId;
+
+                    db.Bookings.Add(_booking);
                 }
-            }
+                
+                BookingDetail bd = new BookingDetail();
+                if (booking.DepartBookingDetail != null) { 
+                    bd = new BookingDetail();
+                    bd.BookingDetailId = Guid.NewGuid();
+                    bd.BookingId = _booking.BookingId;
+                    bd.RouteFare = booking.DepartBookingDetail.RouteFare;
+                    bd.RouteId = booking.DepartBookingDetail.RouteId;
+                    db.BookingDetails.Add(bd);
 
-
-            try
-            {
-                await db.SaveChangesAsync();
-
-                short seatstate = 0;
-                if (booking.BookingStatus == (short)OBTSEnum.BookState.Confirmed)
-                    seatstate = (short)OBTSEnum.SeatState.Confirmed;
-                if (booking.BookingStatus == (short)OBTSEnum.BookState.UnConfirm)
-                    seatstate = (short)OBTSEnum.SeatState.UnConfirm;
-                if (booking.BookingStatus == (short)OBTSEnum.BookState.Cancelled)
-                    seatstate = (short)OBTSEnum.SeatState.Available;
-
-                //booking status to seat status =>booking confirmed,unconfirm,cancelled
-                foreach (BookingPassengerDTO p in booking.DepartBookingDetail.bookingPassengers)
-                {
-                    using (var context = new ApplicationDbContext())
+                    foreach (BookingPassengerDTO p in booking.DepartBookingDetail.bookingPassengers)
                     {
-                        context.Database.ExecuteSqlCommand("UPDATE RouteSeats SET State={0}  WHERE RouteSeatId = {1}", seatstate, p.RouteSeatId);
+                        BookingPassenger passenger = new BookingPassenger();
+                        passenger.Age = p.Age;
+                        passenger.BookingDetailId = bd.BookingDetailId;
+                        passenger.BookingPassengerId = Guid.NewGuid();
+                        passenger.Gender = p.Gender;
+                        passenger.IDNumber = p.IDNumber;
+                        passenger.IDType = p.IDType;
+                        passenger.PassengerName = p.PassengerName;
+                        passenger.RouteSeatId = p.RouteSeatId;
+
+                        db.BookingPassengers.Add(passenger);
                     }
                 }
 
-                foreach (BookingPassengerDTO p in booking.ReturnBookingDetail.bookingPassengers)
+                BookingDetail bd1 = new BookingDetail();
+                if (booking.ReturnBookingDetail != null)
                 {
-                    using (var context = new ApplicationDbContext())
+
+                    bd1.BookingDetailId = Guid.NewGuid();
+                    bd1.BookingId = booking.BookingId;
+                    bd1.RouteFare = booking.ReturnBookingDetail.RouteFare;
+                    bd1.RouteId = booking.ReturnBookingDetail.RouteId;
+                    db.BookingDetails.Add(bd1);
+
+                    foreach (BookingPassengerDTO p in booking.ReturnBookingDetail.bookingPassengers)
                     {
-                        context.Database.ExecuteSqlCommand("UPDATE RouteSeats SET State={0}  WHERE RouteSeatId = {1}", seatstate, p.RouteSeatId);
+                        BookingPassenger passenger = new BookingPassenger();
+                        passenger.Age = p.Age;
+                        passenger.BookingDetailId = bd1.BookingDetailId;
+                        passenger.BookingPassengerId = Guid.NewGuid();
+                        passenger.Gender = p.Gender;
+                        passenger.IDNumber = p.IDNumber;
+                        passenger.IDType = p.IDType;
+                        passenger.PassengerName = p.PassengerName;
+                        passenger.RouteSeatId = p.RouteSeatId;
+
+                        db.BookingPassengers.Add(passenger);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                rep.Fail = false;
-                rep.Message = ex.Message;
-            }
 
-            return Ok(rep);
+        
+                try
+                {
+                    await db.SaveChangesAsync();
+                    
+                    short seatstate = 0;
+                    if (booking.BookingStatus == (short)OBTSEnum.BookState.Confirmed)
+                        seatstate = (short)OBTSEnum.SeatState.Confirmed;
+                    if (booking.BookingStatus == (short)OBTSEnum.BookState.UnConfirm)
+                        seatstate = (short)OBTSEnum.SeatState.UnConfirm;
+                    if (booking.BookingStatus == (short)OBTSEnum.BookState.Cancelled)
+                        seatstate = (short)OBTSEnum.SeatState.Available;
+
+                    //booking status to seat status =>booking confirmed,unconfirm,cancelled
+                    foreach (BookingPassengerDTO p in booking.DepartBookingDetail.bookingPassengers)
+                    {
+                        using (var context = new ApplicationDbContext())
+                        {
+                            context.Database.ExecuteSqlCommand("UPDATE RouteSeats SET State={0}  WHERE RouteSeatId = {1}", seatstate, p.RouteSeatId);
+                        }
+                    }
+                    if(booking.ReturnBookingDetail!=null)
+                    {
+                        foreach (BookingPassengerDTO p in booking.ReturnBookingDetail.bookingPassengers)
+                        {
+                            using (var context = new ApplicationDbContext())
+                            {
+                                context.Database.ExecuteSqlCommand("UPDATE RouteSeats SET State={0}  WHERE RouteSeatId = {1}", seatstate, p.RouteSeatId);
+                            }
+                        }
+                    }
+                   
+                }
+
+                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                {
+                    Exception raise = dbEx;
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            string message = string.Format("{0}:{1}",
+                                validationErrors.Entry.Entity.ToString(),
+                                validationError.ErrorMessage);
+                            // raise a new exception nesting
+                            // the current instance as InnerException
+                            raise = new InvalidOperationException(message, raise);
+                        }
+                    }
+                    throw raise;
+                }
+
+
+                return Ok(booking);
+            }
         }
 
         // GET: api/booking/{BookingRefId}/details

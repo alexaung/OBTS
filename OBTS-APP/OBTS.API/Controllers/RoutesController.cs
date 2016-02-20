@@ -401,7 +401,7 @@ namespace OBTS.API.Controllers
             {
                 await db.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
                 if (RouteExists(route.RouteId))
                 {
@@ -409,7 +409,7 @@ namespace OBTS.API.Controllers
                 }
                 else
                 {
-                    throw;
+                    throw ex;
                 }
             }
 
@@ -454,9 +454,9 @@ namespace OBTS.API.Controllers
             {
                 await db.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
-                    throw;
+                    throw ex;
                 
             }
 
