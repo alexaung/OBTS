@@ -115,3 +115,5 @@ OBTS-APP/.vs/config/applicationhost.config
 OBTS-APP/Operator/bin/Operator.pdb
 *.dll
 OBTS-APP/Operator/obj/Debug/Operator.pdb
+*.dll
+*.dll
