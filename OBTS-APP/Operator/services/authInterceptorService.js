@@ -9,7 +9,7 @@ function authInterceptorService($q, $location, localStorageService) {
 
         var authData = localStorageService.get('authorizationData');
         if (authData) {
-            config.headers.Authorization = 'Bearer ' + authData.token;
+            config.headers.Authorization = 'amx 4d53bce03ec34c0a911182d4c228ee6c:ReOHzbo+HkQQJNjqSOikVf7sSrOqBlqlHYtiLxVQecY=:76bf692b345d491f9520683a5b673abe:1459850915&Bearer ' + authData.token;
         }
 
         return config;

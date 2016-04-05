@@ -12,11 +12,13 @@ using System.Web.Http.Description;
 using OBTS.API.Models;
 using System.Configuration;
 using System.Linq.Expressions;
+using OBTS.API.Filters;
 using OBTS.API.Models.DTO;
 
 namespace OBTS.API.Controllers
 {
-   
+    [Authorize]
+    [HMACAuthentication]
     public class CitiesController : ApiController
     {
         private ApplicationDbContext  db = new ApplicationDbContext ();
